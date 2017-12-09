@@ -83,126 +83,93 @@ static class Debug {
 }
 
 public void setup() {
-  // Environment
-  frameRate(60 );
-  noStroke();
-  noCursor();
+    // Environment
+    frameRate(60);
+    noStroke();
+    noCursor();
 
-  // Controllers
-  g_control_io = ControlIO.getInstance(this);
-  g_controller_configs.add(Configuration.makeConfiguration(this, "config/gamepad_ps3"));
-  g_controller_configs.add(Configuration.makeConfiguration(this, "config/gamepad_ps4"));
-  g_controller_configs.add(Configuration.makeConfiguration(this, "config/gamepad_xbox"));
+    // Debug
+    g_debug = new Debug(this);
 
-  // Debug
-  g_debug = new Debug(this);
+    // Controllers
+    g_control_io = ControlIO.getInstance(this);
+    g_controller_configs.add(Configuration.makeConfiguration(this, "config/gamepad_ps3"));
+    g_controller_configs.add(Configuration.makeConfiguration(this, "config/gamepad_ps4"));
+    g_controller_configs.add(Configuration.makeConfiguration(this, "config/gamepad_xbox"));
 
-  // Screens
-  g_screens.add(new TitleScreen(this));
-  g_screens.add(new GameScreen(this));
-  g_screens.add(new TiledScreen(this));
+    // Networking
+    try {
+        g_game_server = new Server(this, Config.PORT);
+    } catch (Exception e) {
+        println(e);
+    }
 
-  g_screens.get(g_current_screen_index).load(g_input, g_control_io, g_controller_configs);
+    // Audio
+    g_audio_server = new AudioDevice(this, 44100, 128);
 
-  // Networking
-  try {
-    g_game_server = new Server(this, Config.PORT);
-  } 
-  catch (Exception e) {
-    println(e);
-  }
+    // PostFX
+    fx = new PostFX(this);
+    fx_supervisor = new PostFXSupervisor(this);
 
-  // PostFX
-  fx = new PostFX(this);
+    // Screens
+    screens.add(new TitleScreen(this));
+    screens.add(new GameScreen(this));
+    screens.add(new ShaderScreen(this, fx_supervisor));
+    screens.add(new TiledScreen(this));
+    currentScreen = screens.get(currentScreenIndex);
 
-  // Load Music
-  g_audio_server = new AudioDevice(this, 44100, 128);
+    currentScreen.load();
 
-  // Avoid time skip on first draw
-  g_millis = millis();
+    // Avoid time skip on first draw
+    currentMillis = millis();
 }
 
 public void draw() {
-  // Timing
-  int current_millis = millis();
-  float deltatime = (current_millis - g_millis) / 1000.0f;
-  g_millis = current_millis;
+    // Timing
+    int current_millis = millis();
+    float deltatime = (current_millis - currentMillis) / 1000.0f;
+    currentMillis = current_millis;
 
-  // Begin Debug
-  if (Config.DEBUG) {
-    g_debug.begin();
-    g_debug.drawFPS(0, 20);
-    g_debug.drawCursor(mouseX, mouseY);
-  }
+    // Begin Debug
+    if (Config.DEBUG) {
+        g_debug.begin();
+        g_debug.drawFPS(0, 20);
+        g_debug.drawCursor(mouseX, mouseY);
+    }
 
-  // Run Screen
-  Screen current_screen = g_screens.get(g_current_screen_index);
-  current_screen.handleInput(g_input, g_control_io, g_controller_configs);
-  current_screen.handleEvents(g_game_server);
-  current_screen.update(deltatime);
+    // Run Screen
+    currentScreen.handleInput();
+    currentScreen.handleEvents(g_game_server);
+    currentScreen.update(deltatime);
 
-  // Render Screen
-  PGraphics canvas = current_screen.render();
-
-  blendMode(BLEND);
-  image(canvas, 0, 0);
-
-  // TODO: Put somewhere else
-  // TODO: Pass supervisor into screens for granular special effects.
-  if (g_post_processing) {
-
-    blendMode(SCREEN);             // linear interpolation of colours: C = A*factor + B.
-    // blendMode(ADD);             // additive blending with white clip: C = min(A*factor + B, 255)
-    // blendMode(SUBTRACT);        // subtractive blending with black clip: C = max(B - A*factor, 0)
-    // blendMode(DARKEST);         // only the darkest colour succeeds: C = min(A*factor, B)
-    // blendMode(LIGHTEST);        // only the lightest colour succeeds: C = max(A*factor, B)
-    // blendMode(DIFFERENCE);      //  subtract colors from underlying image.
-    // blendMode(EXCLUSION);       // similar to DIFFERENCE, but less extreme.
-    // blendMode(MULTIPLY);        // multiply the colors, result will always be darker.
-    // blendMode(SCREEN);          //  opposite multiply, uses inverse values of the colors.
-    // blendMode(REPLACE);         // the pixels entirely replace the others and don't utilize alpha (transparency) values
-    fx.render(canvas)
-      .sobel()
-      //.brightnessContrast(0, 1.0f)
-      //.pixelate(512)
-      //.chromaticAberration()
-      //.bloom(1, 1, 1)
-      //.vignette(1, 1)
-      //.noise(1, 1)
-      //.saturationVibrance(0, 0)
-      //.blur(5, 50)
-      .compose();
+    // Render Screen
+    PGraphics canvas = currentScreen.render();
     blendMode(BLEND);
-  }
+    image(canvas, 0, 0);
 
+    if (postProcessingActive) {
+        blendMode(SCREEN);
+        currentScreen.renderFX(fx);
+    }
 
-  // Render Debug
-  if (Config.DEBUG) {
-    g_debug.end();
-    image(g_debug.graphics, 0, 0);
-  }
+    // Render Debug
+    if (Config.DEBUG) {
+        blendMode(BLEND);
+        image(g_debug.render(), 0, 0);
+    }
 
-  // Global handlers
-  if (g_input.isKeyPressed('P')) {
-    save("screenshot.png");
-  }
+    // Global handlers
+    if (g_input.isKeyPressed('P')) save("screenshot.png");
+    if (g_input.isKeyPressed('U')) postProcessingActive = !postProcessingActive;
+    if (g_input.isKeyPressed('O')) currentScreen.load();
+    if (g_input.isKeyPressed('I')) {
+        currentScreenIndex = (currentScreenIndex + 1) % screens.size();
+        currentScreen = screens.get(currentScreenIndex);
+        currentScreen.load();
+    }
 
-  if (g_input.isKeyPressed('U')) {
-    g_post_processing = !g_post_processing;
-  }
-
-  // TODO: put somewhere else
-  if (g_input.isKeyPressed('O')) {
-    current_screen.load(g_input, g_control_io, g_controller_configs);
-  }
-
-  if (g_input.isKeyPressed('I')) {
-    g_current_screen_index = (g_current_screen_index + 1) % g_screens.size();
-    g_screens.get(g_current_screen_index).load(g_input, g_control_io, g_controller_configs);
-  }
-
-  // History
-  g_input.saveInputState(mouseX, mouseY);
+    // History
+    g_input.saveInputState(mouseX, mouseY);
 }
 
 public void keyPressed() {

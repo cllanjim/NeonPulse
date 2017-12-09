@@ -184,7 +184,7 @@ public class Level {
     }
 
     // Point-Rect Collision
-    boolean checkTilePosition(float x, float y) {
+    boolean checkTileFor(float x, float y, char character) {
         int corner_x = PApplet.floor(x / tile_size);
         int corner_y = PApplet.floor(y / tile_size);
 
@@ -193,7 +193,7 @@ public class Level {
             return false;
         }
 
-        return (render_data[corner_y][corner_x] == '#');
+        return (render_data[corner_y][corner_x] == character);
     }
 
     public Tile getTileAt(float x, float y) {

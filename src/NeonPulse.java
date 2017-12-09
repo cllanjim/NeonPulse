@@ -29,9 +29,9 @@ public class NeonPulse extends PApplet {
     static Input g_input = new Input();
 
     // PostFX
+    static boolean postProcessingActive = false;
     private PostFX fx;
     private PostFXSupervisor fx_supervisor;
-    static boolean postProcessingActive = false;
 
     // Audio
     private AudioDevice g_audio_server;
@@ -147,7 +147,6 @@ public class NeonPulse extends PApplet {
         image(canvas, 0, 0);
 
         if (postProcessingActive) {
-            blendMode(SCREEN);
             currentScreen.renderFX(fx);
         }
 

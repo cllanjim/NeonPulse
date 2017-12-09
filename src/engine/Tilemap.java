@@ -26,11 +26,11 @@ public class Tilemap {
         // Get Map Info
         PVector map_size = map.getMapSize();
         PVector tile_size = map.getTileSize();
+
         boolean visible = map.getVisible(0);
-        StringDict[] objects = map.getObjects(1);
+        ArrayList<StringDict> objects = map.getObjects(1);
         int objects_color = map.getObjectsColor(1);
         int[] layer_data = map.getData(0);
-
 
         shapes = map.getShapes(0);
         mapWidth = map_size.x;

@@ -98,15 +98,10 @@ public class TiledScreen extends Screen {
             nextLevel();
             load();
         }
-        // Reload Level
-        if (NeonPulse.g_input.isKeyPressed('O')) {
-            load();
-        }
     }
 
     public PGraphics render() {
         canvas.beginDraw();
-
         tilemap.display(canvas);
 
         for (Player player : players) {
@@ -114,7 +109,6 @@ public class TiledScreen extends Screen {
         }
 
         canvas.endDraw();
-
         return canvas;
     }
 

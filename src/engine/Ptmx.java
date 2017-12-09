@@ -382,6 +382,33 @@ public class Ptmx {
             if (!c.getString("encoding").equals("csv"))
                 throw new RuntimeException("Tmx can only handle CSV encoding");
             data = parseInt(split(c.getContent().replace("\n", ""), ","));
+
+            for (int i = 0; i < data.length; i++) {
+                int row = i / Ptmx.this.mapwidth;
+                int col = i % Ptmx.this.mapwidth;
+                float top = row * tileheight + offsety;
+                float left = col * tilewidth + offsetx;
+
+                ArrayList<CollisionShape> tile_shapes = Ptmx.this.collision_map.get(data[i]);
+                if (tile_shapes != null) {
+                    for (CollisionShape s : tile_shapes) {
+                        switch (s.type) {
+                            case "rectangle":
+                                shapes.add(new Rectangle(s.id, s.x + left, s.y + top, s.width, s.height));
+                                break;
+                            case "ellipse":
+                                shapes.add(new Ellipse(s.id, s.x + left, s.y + top, s.width, s.height));
+                                break;
+                            case "polygon":
+                                shapes.add(new Polygon(s.id, s.x + left, s.y + top, s.points));
+                                break;
+                            case "polyline":
+                                shapes.add(new Polyline(s.id, s.x + left, s.y + top, s.points));
+                                break;
+                        }
+                    }
+                }
+            }
         }
 
         private void loadImageLayer(XML e) {
@@ -419,40 +446,11 @@ public class Ptmx {
                     for (XML p : childs) prop.set(p.getString("name"), p.getString("value"));
                 }
                 objects.add(prop);
+                shapes.add(CollisionShape.fromStringDict(prop));
             }
-        }
-
-        public StringDict[] getObjects() {
-            return (StringDict[]) objects.toArray();
         }
 
         public ArrayList<CollisionShape> getShapes() {
-            for (int i = 0; i < data.length; i++) {
-                int row = i / Ptmx.this.mapwidth;
-                int col = i % Ptmx.this.mapwidth;
-                float top = row * tileheight + offsety;
-                float left = col * tilewidth + offsetx;
-
-                ArrayList<CollisionShape> tile_shapes = Ptmx.this.collision_map.get(data[i]);
-                if (tile_shapes != null) {
-                    for (CollisionShape s : tile_shapes) {
-                        switch (s.type) {
-                            case "rectangle":
-                                shapes.add(new Rectangle(s.id, s.x + left, s.y + top, s.width, s.height));
-                                break;
-                            case "ellipse":
-                                shapes.add(new Ellipse(s.id, s.x + left, s.y + top, s.width, s.height));
-                                break;
-                            case "polygon":
-                                shapes.add(new Polygon(s.id, s.x + left, s.y + top, s.points));
-                                break;
-                            case "polyline":
-                                shapes.add(new Polyline(s.id, s.x + left, s.y + top, s.points));
-                                break;
-                        }
-                    }
-                }
-            }
             return shapes;
         }
 
@@ -787,9 +785,9 @@ public class Ptmx {
         else return null;
     }
 
-    public StringDict[] getObjects(int n) {
+    public ArrayList<StringDict> getObjects(int n) {
         if (n >= 0 && n < this.layers.size() && this.layers.get(n).type.equals("objectgroup"))
-            return (StringDict[]) this.layers.get(n).objects.toArray();
+            return this.layers.get(n).objects;
         else return null;
     }
 

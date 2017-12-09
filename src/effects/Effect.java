@@ -22,6 +22,7 @@ public abstract class Effect {
         active = false;
         live = false;
         lifetime = 0;
+        cooldown = 0;
     }
 
     public abstract boolean collideWithAgent(Agent agent);

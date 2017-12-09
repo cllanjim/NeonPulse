@@ -80,7 +80,12 @@ class GameScreen extends Screen {
 
         // Load Network players
         for (Client network_client : clients) {
-            addPlayer(new Player(new NetworkInput(new Input(), network_client), test_sound));
+            Player player = new Player(new NetworkInput(new Input(), network_client), test_sound);
+            player.addEffect("F", new Beam(test_sound));
+            player.addEffect("R", new Cone(test_sound));
+            player.addEffect("E", new Pulse(test_sound));
+            player.addEffect("X", new Area(test_sound));
+            addPlayer(player);
         }
 
         // Load Controller Players
@@ -104,10 +109,6 @@ class GameScreen extends Screen {
         // Change Level
         if (NeonPulse.g_input.isKeyPressed('L')) {
             nextLevel();
-            load();
-        }
-        // Reload Level
-        if (NeonPulse.g_input.isKeyPressed('O')) {
             load();
         }
     }
