@@ -121,7 +121,7 @@ public class TiledScreen extends Screen {
         super.addPlayer(player);
     }
 
-    void nextLevel() {
+    private void nextLevel() {
         current_map_index = (current_map_index + 1) % MAPS.length;
     }
 }

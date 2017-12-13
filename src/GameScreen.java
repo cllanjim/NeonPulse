@@ -26,7 +26,6 @@ class GameScreen extends Screen {
     private int current_level_index = 0;
     private int current_spawn_point = 0;
     private PGraphics canvas;
-    private ArrayList<Mob> mobs;
 
     private PImage wall_texture;
     private PImage floor_texture;
@@ -36,8 +35,17 @@ class GameScreen extends Screen {
     private static SoundFile test_sound;
 
     // Constants
-    private static final float TILE_SIZE = 32;
+    private static final float TILE_SIZE = 64;
     private static final int NUM_MOBS = 1;
+
+    // TODO: Thales COLORS
+    private static final int[] PLAYER_COLORS = {
+            0xffC400FF,
+            0xff0C71E8,
+            0xff00FF4A,
+            0xffE8D90C,
+            0xffFF740D
+    };
 
     GameScreen(PApplet applet) {
         super(applet);
@@ -47,13 +55,11 @@ class GameScreen extends Screen {
         floor_texture = applet.loadImage("tiles/floor.png");
         pit_texture = applet.loadImage("tiles/pit.png");
         test_sound = new SoundFile(applet,"audio/test.wav");
-        mobs = new ArrayList<>(NUM_MOBS);
     }
 
     public void load() {
         // Clear state
         players.clear();
-        mobs.clear();
 
         // Load Tileset
         // TODO: Load TSX file to get tile data
@@ -65,12 +71,11 @@ class GameScreen extends Screen {
         // Load Level
         level = new Level(applet, LEVELS[current_level_index], tile_map, TILE_SIZE);
 
-//        addMobs(NUM_MOBS);
-
         // TODO: Player Lobby in Title screen
         // Load Player 1 - Keyboard Control
         if (NeonPulse.Config.KEYBOARD) {
             Player player = new Player(new KeyboardInput(NeonPulse.g_input), test_sound);
+            player.setFill(PLAYER_COLORS[players.size()]);
             player.addEffect("F", new Beam(test_sound));
             player.addEffect("R", new Cone(test_sound));
             player.addEffect("E", new Pulse(test_sound));
@@ -170,10 +175,6 @@ class GameScreen extends Screen {
             player.display(canvas);
         }
 
-        for (Mob mob : mobs) {
-            mob.display(canvas);
-        }
-
         level.showFg(canvas);
         canvas.endDraw();
 
@@ -182,7 +183,6 @@ class GameScreen extends Screen {
 
     public void unload(Screen next_screen) {
         players.clear();
-        mobs.clear();
         level.unload();
     }
 
@@ -201,66 +201,60 @@ class GameScreen extends Screen {
     // 'X' - Pit
     // ' ' - Floor
     private static final String[] LEVEL_1 = {
-            "################################",
-            "#1                            3#",
-            "#                              #",
-            "# #####           #####        #",
-            "#                              #",
-            "#                              #",
-            "#     ####    XXXX    ####     #",
-            "#             XXXX             #",
-            "#             XXXX             #",
-            "#             XXXX             #",
-            "#             XXXX             #",
-            "#     ####    XXXX    ####     #",
-            "#                              #",
-            "#                              #",
-            "#        #####           ##### #",
-            "#                              #",
-            "#4                            2#",
-            "################################",
+            "############################",
+            "#1                        3#",
+            "#                          #",
+            "# ####          ####       #",
+            "#                          #",
+            "#                          #",
+            "#    ####   XXXX   ####    #",
+            "#           XXXX           #",
+            "#           XXXX           #",
+            "#    ####   XXXX   ####    #",
+            "#                          #",
+            "#                          #",
+            "#       ####          #### #",
+            "#                          #",
+            "#4                        2#",
+            "############################",
     };
 
     private static final String[] LEVEL_2 = {
-            "################################",
-            "#1     XXXXXXXXXXXXXXXXXX     3#",
-            "#        XXXXXXXXXXXXXX        #",
-            "#                              #",
-            "#                              #",
-            "#                              #",
-            "#X                            X#",
-            "#XXX        XXXXXXXX        XXX#",
-            "#XXX           XX           XXX#",
-            "#XXX           XX           XXX#",
-            "#XXX        XXXXXXXX        XXX#",
-            "#X                            X#",
-            "#                              #",
-            "#                              #",
-            "#                              #",
-            "#        XXXXXXXXXXXXXX        #",
-            "#4     XXXXXXXXXXXXXXXXXX     2#",
-            "################################",
+            "############################",
+            "#1    XXXXXXXXXXXXXXXX    3#",
+            "#       XXXXXXXXXXXX       #",
+            "#                          #",
+            "#                          #",
+            "#                          #",
+            "#X                        X#",
+            "#XXX       XXXXXX       XXX#",
+            "#XXX       XXXXXX       XXX#",
+            "#X                        X#",
+            "#                          #",
+            "#                          #",
+            "#                          #",
+            "#       XXXXXXXXXXXX       #",
+            "#4    XXXXXXXXXXXXXXXX    2#",
+            "############################",
     };
 
     private static final String[] LEVEL_3 = {
-            "################################",
-            "#1                            3#",
-            "#           ########          3#",
-            "#           #      #           #",
-            "#           #      #           #",
-            "#           #      #           #",
-            "#           #      #           #",
-            "#           ###  ###           #",
-            "#                              #",
-            "#   ###  ###        ###  ###   #",
-            "#   #      #        #      #   #",
-            "#   #      #  XXXX  #      #   #",
-            "#   #      #  XXXX  #      #   #",
-            "#   #      #        #      #   #",
-            "#   ########        ########   #",
-            "#                              #",
-            "#4                            2#",
-            "################################",
+            "############################",
+            "#1                        3#",
+            "#          ######         3#",
+            "#          #    #          #",
+            "#          #    #          #",
+            "#          #    #          #",
+            "#          #    #          #",
+            "#          ##  ##          #",
+            "#   ### ###      ### ###   #",
+            "#   #     #      #     #   #",
+            "#   #     #  XX  #     #   #",
+            "#   #     #  XX  #     #   #",
+            "#   #     #      #     #   #",
+            "#   #######      #######   #",
+            "#4                        2#",
+            "############################",
     };
 
     private static final String[][] LEVELS = {

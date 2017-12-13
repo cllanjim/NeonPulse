@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<game>
+    <assets>
+        <image />
+        <sound />
+    </assets>
+    <controllers>
+        <config path="config/gamepad_ps3" />
+        <config path="config/gamepad_ps4" />
+        <config path="config/gamepad_xinput" />
+    </controllers>
+    <levels>
+        <level>
+############################
+#1                        3#
+#                          #
+# ####          ####       #
+#                          #
+#                          #
+#    ####   XXXX   ####    #
+#           XXXX           #
+#           XXXX           #
+#    ####   XXXX   ####    #
+#                          #
+#                          #
+#       ####          #### #
+#                          #
+#4                        2#
+############################
+        </level>
+        <level>
+############################
+#1    XXXXXXXXXXXXXXXX    3#
+#       XXXXXXXXXXXX       #
+#                          #
+#                          #
+#                          #
+#X                        X#
+#XXX       XXXXXX       XXX#
+#XXX       XXXXXX       XXX#
+#X                        X#
+#                          #
+#                          #
+#                          #
+#       XXXXXXXXXXXX       #
+#4    XXXXXXXXXXXXXXXX    2#
+############################
+        </level>
+        <level>
+############################
+#1                        3#
+#          ######         3#
+#          #    #          #
+#          #    #          #
+#          #    #          #
+#          #    #          #
+#          ##  ##          #
+#   ### ###      ### ###   #
+#   #     #      #     #   #
+#   #     #  XX  #     #   #
+#   #     #  XX  #     #   #
+#   #     #      #     #   #
+#   #######      #######   #
+#4                        2#
+############################
+        </level>
+    </levels>
+    <bindings>
+        <binding key="F" button="LEFT_SHOULDER" name="Beam" />
+        <binding key="R" button="CIRCLE" name="Push" />
+        <binding key="E" button="TRIANGLE" name="Pulse" />
+        <binding key="X" button="LEFT_TRIGGER" name="Area" />
+    </bindings>
+    <settings>
+        <option name="playerSpeed">64</option>
+    </settings>
+</game>

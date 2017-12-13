@@ -48,6 +48,19 @@ public class NeonPulse extends PApplet {
         static final boolean DEBUG = true;
         static final boolean KEYBOARD = true;
         static final int PORT = 5204;
+        static final int AREA_RADIUS = 5204;
+        static final int AREA_EFFECT = 5204;
+        static final int AREA_LIFESPAN = 5204;
+        static final int BEAM_LENGTH = 5204;
+        static final int BEAM_LIFESPAN = 5204;
+        static final int CONE_ANGLE = 5204;
+        static final int CONE_FORCE = 5204;
+        static final int CONE_LIFESPAN = 5204;
+        static final int EXPLOSION_RADIUS = 5204;
+        static final int EXPLOSION_LIFESPAN = 5204;
+        static final int PULSE_RADIUS = 5204;
+        static final int PULSE_FORCE = 5204;
+        static final int PULSE_LIFESPAN = 5204;
     }
 
     static class Debug {
@@ -192,7 +205,8 @@ public class NeonPulse extends PApplet {
     }
 
     public void settings() {
-        size(1024, 576, P2D);
+        fullScreen(P2D);
+//        size(1600, 900, P2D);
     }
 
     static public void main(String[] passedArgs) {

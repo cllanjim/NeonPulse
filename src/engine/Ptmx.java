@@ -216,8 +216,6 @@ public class Ptmx {
             this.id = id;
             this.x = x;
             this.y = y;
-            this.width = 0;
-            this.height = 0;
         }
 
         static CollisionShape fromXML(XML o) {
@@ -262,6 +260,7 @@ public class Ptmx {
             type = "rectangle";
             this.width = width;
             this.height = height;
+            this.points = makeCornerPoints(x, y, width, height);
         }
 
         @Override
@@ -276,6 +275,7 @@ public class Ptmx {
             type = "ellipse";
             this.width = width;
             this.height = height;
+            this.points = makeCornerPoints(x, y, width, height);
         }
 
         @Override
@@ -330,6 +330,43 @@ public class Ptmx {
             pointsArray[i] = new PVector(parseFloat(xy[0]), parseFloat(xy[1]));
         }
         return pointsArray;
+    }
+
+    private static PVector[] makeCornerPoints(float x, float y, float width, float height) {
+        return new PVector[] {
+                new PVector(x, y),
+                new PVector(x + width, y),
+                new PVector(x + width, y + height),
+                new PVector(x, y + height)
+        };
+    }
+
+    private static PVector[] makeCenterPoints(float x, float y, float width, float height) {
+        return new PVector[] {
+                new PVector(x - width/2, y - height / 2),
+                new PVector(x + width/2, y - height / 2),
+                new PVector(x + width/2, y + height / 2),
+                new PVector(x - width/2, y + height / 2),
+        };
+    }
+
+    private static Rectangle makeAABB(PVector[] points) {
+        float minX = Float.MAX_VALUE;
+        float maxX = -Float.MAX_VALUE;
+        float minY = Float.MAX_VALUE;
+        float maxY = -Float.MAX_VALUE;
+
+        for(int i = 1; i < points.length - 1; i++) {
+            minX = Math.min(minX, points[i].x);
+            maxX = Math.max(maxX, points[i].x);
+            minY = Math.min(minY, points[i].y);
+            maxY = Math.max(maxY, points[i].y);
+        }
+
+        float width = maxX - minX;
+        float height = maxY - minY;
+        
+        return new Rectangle(0, minX, minY, width, height);
     }
 
     public class Layer {

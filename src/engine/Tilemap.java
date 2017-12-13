@@ -81,10 +81,8 @@ public class Tilemap {
         ArrayList<PVector> collision_positions = new ArrayList<>(4);
 
         // Top Left, Top Right, Bottom Left, Bottom Right
-        checkTileCollision(collision_positions, agent.position.x - agent.radius, agent.position.y - agent.radius);
-        checkTileCollision(collision_positions, agent.position.x + agent.radius, agent.position.y - agent.radius);
-        checkTileCollision(collision_positions, agent.position.x - agent.radius, agent.position.y + agent.radius);
-        checkTileCollision(collision_positions, agent.position.x + agent.radius, agent.position.y + agent.radius);
+        checkTileCollisions(collision_positions, agent.position, agent.radius);
+
         if (collision_positions.size() == 0)
             return false;
 

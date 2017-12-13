@@ -35,7 +35,8 @@ public class ShaderScreen extends Screen {
 
     @Override
     public void update(float deltatime) {
-
+        rotationX += 0.01;
+        rotationY += 0.01;
     }
 
     @Override

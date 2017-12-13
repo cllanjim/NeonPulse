@@ -58,7 +58,6 @@ public class Beam extends Effect {
             }
             lifetime += delta_time;
         }
-
         cooldown -= delta_time;
     }
 

@@ -22,7 +22,7 @@ public class Grenade implements Action {
     private PVector control_vector;
     private PVector control_point;
 
-    protected static final float COOLDOWN = 1;
+    private static final float COOLDOWN = 1;
 
     public Grenade(SoundFile grenade_sound) {
         payload = new Payload(new Explosion(grenade_sound), grenade_sound);

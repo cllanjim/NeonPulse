@@ -20,6 +20,7 @@ public class Player extends Agent {
     public Grenade grenade;
     public Launcher gun;
     public Shield shield;
+    private int fill = 0xffffffff;
 
     private static final int HEALTH = 40;
 
@@ -40,6 +41,8 @@ public class Player extends Agent {
         speed = 64;
         angle = 0;
     }
+
+    public void setFill(int fill) { this.fill = fill; }
 
     public void addEffect(String binding, Effect effect) {
         effects.add(effect);
@@ -98,9 +101,9 @@ public class Player extends Agent {
         PVector dir = PVector.fromAngle(angle).mult(2);
         g.fill(0xff000000);
         Drawing.polygon(g, 0, 0, radius, 4, angle + PI / 4);
-        g.fill(0xfff601fe);
+        g.fill(0xffffffff);
         Drawing.polygon(g, 0, 0, radius, 3, angle);
-        g.fill(0xffaf01de);
+        g.fill(fill);
         Drawing.polygon(g, -dir.x, -dir.y, 0.75f * radius, 3, angle);
         g.popStyle();
         g.popMatrix();
