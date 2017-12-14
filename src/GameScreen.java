@@ -36,9 +36,7 @@ class GameScreen extends Screen {
 
     // Constants
     private static final float TILE_SIZE = 64;
-    private static final int NUM_MOBS = 1;
 
-    // TODO: Thales COLORS
     private static final int[] PLAYER_COLORS = {
             0xffC400FF,
             0xff0C71E8,

@@ -41,7 +41,7 @@ public class NeonPulse extends PApplet {
 
     // Screens
     private ArrayList<Screen> screens = new ArrayList<Screen>(3);
-    private int currentScreenIndex = 3;
+    private int currentScreenIndex = 4;
     private Screen currentScreen;
 
     static final class Config {
@@ -128,6 +128,7 @@ public class NeonPulse extends PApplet {
         screens.add(new GameScreen(this));
         screens.add(new ShaderScreen(this, fx_supervisor));
         screens.add(new TiledScreen(this));
+        screens.add(new ParticleScreen(this));
         currentScreen = screens.get(currentScreenIndex);
 
         currentScreen.load();
