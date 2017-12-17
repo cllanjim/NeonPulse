@@ -15,14 +15,16 @@ public class ParticleScreen extends Screen {
 
     @Override
     public void load() {
-        pa = new ParticleSystem(applet, new PVector(3 * applet.width/4, applet.height/2));
+        pa = new ParticleSystem(applet, new PVector(applet.width / 2, applet.height / 2), 0.0f, applet.PI / 2);
     }
 
     @Override
     public void update(float deltatime) {
-        pa.attractParticle();
-        pa.emitParticle();
-        pa.update();
+        //pa.attractParticle();
+        //pa.emitParticle();
+        //pa.attractParticleAngle();
+        //pa.emitParticleAngle();
+        pa.update(applet.width / 2, applet.height / 2);
     }
 
     @Override
@@ -38,4 +40,22 @@ public class ParticleScreen extends Screen {
     public void unload(Screen next_screen) {
 
     }
+
+    @Override
+    public void handleInput() {
+        if (NeonPulse.g_input.isKeyReleased('a')) {
+
+            PVector v = NeonPulse.g_input.getMousePosition();
+
+            //pa.explodeParticleAngle();
+            //pa.explodeParticleAngle(v.x, v.y);
+
+            //pa.implodeParticleAngle();
+            pa.implodeParticleAngle(v.x, v.y);
+
+
+        }
+    }
+
 }
+

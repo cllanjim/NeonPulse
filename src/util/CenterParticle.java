@@ -7,18 +7,35 @@ class CenterParticle extends Particle
 {
     float pX, pY;
     float centerX, centerY;
+    PVector pV;
 
     CenterParticle(PApplet applet, PVector l)
     {
         super(applet, l);
-        pX = applet.random(-100, 100);//size of possible distance from center
-        pY = applet.random(-100, 100);
 
-        centerX = l.x;//just used for center circle for testing purposes
+        pV= PVector.fromAngle(angle).setMag(applet.random(0,100));
+
+        centerX = l.x;//area where particles disappear
         centerY = l.y;
 
-        position = new PVector (l.x+pX, l.y+pY);//creates particle in a random distance from the received point 'l'
-        velocity = new PVector((l.x - position.x)*0.05f, (l.y - position.y)*0.05f);//direction it goes from original point received
+        position = new PVector (l.x+pV.x, l.y+pV.y);//creates particle in a random distance from the received point 'l'
+        velocity = new PVector(((l.x - position.x)*0.05f), ((l.y - position.y)*0.05f));
+
+        lifespan = 255.0f;
+    }
+
+    CenterParticle(PApplet applet, PVector l, float a1, float a2)
+    {
+        super(applet, l);
+
+        this.angle=applet.random(a1, a2);
+        pV= PVector.fromAngle(angle).setMag(applet.random(0,100));
+
+        centerX = l.x;//area where particles disappear
+        centerY = l.y;
+
+        position = new PVector (l.x+pV.x, l.y+pV.y);//creates particle in a random distance from the received point 'l'
+        velocity = new PVector(((l.x - position.x)*0.05f), ((l.y - position.y)*0.05f));
 
         lifespan = 255.0f;
     }
