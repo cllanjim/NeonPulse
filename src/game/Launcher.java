@@ -3,7 +3,6 @@ package game;
 import effects.Action;
 import effects.Projectile;
 import processing.core.PGraphics;
-import processing.core.PVector;
 import processing.sound.SoundFile;
 import engine.Agent;
 
@@ -13,24 +12,26 @@ public class Launcher implements Action {
     private ArrayList<Projectile> bullets;
     private float cooldown;
     SoundFile sound;
+    Player player;
 
     private static final float BULLET_SPEED = 600;
     private static final float DELAY = 0.2f;
 
-    public Launcher(SoundFile launcher_sound) {
+    public Launcher(Player player, SoundFile launcher_sound) {
         bullets = new ArrayList<>(4);
         sound = launcher_sound;
+        this.player = player;
     }
 
     @Override
-    public void ready(PVector position, PVector target) {
+    public void ready() {
 
     }
 
-    public void activate(PVector position, PVector target) {
+    public void activate() {
         if (cooldown < 0) {
             sound.play();
-            bullets.add(new Projectile(position, target, BULLET_SPEED));
+            bullets.add(new Projectile(player.position, player.target, BULLET_SPEED));
             cooldown = DELAY;
         }
     }

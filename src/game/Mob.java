@@ -58,7 +58,7 @@ public class Mob extends Agent {
             player.shield.collideWithAgent(this);
             player.gun.collideWithAgent(this);
 
-            for(Effect effect: player.effects) {
+            for(Effect effect: player.loadout.effects) {
                 effect.collideWithAgent(this);
             }
         }
@@ -78,7 +78,7 @@ public class Mob extends Agent {
     }
 
     public void display(PGraphics g) {
-        Drawing.shadow(g, position, radius, 0);
+        Drawing.shadow(g, position, radius, 0, 0xff102030);
         g.pushMatrix();
         g.translate(position.x, position.y);
         g.fill(102, 0, 31);

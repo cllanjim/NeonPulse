@@ -1,0 +1,116 @@
+package game;
+
+import effects.Action;
+import effects.Beam;
+import engine.Agent;
+import engine.Collision;
+import engine.Level;
+import engine.Tilemap;
+import processing.core.PGraphics;
+import processing.core.PVector;
+import processing.sound.SoundFile;
+
+import java.util.ArrayList;
+
+public class Laser implements Action {
+    Beam beam;
+    Player player;
+    SoundFile sound;
+    float cooldown;
+    float delay;
+    boolean active;
+    boolean charging;
+
+    private static final float COOLDOWN = 1;
+    private static final float DELAY = 1;
+    private static final float TARGET_FRAMETIME = 1.0f / 60.0f;
+
+    Laser(Player player, SoundFile soundFile) {
+        this.player = player;
+        sound = soundFile;
+        cooldown = 0;
+        delay = DELAY;
+        beam = new Beam(soundFile);
+    }
+
+    @Override
+    public void ready() {
+        charging = true;
+    }
+
+    @Override
+    public void activate() {
+        if (delay <= 0 && cooldown <= 0) {
+            // This moves the beginning of the laser to where we expect the player to be next frame.
+            PVector position_offset = PVector.mult(player.velocity, TARGET_FRAMETIME);
+            beam.activate(PVector.add(player.position, position_offset), player.target);
+            cooldown = COOLDOWN;
+            charging = false;
+        } else {
+            interrupt();
+        }
+    }
+
+    @Override
+    public void interrupt() {
+        delay = DELAY;
+        charging = false;
+    }
+
+    @Override
+    public void update(float delta_time) {
+        if (charging) {
+            delay -= delta_time;
+        }
+        beam.update(delta_time);
+        cooldown -= delta_time;
+    }
+
+    @Override
+    public void display(PGraphics g) {
+        beam.display(g);
+    }
+
+    @Override
+    public void collideWithAgent(Agent agent) {
+        beam.collideWithAgent(agent);
+    }
+
+    private boolean collideWithTile(PVector tile_position, float tile_width, float tile_height) {
+        // TODO: get tile data from map instead of instantiating this every time.
+        // Although it's only on shooting
+        PVector[] points = new PVector[] {
+                new PVector(tile_position.x - tile_width/2, tile_position.y - tile_height / 2),
+                new PVector(tile_position.x + tile_width/2, tile_position.y - tile_height / 2),
+                new PVector(tile_position.x + tile_width/2, tile_position.y + tile_height / 2),
+                new PVector(tile_position.x - tile_width/2, tile_position.y + tile_height / 2),
+        };
+
+        ArrayList<PVector> collision_positions = new ArrayList<>(4);
+        PVector collision_point = new PVector();
+        for(int i = 0; i < points.length - 1; i++) {
+            if (Collision.lineSegments(player.position, beam.end_position, points[i], points[i+1], collision_point))
+                collision_positions.add(collision_point);
+                return true;
+        }
+
+        if (collision_positions.size() == 0 ) {
+            return false;
+        } else {
+            collision_positions.sort( (p, n) ->
+                    p.dist(player.position) > n.dist(player.position)
+                            ? -1 : 1);
+            beam.end_position.set(collision_positions.get(0));
+            return true;
+        }
+
+    }
+
+    public void collideWithLevel(Level level) {
+        // TODO: Get all tiles the laser passes over?
+    }
+
+    public void collideWithTilemap(Tilemap tilemap) {
+        // TODO: Get all tiles the laser passes over? Efficiently?
+    }
+}

@@ -16,7 +16,7 @@ public class Explosion extends Effect {
 
     public Explosion(SoundFile explosion_sound) {
         super(explosion_sound);
-        radius = 40;
+        radius = 128;
     }
 
     public void activate(PVector source, PVector target) {

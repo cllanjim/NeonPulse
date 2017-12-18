@@ -59,25 +59,21 @@ public final class Collision {
     }
 
     // TODO: Make another version of this that handles intersection point
-    public static boolean lineSegments(PVector a_start, PVector a_end, PVector b_start, PVector b_end) {
+    public static boolean lineSegments(PVector a_start, PVector a_end, PVector b_start, PVector b_end, PVector intersection_point) {
         PVector a_vector = PVector.sub(a_end, a_start);
         PVector b_vector = PVector.sub(b_end, b_start);
 
         float d = b_vector.y * a_vector.x - b_vector.x * a_vector.y;
 
-        // No collision if lines are parallel
+        // No collision if lines are parallel, ie determinant = 0
         if (d == 0) return false;
 
-        float n_a = b_vector.x * (a_start.y - b_start.y) - b_vector.y * (a_start.y - b_start.x);
-        float n_b = a_vector.x * (a_start.y - b_start.y) - a_vector.y * (a_start.x - b_start.y);
-
         // Segment fraction will be between 0 and 1 inclusive if the lines intersect
+        float n_a = b_vector.x * (a_start.y - b_start.y) - b_vector.y * (a_start.y - b_start.x);
         float ua = n_a / d;
-        float ub = n_b / d;
 
-        if (ua >= 0 && ua <= 1 && ub >= 0 && ub <= 1) {
-            PVector intersection_point_a = PVector.add(a_start, PVector.mult(a_vector, ua));
-            PVector intersection_point_b = PVector.add(b_start, PVector.mult(b_vector, ub));
+        if (ua >= 0 && ua <= 1) {
+            intersection_point.set(PVector.add(a_start, PVector.mult(a_vector, ua)));
             return true;
         }
         return false;

@@ -1,6 +1,5 @@
 package game;
 
-import effects.Action;
 import effects.Effect;
 import engine.Input;
 import util.Pair;
@@ -13,12 +12,10 @@ import static processing.core.PConstants.RIGHT;
 public class KeyboardInput implements PlayerInput {
     Input input;
     private ArrayList<Pair<Character, Effect>> effect_bindings;
-    private ArrayList<Pair<Character, Action>> action_bindings;
 
     public KeyboardInput(Input keyboard_input) {
         this.input = keyboard_input;
         effect_bindings = new ArrayList<>();
-        action_bindings = new ArrayList<>();
     }
 
     @Override
@@ -46,7 +43,7 @@ public class KeyboardInput implements PlayerInput {
 
         // Shield
         if (input.isKeyPressed('Q')) {
-            player.shield.activate(player.position, player.target);
+            player.shield.activate();
         }
 
         for (Pair<Character, Effect> binding : effect_bindings) {
@@ -55,25 +52,23 @@ public class KeyboardInput implements PlayerInput {
             }
         }
 
-        for (Pair<Character, Action> binding : action_bindings) {
-            if (input.isKeyDown(binding.first)) {
-                binding.second.ready(player.position, player.target);
-            }
-            if (input.isKeyReleased(binding.first)) {
-                binding.second.activate(player.position, player.target);
-            }
+        if (input.isKeyDown('F')) {
+            player.laser.ready();
+        }
+        if (input.isKeyReleased('F')){
+            player.laser.activate();
         }
 
         // Grenade
         if (input.isButtonDown(RIGHT)) {
-            player.grenade.ready(player.position, player.target);
+            player.grenade.ready();
         }
         if (input.isButtonReleased(RIGHT)) {
-            player.grenade.activate(player.position, player.target);
+            player.grenade.activate();
         }
 
         if (input.isKeyDown('C')) {
-            player.gun.activate(player.position, player.target);
+            player.gun.activate();
         }
 
         // Dash
@@ -85,10 +80,5 @@ public class KeyboardInput implements PlayerInput {
     @Override
     public void addBinding(String binding_name, Effect effect) {
         effect_bindings.add(new Pair<>(binding_name.charAt(0), effect));
-    }
-
-    @Override
-    public void addBinding(String binding_name, Action action) {
-        action_bindings.add(new Pair<>(binding_name.charAt(0), action));
     }
 }

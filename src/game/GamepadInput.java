@@ -1,6 +1,5 @@
 package game;
 
-import effects.Action;
 import effects.Effect;
 import org.gamecontrolplus.ControlDevice;
 import processing.core.PVector;
@@ -12,9 +11,9 @@ public class GamepadInput implements PlayerInput {
     private ControlDevice input;
     private PVector aim_vector;
     private boolean aiming;
+    private boolean charging;
     private boolean dashing;
     private ArrayList<Pair<String, Effect>> effect_bindings;
-    private ArrayList<Pair<String, Action>> action_bindings;
 
     private static final float AIM_THRESHOLD = 0.4f;
 
@@ -23,7 +22,6 @@ public class GamepadInput implements PlayerInput {
         aim_vector = new PVector(1,0);
         aiming = false;
         effect_bindings = new ArrayList<>();
-        action_bindings = new ArrayList<>();
     }
 
     public void handleInput(Player player) {
@@ -42,7 +40,7 @@ public class GamepadInput implements PlayerInput {
 
         // Shield
         if (input.getButton("X").pressed()) {
-            player.shield.activate(player.position, player.target);
+            player.shield.activate();
         }
 
         for (Pair<String, Effect> binding : effect_bindings) {
@@ -62,22 +60,27 @@ public class GamepadInput implements PlayerInput {
 
         // Grenade
         if (input.getButton("RIGHT_SHOULDER").pressed()) {
-            player.grenade.ready(player.position, player.target);
+            player.grenade.ready();
             aiming = true;
         }
         if (aiming && !input.getButton("RIGHT_SHOULDER").pressed()) {
-            player.grenade.activate(player.position, player.target);
+            player.grenade.activate();
             aiming = false;
+        }
+
+        // Laser
+        if (input.getButton("LEFT_SHOULDER").pressed()) {
+            player.laser.ready();
+            charging = true;
+        }
+        if (charging && !input.getButton("LEFT_SHOULDER").pressed()){
+            player.laser.activate();
+            charging = false;
         }
     }
 
     @Override
     public void addBinding(String binding_name, Effect effect) {
         effect_bindings.add(new Pair<>(binding_name, effect));
-    }
-
-    @Override
-    public void addBinding(String binding_name, Action action) {
-        action_bindings.add(new Pair<>(binding_name, action));
     }
 }

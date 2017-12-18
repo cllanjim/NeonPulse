@@ -14,7 +14,7 @@ public abstract class Effect {
     public float lifetime;
     float cooldown;
 
-    protected static final float COOLDOWN = 4;
+    static final float COOLDOWN = 2;
 
     Effect(SoundFile effect_sound) {
         position = new PVector(0,0);

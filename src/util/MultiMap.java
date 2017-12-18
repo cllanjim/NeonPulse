@@ -6,16 +6,15 @@ public class MultiMap<K, V> {
     private Map<K, ArrayList<V>> map = new HashMap<>();
 
     public void put(K key, V value) {
-        if (map.get(key) == null)
-            map.put(key, new ArrayList<>());
+        map.computeIfAbsent(key, k -> new ArrayList<>());
         map.get(key).add(value);
     }
 
-    public ArrayList<V> get(Object key) {
+    public ArrayList<V> get(K key) {
         return map.get(key);
     }
 
-    public ArrayList<V> remove(Object key) {
+    public ArrayList<V> remove(K key) {
         return map.remove(key);
     }
 

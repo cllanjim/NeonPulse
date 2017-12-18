@@ -13,8 +13,8 @@ public class Cone extends Effect {
     private float range;
     private float angle;
 
-    private static final float RANGE = 128;
-    private static final float ANGULAR_WIDTH = PConstants.PI / 6.0f;
+    private static final float RANGE = 192;
+    private static final float ANGULAR_WIDTH = PConstants.PI / 4.0f;
     private static final float LIFESPAN = 0.2f;
     private static final float FORCE = 192;
 

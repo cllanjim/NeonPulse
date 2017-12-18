@@ -13,6 +13,7 @@ public class Area extends Effect {
 
     private static final float RANGE = 64;
     private static final float LIFESPAN = 1;
+    static final float COOLDOWN = 4;
 
     public Area(SoundFile area_sound) {
         super(area_sound);

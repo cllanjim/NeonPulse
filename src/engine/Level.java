@@ -8,21 +8,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Level {
-    public ArrayList<PVector> player_spawn_points;
+    PApplet applet;
+    public ArrayList<PVector> player_spawns;
     public float tile_size;
-    private PGraphics level_background;
-    private PGraphics level_foreground;
-    private String[] level_data;
+    private PGraphics background;
+    private PGraphics foreground;
     private char[][] render_data;
-    private int level_height;
-    private int level_width;
+    private int level_rows;
+    private int level_columns;
+    public float top;
+    public float left;
 
     private HashMap<Character, Tile> tile_map;
 
     public Level(PApplet applet, String[] level_string, HashMap<Character, Tile> level_tile_map, float size) {
-        player_spawn_points = new ArrayList<>(4);
-        level_background = applet.createGraphics(applet.width, applet.height);
-        level_foreground = applet.createGraphics(applet.width, applet.height);
+        this.applet = applet;
+        player_spawns = new ArrayList<>(4);
+        background = applet.createGraphics(applet.width, applet.height);
+        foreground = applet.createGraphics(applet.width, applet.height);
         tile_size = size;
         tile_map = level_tile_map;
 
@@ -31,7 +34,7 @@ public class Level {
 
     public void unload() {
         // Clear spawn points
-        player_spawn_points.clear();
+        player_spawns.clear();
     }
 
     // TODO: load from file
@@ -40,14 +43,20 @@ public class Level {
         unload();
 
         // Get level data
-        level_height = level_string.length;
-        level_width = level_string[0].length();
-        level_data = level_string;
+        level_rows = level_string.length;
+        level_columns = level_string[0].length();
+
+        float level_width = level_columns * tile_size;
+        float level_height = level_rows * tile_size;
+
+        top = (applet.height - level_height) / 2;
+        left = (applet.width - level_width) / 2;
 
         // Derive render data - replaces special locations with base tiles
-        render_data = new char[level_height][level_width];
-        for (int i = 0, n = level_data.length; i < n; i++) {
-            char[] row = level_data[i].toCharArray();
+        String[] tile_data = level_string;
+        render_data = new char[level_rows][level_columns];
+        for (int i = 0, n = tile_data.length; i < n; i++) {
+            char[] row = tile_data[i].toCharArray();
             for (int j = 0, m = row.length; j < m; j++) {
                 float tile_center_x = tile_size * (j + 0.5f);
                 float tile_center_y = tile_size * (i + 0.5f);
@@ -63,7 +72,7 @@ public class Level {
                     case '2':
                     case '3':
                     case '4': {
-                        player_spawn_points.add(new PVector(tile_center_x, tile_center_y));
+                        player_spawns.add(new PVector(tile_center_x, tile_center_y));
                     }
                     default: {
                         render_data[i][j] = ' ';
@@ -79,7 +88,7 @@ public class Level {
     }
 
     private void render() {
-        level_background.beginDraw();
+        background.beginDraw();
         for (int i = 0, n = render_data.length; i < n; i++) {
             char[] row = render_data[i];
             for (int j = 0, m = row.length; j < m; j++) {
@@ -88,16 +97,16 @@ public class Level {
                 float tile_corner_y = i * tile_size;
                 Tile tile = tile_map.get(tile_char);
                 if(tile != null) {
-                    tile.display(level_background, tile_corner_x, tile_corner_y, tile_size, tile_size);
+                    tile.display(background, tile_corner_x, tile_corner_y, tile_size, tile_size);
                 } else {
                     PApplet.println("No tile found for character: ", tile_char);
                 }
             }
         }
-        level_background.endDraw();
+        background.endDraw();
 
         // Level foreground
-//        level_foreground.beginDraw();
+//        foreground.beginDraw();
 //        for (int i = 0, n = render_data.length; i < n; i++) {
 //            char[] row = render_data[i];
 //            for (int j = 0, m = row.length; j < m; j++) {
@@ -106,21 +115,21 @@ public class Level {
 //                float tile_corner_y = i * tile_size;
 //                Tile tile = tile_map.get(tile_char);
 //                if(tile != null) {
-//                    tile.render(level_foreground, tile_corner_x, tile_corner_y, tile_size, tile_size);
+//                    tile.render(foreground, tile_corner_x, tile_corner_y, tile_size, tile_size);
 //                } else {
 //                    PApplet.println("No tile found for character: ", tile_char);
 //                }
 //            }
 //        }
-//        level_foreground.endDraw();
+//        foreground.endDraw();
     }
 
     public void showBg(PGraphics g) {
-        g.image(level_background, 0, 0);
+        g.image(background, 0, 0);
     }
 
     public void showFg(PGraphics g) {
-//        g.image(level_foreground, 0, 0);
+//        g.image(foreground, 0, 0);
     }
 
     public boolean collideWithAgent(Agent agent) {
@@ -158,7 +167,7 @@ public class Level {
         int corner_y = PApplet.floor(y / tile_size);
 
         // Don't collide if outside world
-        if (corner_x < 0 || corner_x >= level_width || corner_y < 0 || corner_y >= level_height) {
+        if (corner_x < 0 || corner_x >= level_columns || corner_y < 0 || corner_y >= level_rows) {
             return;
         }
 
@@ -176,7 +185,7 @@ public class Level {
         int corner_y = PApplet.floor(y / tile_size);
 
         // Don't collide if outside world
-        if (corner_x < 0 || corner_x >= level_width || corner_y < 0 || corner_y >= level_height) {
+        if (corner_x < 0 || corner_x >= level_columns || corner_y < 0 || corner_y >= level_rows) {
             return true;
         }
 
@@ -189,7 +198,7 @@ public class Level {
         int corner_y = PApplet.floor(y / tile_size);
 
         // Don't collide if outside world
-        if (corner_x < 0 || corner_x >= level_width || corner_y < 0 || corner_y >= level_height) {
+        if (corner_x < 0 || corner_x >= level_columns || corner_y < 0 || corner_y >= level_rows) {
             return false;
         }
 
@@ -199,7 +208,7 @@ public class Level {
     public Tile getTileAt(float x, float y) {
         int col = PApplet.floor(x / tile_size);
         int row = PApplet.floor(y / tile_size);
-        if (col < 0 || col >= level_width || row < 0 || row >= level_height) return null;
+        if (col < 0 || col >= level_columns || row < 0 || row >= level_rows) return null;
         return tile_map.get(render_data[row][col]);
     }
 }

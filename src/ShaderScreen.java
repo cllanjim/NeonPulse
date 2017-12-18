@@ -79,7 +79,7 @@ public class ShaderScreen extends Screen {
 //    }
 
     @Override
-    public void unload(Screen next_screen) {
+    public void unload() {
 
     }
 }

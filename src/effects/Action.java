@@ -1,12 +1,11 @@
 package effects;
 
 import processing.core.PGraphics;
-import processing.core.PVector;
 import engine.Agent;
 
 public interface Action {
-    void ready(PVector position, PVector target);
-    void activate(PVector position, PVector target);
+    void ready();
+    void activate();
     void interrupt();
 
     void update(float delta_time);

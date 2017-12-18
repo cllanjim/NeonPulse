@@ -29,7 +29,7 @@ public class Payload extends Effect {
         acceleration = new PVector(0, 0);
         history = new PVector[TAIL_LENGTH];
         frame_count = 0;
-        radius = 4;
+        radius = 8;
         angle = 0;
     }
 
@@ -78,7 +78,7 @@ public class Payload extends Effect {
     public void update(float delta_time) {
         if (active) {
             velocity.add(acceleration);
-            position.add(velocity);
+            position.add(PVector.mult(velocity, delta_time));
             angle = velocity.heading();
             history[frame_count % TAIL_LENGTH] = position.copy();
             if (lifetime > DELAY) {

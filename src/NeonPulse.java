@@ -1,8 +1,9 @@
-import ch.bildspur.postfx.PostFXSupervisor;
 import engine.*;
 import processing.core.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 // Controllers
 import org.gamecontrolplus.*;
@@ -13,6 +14,7 @@ import processing.sound.AudioDevice;
 
 // PostFX
 import ch.bildspur.postfx.builder.*;
+import ch.bildspur.postfx.PostFXSupervisor;
 
 public class NeonPulse extends PApplet {
     // Debug
@@ -37,30 +39,50 @@ public class NeonPulse extends PApplet {
     private AudioDevice g_audio_server;
 
     // Timing
-    private int currentMillis = 0;
+    private int currentMillis;
 
     // Screens
     private ArrayList<Screen> screens = new ArrayList<Screen>(3);
-    private int currentScreenIndex = 4;
+    private int currentScreenIndex = 1;
     private Screen currentScreen;
 
+    static Screen g_game_screen;
+
+    static final float TARGET_FRAMERATE = 60;
+
     static final class Config {
-        static final boolean DEBUG = true;
+        public static final boolean DEBUG = true;
         static final boolean KEYBOARD = true;
         static final int PORT = 5204;
-        static final int AREA_RADIUS = 5204;
-        static final int AREA_EFFECT = 5204;
-        static final int AREA_LIFESPAN = 5204;
-        static final int BEAM_LENGTH = 5204;
-        static final int BEAM_LIFESPAN = 5204;
-        static final int CONE_ANGLE = 5204;
-        static final int CONE_FORCE = 5204;
-        static final int CONE_LIFESPAN = 5204;
-        static final int EXPLOSION_RADIUS = 5204;
-        static final int EXPLOSION_LIFESPAN = 5204;
-        static final int PULSE_RADIUS = 5204;
-        static final int PULSE_FORCE = 5204;
-        static final int PULSE_LIFESPAN = 5204;
+        static Map<String,Float> values = new HashMap<>();
+
+        static {
+            values.put("AREA_RADIUS", 128f);
+            values.put("AREA_FACTOR", 0f);
+            values.put("AREA_LIFESPAN", 2f);
+            values.put("BEAM_LENGTH", 386f);
+            values.put("BEAM_LIFESPAN", 0.1f);
+            values.put("CONE_ANGLE", PI/3.0f);
+            values.put("CONE_FORCE", 128f);
+            values.put("CONE_LIFESPAN", 1f);
+            values.put("EXPLOSION_FORCE", 256f);
+            values.put("EXPLOSION_RADIUS", 256f);
+            values.put("EXPLOSION_LIFESPAN", 1f);
+            values.put("PULSE_RADIUS", 256f);
+            values.put("PULSE_FORCE", 128f);
+            values.put("PULSE_LIFESPAN", 1f);
+            values.put("PUSH_RANGE", 128f);
+            values.put("PUSH_FORCE", 128f);
+            values.put("PUSH_LIFESPAN", 128f);
+        }
+
+        static void setValue(String key, Float value) {
+            values.put(key, value);
+        }
+
+        static float getValue(String key, Float default_value) {
+            return values.getOrDefault(key, default_value);
+        }
     }
 
     static class Debug {
@@ -96,7 +118,7 @@ public class NeonPulse extends PApplet {
 
     public void setup() {
         // Environment
-        frameRate(60);
+        frameRate(TARGET_FRAMERATE);
         noStroke();
         noCursor();
 
@@ -124,11 +146,13 @@ public class NeonPulse extends PApplet {
         fx_supervisor = new PostFXSupervisor(this);
 
         // Screens
+        g_game_screen = new TiledScreen(this);
         screens.add(new TitleScreen(this));
+        screens.add(new MenuScreen(this));
         screens.add(new GameScreen(this));
         screens.add(new ShaderScreen(this, fx_supervisor));
-        screens.add(new TiledScreen(this));
         screens.add(new ParticleScreen(this));
+        screens.add(g_game_screen);
         currentScreen = screens.get(currentScreenIndex);
 
         currentScreen.load();
@@ -156,9 +180,8 @@ public class NeonPulse extends PApplet {
         currentScreen.update(deltatime);
 
         // Render Screen
-        PGraphics canvas = currentScreen.render();
         blendMode(BLEND);
-        image(canvas, 0, 0);
+        image(currentScreen.render(), 0, 0);
 
         if (postProcessingActive) {
             currentScreen.renderFX(fx);

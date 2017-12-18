@@ -1,4 +1,6 @@
 package engine;
 
-class Quadtree {
+// TODO: Tree structure holding elements in each spatial partition.
+public class Quadtree {
+
 }

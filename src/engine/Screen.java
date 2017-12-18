@@ -21,7 +21,7 @@ public abstract class Screen {
     public abstract void load();
     public abstract void update(float deltatime);
     public abstract PGraphics render();
-    public abstract void unload(Screen next_screen);
+    public abstract void unload();
 
     public void renderFX(PostFX fx) { }
 
@@ -55,7 +55,7 @@ public abstract class Screen {
                 case NetworkEvent.INPUT: {
                     int player_index = network_event[1];
                     Player player = players.get(player_index);
-                    ((NetworkInput)player.playerInput).network_event = network_event;
+                    ((NetworkInput)player.input).network_event = network_event;
                     break;
                 }
                 case NetworkEvent.JOIN: {

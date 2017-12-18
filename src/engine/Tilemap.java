@@ -4,6 +4,7 @@ import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
 import processing.data.StringDict;
+import ptmx.Ptmx;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,7 @@ public class Tilemap {
     public float mapHeight;
     public float tileWidth;
     public float tileHeight;
+    public float top, left;
     public Ptmx map;
     ArrayList<Ptmx.CollisionShape> shapes;
 
@@ -37,6 +39,11 @@ public class Tilemap {
         mapHeight = map_size.y;
         tileWidth = tile_size.x;
         tileHeight = tile_size.y;
+
+        float level_width = mapWidth * tile_size.x;
+        float level_height = mapHeight * tile_size.y;
+        top = (applet.height - level_height) / 2;
+        left = (applet.width - level_width) / 2;
     }
 
     public void update(float delta_time) {
@@ -67,20 +74,18 @@ public class Tilemap {
 
     public void display(PGraphics g) {
         map.draw(g, 0 ,0);
-        g.pushStyle();
-        g.stroke(0xFFFFFFF);
-        g.strokeWeight(2);
-        g.fill(0xFFFFFFFF, 128);
-        for(Ptmx.CollisionShape s : shapes) {
-            s.display(g);
-        }
-        g.popStyle();
+//        g.pushStyle();
+//        g.stroke(0xFFFFFFF);
+//        g.strokeWeight(2);
+//        g.fill(0xFFFFFFFF, 128);
+//        for (Ptmx.CollisionShape s : shapes) {
+//            s.display(g);
+//        }
+//        g.popStyle();
     }
 
     public boolean collideWithAgent(Agent agent) {
         ArrayList<PVector> collision_positions = new ArrayList<>(4);
-
-        // Top Left, Top Right, Bottom Left, Bottom Right
         checkTileCollisions(collision_positions, agent.position, agent.radius);
 
         if (collision_positions.size() == 0)

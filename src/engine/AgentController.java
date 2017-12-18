@@ -7,13 +7,13 @@ import java.util.ArrayList;
 
 class AgentController {
     private ArrayList<Agent> agents;
-    private Grid grid;
+    private CenterGrid grid;
     private float width;
     private float height;
 
     AgentController(int width, int height) {
         this.agents = new ArrayList<>();
-        this.grid = new Grid(width, height, 16, 2);
+        this.grid = new CenterGrid(width, height, 16, 2);
         this.width = width;
         this.height = height;
     }
@@ -43,7 +43,7 @@ class AgentController {
         for (Agent agent : agents) {
             // Check to see if the agent moved
             if (agent.owner_cell != null) {
-                Grid.Cell newCell = grid.getCellAt(agent.position);
+                CenterGrid.Cell newCell = grid.getCellAt(agent.position);
                 if (newCell != agent.owner_cell) {
                     grid.removeFromCell(agent);
                     grid.addToCell(agent, newCell);
@@ -54,7 +54,7 @@ class AgentController {
 
     private void updateCollisions() {
         for (int i = 0; i < grid.cells.size(); i++) {
-            Grid.Cell cell = grid.cells.get(i);
+            CenterGrid.Cell cell = grid.cells.get(i);
             int x = i % grid.columns;
             int y = i / grid.columns;
 

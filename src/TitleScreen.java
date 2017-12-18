@@ -93,7 +93,7 @@ class TitleScreen extends Screen {
         return canvas;
     }
 
-    public void unload(Screen next_screen) {
+    public void unload() {
         // Finish
     }
 }

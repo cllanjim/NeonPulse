@@ -13,7 +13,7 @@ public class Pulse extends Effect {
     private float inner_radius;
 
     private static final float LIFESPAN = 0.2f;
-    private static final float RADIUS = 64;
+    private static final float RADIUS = 128;
     private static final float FORCE = 128;
 
     public Pulse(SoundFile pulse_sound) {

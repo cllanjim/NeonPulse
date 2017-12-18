@@ -20,8 +20,8 @@ public class TiledScreen extends Screen {
     private SoundFile test_sound;
 
     private static final String[] MAPS = {
-            "map2.tmx",
             "map1.tmx",
+            "map2.tmx",
             "map3.tmx",
     };
 
@@ -102,6 +102,10 @@ public class TiledScreen extends Screen {
 
     public PGraphics render() {
         canvas.beginDraw();
+        canvas.background(0);
+
+        canvas.translate(tilemap.left, tilemap.top);
+
         tilemap.display(canvas);
 
         for (Player player : players) {
@@ -112,7 +116,7 @@ public class TiledScreen extends Screen {
         return canvas;
     }
 
-    public void unload(Screen next_screen) {
+    public void unload() {
         players.clear();
     }
 

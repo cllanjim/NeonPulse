@@ -8,9 +8,9 @@ import processing.core.PGraphics;
 import processing.core.PVector;
 
 public class Beam extends Effect {
-    private PVector end_position;
+    public PVector end_position;
 
-    private static final float LENGTH = 256;
+    private static final float LENGTH = 360;
     private static final float FORCE = 128;
     private static final float LIFESPAN = 0.1f;
 
@@ -25,7 +25,7 @@ public class Beam extends Effect {
             if (Collision.lineCircle(position, end_position, agent.position, agent.radius)) {
                 end_position.set(agent.position);
                 agent.impulse.add(PVector.sub(agent.position, position).setMag(FORCE));
-                agent.damageLethal(50);
+                agent.damageLethal(10);
                 return true;
             }
         }
@@ -65,7 +65,7 @@ public class Beam extends Effect {
         if (active) {
             g.pushStyle();
             g.stroke(0xffff00ff);
-            g.strokeWeight(4);
+            g.strokeWeight(8);
             g.line(position.x, position.y, end_position.x, end_position.y);
             g.popStyle();
         }

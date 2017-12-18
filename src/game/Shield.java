@@ -22,18 +22,18 @@ public class Shield implements Action {
         active = false;
         sound = shield_sound;
         lifetime = 0;
-        radius = 24;
+        radius = 32;
         cooldown = 0;
         player = shield_player;
     }
 
     @Override
-    public void ready(PVector position, PVector target) {
+    public void ready() {
 
     }
 
     @Override
-    public void activate(PVector position, PVector target) {
+    public void activate() {
         if (cooldown <= 0) {
             sound.play();
             player.shielded = true;

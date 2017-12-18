@@ -1,7 +1,7 @@
 package engine;
 
-public abstract class Item {
-    public void use() {
+import effects.Action;
 
-    }
+public abstract class Item implements Action {
+
 }

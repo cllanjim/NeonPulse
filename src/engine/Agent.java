@@ -18,7 +18,7 @@ public abstract class Agent {
     protected float speed;
     protected float angle;
 
-    Grid.Cell owner_cell;
+    CenterGrid.Cell owner_cell;
     int cell_array_index;
 
     protected Agent() {
@@ -35,6 +35,12 @@ public abstract class Agent {
     public void addImpulse(PVector source, float force) {
         impulse.add(PVector.sub(position, source).normalize().mult(force));
     }
+
+    public void moveTowards(PVector target, float speed) {
+        position.add(target.setMag(speed));
+    }
+
+    public void setPosition(PVector position) {}
 
     public void updateMovement(float delta_time) {
         // Friction

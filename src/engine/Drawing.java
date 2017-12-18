@@ -5,6 +5,7 @@ import processing.core.PGraphics;
 import processing.core.PVector;
 
 import static processing.core.PConstants.CLOSE;
+import static processing.core.PConstants.PI;
 import static processing.core.PConstants.TWO_PI;
 
 public class Drawing {
@@ -18,13 +19,28 @@ public class Drawing {
         g.endShape(CLOSE);
     }
 
-    public static void shadow(PGraphics g, PVector agent_position, float agent_radius, float agent_height) {
+    public static void shadow(PGraphics g, PVector agent_position, float radius, float height, int fill) {
         g.pushMatrix();
         g.pushStyle();
         g.translate(agent_position.x, agent_position.y);
         g.noStroke();
-        g.fill(91, 0, 193, 127);
-        g.ellipse(0, 6, (2 * agent_radius) - agent_height, agent_radius - agent_height);
+        g.fill(fill, 127);
+        g.ellipse(0, 6, (2 * radius) - height, radius - height);
+        g.popStyle();
+        g.popMatrix();
+    }
+
+    public static void drawPlayer(PGraphics g, PVector position, float angle, float radius, int fill) {
+        g.pushMatrix();
+        g.pushStyle();
+        g.translate(position.x, position.y);
+        PVector dir = PVector.fromAngle(angle).mult(2);
+        g.fill(0xff000000);
+        polygon(g, 0, 0, radius, 4, angle + PI / 4);
+        g.fill(0xffffffff);
+        polygon(g, 0, 0, radius, 3, angle);
+        g.fill(fill);
+        polygon(g, -dir.x, -dir.y, 0.75f * radius, 3, angle);
         g.popStyle();
         g.popMatrix();
     }
