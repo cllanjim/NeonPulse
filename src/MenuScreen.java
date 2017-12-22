@@ -1,9 +1,6 @@
 import engine.Screen;
 
-import processing.core.PApplet;
-import processing.core.PGraphics;
-import processing.core.PImage;
-import processing.core.PVector;
+import processing.core.*;
 import util.Pair;
 
 import java.util.ArrayList;
@@ -19,15 +16,21 @@ public class MenuScreen extends Screen {
     private PImage map1;
     private PImage map2;
     private PImage map3;
+    private PFont rubber;
+
+    private final GameScreen game_screen;
 
     private static final float BUTTON_WIDTH  = 512;
     private static final float BUTTON_HEIGHT = 288;
 
-    protected MenuScreen(PApplet applet) {
+    protected MenuScreen(PApplet applet, GameScreen screen) {
         super(applet);
+        this.game_screen = screen;
+
         canvas = applet.createGraphics(applet.width, applet.height, P2D);
 
         background = applet.loadImage("art/bg3.jpg");
+        rubber = applet.createFont("fonts/rubber.ttf",72);
         background.resize(applet.width, applet.height);
 
         maps = new ArrayList<>();
@@ -54,6 +57,9 @@ public class MenuScreen extends Screen {
                         && m.x <= map.first.x + BUTTON_WIDTH
                         && m.y >= map.first.y
                         && m.y <= map.first.y + BUTTON_HEIGHT) {
+                    NeonPulse.goToScreen(game_screen);
+                    game_screen.loadMap(map.second);
+                    game_screen.loadPlayers();
                     return;
                 }
             }
@@ -73,12 +79,12 @@ public class MenuScreen extends Screen {
         canvas.image(background, 0, 0);
 
         canvas.textAlign(CENTER);
-        canvas.textSize(36);
-        canvas.text("Select Map", canvas.width/2, 100);
+        canvas.textFont(rubber);
+        canvas.text("Select Map", canvas.width/2, canvas.height / 5);
         
-        canvas.image(map1,100, 360, BUTTON_WIDTH, BUTTON_HEIGHT);
-        canvas.image(map2,700, 360, BUTTON_WIDTH, BUTTON_HEIGHT);
-        canvas.image(map3,1300, 360, BUTTON_WIDTH, BUTTON_HEIGHT);
+        canvas.image(map1,100, 420, BUTTON_WIDTH, BUTTON_HEIGHT);
+        canvas.image(map2,700, 420, BUTTON_WIDTH, BUTTON_HEIGHT);
+        canvas.image(map3,1300, 420, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         canvas.endDraw();
         return canvas;

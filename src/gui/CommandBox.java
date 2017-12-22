@@ -5,16 +5,19 @@ import processing.core.PGraphics;
 
 import java.util.ArrayList;
 
-import static processing.core.PConstants.*;
 import static processing.core.PApplet.*;
 
 public class CommandBox {
-    PApplet applet;
-    final ArrayList<TextBox> tboxes = new ArrayList<>();
-    TextBox currentTextBox;
+    private PApplet applet;
+    private TextBox currentTextBox;
+    private final ArrayList<TextBox> textBoxes;
+
+    public CommandBox() {
+        textBoxes = new ArrayList<>();
+    }
 
     void setup(PApplet applet) {
-        tboxes.add(
+        textBoxes.add(
                 new TextBox(
                         applet.width >> 2,
                         applet.height / 4 + applet.height / 16,
@@ -27,19 +30,19 @@ public class CommandBox {
                         0xff630000)
         );
 
-        tboxes.get(0).isFocused = true;
+        textBoxes.get(0).isFocused = true;
     }
 
     void draw(PGraphics g) {
         g.background(0xff000000);
-        for (TextBox tb : tboxes) {
+        for (TextBox tb : textBoxes) {
             tb.display(g);
         }
     }
 
     void mouseClicked() {
         currentTextBox = null;
-        for (TextBox tb : tboxes) {
+        for (TextBox tb : textBoxes) {
             if (tb.checkFocus(applet.mouseX, applet.mouseY)) {
                 currentTextBox = tb;
                 return;

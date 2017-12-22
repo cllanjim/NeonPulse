@@ -1,9 +1,9 @@
 package game;
 
 import effects.Action;
+import engine.Shapes;
 import processing.sound.SoundFile;
 import engine.Agent;
-import engine.Drawing;
 import processing.core.PGraphics;
 import processing.core.PVector;
 
@@ -13,17 +13,14 @@ public class Shield implements Action {
     private Player player;
     private float radius;
     private float lifetime;
-    private float cooldown;
 
     private static final float LIFESPAN = 1;
-    private static final float COOLDOWN = 4;
 
     public Shield(Player shield_player, SoundFile shield_sound) {
         active = false;
         sound = shield_sound;
         lifetime = 0;
         radius = 32;
-        cooldown = 0;
         player = shield_player;
     }
 
@@ -34,12 +31,12 @@ public class Shield implements Action {
 
     @Override
     public void activate() {
-        if (cooldown <= 0) {
+        if (player.apManager.currentAP() > 0) {
             sound.play();
             player.shielded = true;
+            player.apManager.spendActionPoint();
             active = true;
             lifetime = 0;
-            cooldown = COOLDOWN;
         }
     }
 
@@ -56,26 +53,29 @@ public class Shield implements Action {
                 interrupt();
             }
         }
-        cooldown -= deltatime;
     }
 
     @Override
     public void display(PGraphics g) {
         if (active) {
+            g.pushStyle();
             g.fill(102, 102, 0, 127);
             float adjusted_radius = radius - 8 * (LIFESPAN - lifetime) / 200;
-            Drawing.polygon(g, player.position.x, player.position.y, adjusted_radius, 8, 0);
+            Shapes.drawPolygon(g, player.position.x, player.position.y, adjusted_radius, 8, 0);
+            g.popStyle();
         }
     }
 
     public void collideWithAgent(Agent agent) {
-        float collision_distance = radius + agent.radius;
-        PVector distance_vec = PVector.sub(player.position, agent.position);
-        float distance = distance_vec.mag();
-        float collision_depth = collision_distance - distance;
-        if ( collision_depth > 0 ) {
-            PVector collision_vec = distance_vec.setMag(collision_depth);
-            agent.position.add(PVector.mult(collision_vec,-1));
+        if (active) {
+            float collision_distance = radius + agent.radius;
+            PVector distance_vec = PVector.sub(player.position, agent.position);
+            float distance = distance_vec.mag();
+            float collision_depth = collision_distance - distance;
+            if ( collision_depth > 0 ) {
+                PVector collision_vec = distance_vec.setMag(collision_depth);
+                agent.position.add(PVector.mult(collision_vec,-1));
+            }
         }
     }
 }

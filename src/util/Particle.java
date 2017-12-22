@@ -3,62 +3,69 @@ package util;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
-import processing.javafx.PSurfaceFX;
+
+import static processing.core.PApplet.map;
+import static processing.core.PConstants.TWO_PI;
 
 class Particle
 {
     PVector position;
     PVector velocity;
     float angle;
+    float lifetime;
     float lifespan;
 
-    Particle(PApplet applet, PVector l)
-    {
-        angle= applet.random(0, applet.TWO_PI);
-        velocity= PVector.fromAngle(angle);
-        velocity.x=velocity.x*applet.random(0, 2);
-        velocity.y=velocity.y*applet.random(0, 2);
-
-        position = l.copy();
-        lifespan = 255.0f;
+    Particle(PApplet applet, PVector l, float life_span) {
+        this(applet, l, life_span, 0, TWO_PI);
     }
 
-    Particle(PApplet applet, PVector l, float a1, float a2)
+    Particle(PApplet applet, PVector l, float life_span, float a1, float a2)
     {
-        angle= applet.random(a1, a2);
-        velocity= PVector.fromAngle(angle);
-        velocity.x=velocity.x*applet.random(0, 2);
-        velocity.y=velocity.y*applet.random(0, 2);
-
+        this.angle = applet.random(a1, a2);
+        velocity = PVector.fromAngle(this.angle).setMag(applet.random(0, 2));
         position = l.copy();
-        lifespan = 255.0f;
+        this.lifespan = life_span;
+        this.lifetime = life_span;
     }
 
+    Particle(PVector origin, float life_span, PVector velocity) {
+        this.angle = velocity.heading();
+        this.velocity = velocity.copy();
+        this.position = origin.copy();
+        this.lifespan = life_span;
+        this.lifetime = life_span;
+    }
 
+    Particle(PVector l, float life_span, float angle, float speed)
+    {
+        this.angle = angle;
+        velocity = PVector.fromAngle(this.angle).setMag(speed);
+        position = l.copy();
+        this.lifespan = life_span;
+        this.lifetime = life_span;
+    }
 
     // Method to update position
-    void update()
+    void update(float delta_time)
     {
-        position.add(velocity);
-        lifespan -= 5.0;//change how long particle is live
+        position.add(PVector.mult(velocity, delta_time));
+        lifespan -= delta_time;
     }
 
     // Method to display
     void display(PGraphics g)
     {
-        g.stroke(255, 0, 0, lifespan);
-        g.fill(255, lifespan);
-        g.ellipse(position.x, position.y, 8, 8);
+        float opacity = map(lifespan, 0, lifetime, 0, 255);
+
+        g.pushStyle();
+        g.stroke(255, 0, 0, opacity);
+        g.fill(255, opacity);
+        g.ellipse(position.x, position.y, 4, 4);
+        g.popStyle();
     }
 
-    // Is the particle still useful?
-    boolean isDead()
+    boolean finished()
     {
-        if (lifespan < 0.0)
-        {
-            return true;
-        } else {
-            return false;
-        }
+        return lifespan < 0;
     }
 }

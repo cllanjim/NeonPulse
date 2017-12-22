@@ -7,13 +7,13 @@ import java.util.ArrayList;
 
 class AgentController {
     private ArrayList<Agent> agents;
-    private CenterGrid grid;
+    private LooseGrid grid;
     private float width;
     private float height;
 
     AgentController(int width, int height) {
         this.agents = new ArrayList<>();
-        this.grid = new CenterGrid(width, height, 16, 2);
+        this.grid = new LooseGrid(width, height, 16, 2);
         this.width = width;
         this.height = height;
     }
@@ -43,7 +43,7 @@ class AgentController {
         for (Agent agent : agents) {
             // Check to see if the agent moved
             if (agent.owner_cell != null) {
-                CenterGrid.Cell newCell = grid.getCellAt(agent.position);
+                LooseGrid.Cell newCell = grid.getCellAt(agent.position);
                 if (newCell != agent.owner_cell) {
                     grid.removeFromCell(agent);
                     grid.addToCell(agent, newCell);
@@ -54,7 +54,7 @@ class AgentController {
 
     private void updateCollisions() {
         for (int i = 0; i < grid.cells.size(); i++) {
-            CenterGrid.Cell cell = grid.cells.get(i);
+            LooseGrid.Cell cell = grid.cells.get(i);
             int x = i % grid.columns;
             int y = i / grid.columns;
 
@@ -72,14 +72,14 @@ class AgentController {
         }
     }
 
-    private void checkCollisions(Agent agent, ArrayList<Agent> agent_list, int first_index) {
+    private static void checkCollisions(Agent agent, ArrayList<Agent> agent_list, int first_index) {
         for (int i = first_index; i < agent_list.size(); i++) {
             Agent other = agent_list.get(i);
             checkCollision(agent, other);
         }
     }
 
-    private void checkCollision(Agent agent, Agent other) {
+    private static void checkCollision(Agent agent, Agent other) {
         PVector dist_vec = PVector.sub(other.position, agent.position);
         float dist = dist_vec.mag();
         float min_distance = agent.radius + other.radius;

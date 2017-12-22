@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="libraries">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/sketchbook/libraries/GameControlPlus/library/GameControlPlus.jar!/" />
+      <root url="jar://$PROJECT_DIR$/sketchbook/libraries/sound/library/sound.jar!/" />
+      <root url="jar://$PROJECT_DIR$/sketchbook/libraries/PostFX/library/PostFX.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <NATIVE>
+      <root url="file://$PROJECT_DIR$/sketchbook/libraries/GameControlPlus/library" />
+      <root url="file://$PROJECT_DIR$/sketchbook/libraries/sound/library/windows64" />
+    </NATIVE>
+    <SOURCES />
+  </library>
+</component>

@@ -16,45 +16,44 @@ import java.util.ArrayList;
 public class Grenade implements Action {
     private Payload payload;
     private Player player;
-    SoundFile sound;
+    private SoundFile sound;
     private float speed;
     private boolean aiming;
-    float cooldown;
     private PVector control_point;
     private PVector control_vector;
     private PVector aim_vector;
     private PVector target_vector;
 
-    private static final float COOLDOWN = 1;
-
-    public Grenade(Player player, SoundFile grenade_sound) {
+    Grenade(Player player, SoundFile grenade_sound) {
         payload = new Payload(new Explosion(grenade_sound), grenade_sound);
         this.player = player;
         sound = grenade_sound;
         control_point = new PVector(0,0);
         control_vector = new PVector(0,0);
+        aim_vector = new PVector(0,0);
+        target_vector = new PVector(0,0);
         speed = 1024;
         aiming = false;
     }
 
     @Override
     public void ready() {
-        if (!aiming && !payload.active && cooldown <= 0) {
+        if (player.apManager.currentAP() < 1) return;
+        if (!aiming && !payload.active) {
             control_point.set(player.target);
-            target_vector = PVector.sub(player.target, player.position).normalize();
-            aim_vector = PVector.sub(control_point, player.position).normalize();
+            target_vector.set(PVector.sub(player.target, player.position).normalize());
+            aim_vector.set(PVector.sub(control_point, player.position).normalize());
             aiming = true;
             sound.play();
         } else if (aiming && !payload.active) {
             // This can be done at launch only, but with it here we can add debug info / aim feedback
-            control_vector = PVector.sub(player.target, control_point).limit(64);
-            target_vector = PVector.sub(player.target, player.position).normalize();
-            aim_vector = PVector.sub(control_point, player.position).normalize();
+            control_vector.set(PVector.sub(player.target, control_point).limit(64));
+            target_vector.set(PVector.sub(player.target, player.position).normalize());
+            aim_vector.set(PVector.sub(control_point, player.position).normalize());
             if (target_vector.mag() > aim_vector.mag()) {
                 float control_angle = PVector.angleBetween(control_vector, aim_vector);
                 control_vector.mult(PApplet.sin(control_angle) * PApplet.sin(control_angle));
             }
-            cooldown = COOLDOWN;
         }
     }
 
@@ -65,6 +64,7 @@ public class Grenade implements Action {
             PVector launch_vector = PVector.sub(control_point, player.position).setMag(speed).add(player.velocity);
             payload.setAcceleration(control_vector.x, control_vector.y);
             payload.activate(player.position, launch_vector);
+            player.apManager.spendActionPoint();
         }
     }
 
@@ -75,11 +75,12 @@ public class Grenade implements Action {
 
     public void update(float delta_time) {
         payload.update(delta_time);
-        cooldown -= delta_time;
     }
 
     public void display(PGraphics g) {
         if (aiming) {
+            g.pushStyle();
+            g.fill(player.fill);
             aim_vector.setMag(64);
             PVector aim_pos = PVector.add(player.position, aim_vector);
             g.ellipse(aim_pos.x, aim_pos.y, 10, 10);
@@ -87,6 +88,7 @@ public class Grenade implements Action {
             target_vector.setMag(64);
             PVector launch_pos = PVector.add(player.position, target_vector);
             g.ellipse(launch_pos.x, launch_pos.y, 15, 15);
+            g.popStyle();
         }
         payload.display(g);
     }

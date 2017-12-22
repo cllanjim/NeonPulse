@@ -22,7 +22,7 @@ public class Input {
         prev_button_state = new boolean[2];
     }
 
-    public static int getKeyIndex(char key_character) {
+    public static int getKeyIndex(int key_character) {
         int key_index = -1;
         if (key_character >= 'A' && key_character <= 'Z') {
             key_index = key_character - 'A';
@@ -32,7 +32,7 @@ public class Input {
         return key_index;
     }
 
-    public static int getButtonIndex(int mouse_button) {
+    static int getButtonIndex(int mouse_button) {
         int mouse_index = -1;
         if (mouse_button == PConstants.LEFT) {
             mouse_index = 0;

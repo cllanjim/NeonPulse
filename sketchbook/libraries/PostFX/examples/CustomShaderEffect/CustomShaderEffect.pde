@@ -1,6 +1,6 @@
-import ch.bildspur.postprocessing.builder.*;
-import ch.bildspur.postprocessing.pass.*;
-import ch.bildspur.postprocessing.*;
+import ch.bildspur.postfx.builder.*;
+import ch.bildspur.postfx.pass.*;
+import ch.bildspur.postfx.*;
 
 PostFXSupervisor supervisor;
 SobelPass sobelPass;
@@ -46,6 +46,6 @@ void draw()
   blendMode(BLEND);
   supervisor.render(canvas);
   supervisor.pass(sobelPass);
-  //supervisor.pass(negatePass);
+  supervisor.pass(negatePass);
   supervisor.compose();
 }

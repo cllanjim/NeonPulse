@@ -1,3 +1,3 @@
-ch.bildspur.postprocessing
-ch.bildspur.postprocessing.builder
-ch.bildspur.postprocessing.pass
+ch.bildspur.postfx
+ch.bildspur.postfx.builder
+ch.bildspur.postfx.pass

@@ -2,7 +2,7 @@ package game;
 
 import effects.Effect;
 import engine.Agent;
-import engine.Drawing;
+import engine.Shapes;
 import processing.core.PGraphics;
 import processing.core.PVector;
 
@@ -12,11 +12,13 @@ import static processing.core.PConstants.MAX_FLOAT;
 
 public class Mob extends Agent {
     private float range;
+    private Player following;
 
     public Mob(float x, float y) {
         position = new PVector(x, y);
         velocity = new PVector(0, 0);
         impulse = new PVector(0, 0);
+        following = null;
         health = 100;
         radius = 16;
         mass = 1;
@@ -31,11 +33,18 @@ public class Mob extends Agent {
         PVector target = new PVector(0,0);
 
         for (Player player : players) {
-            // TODO: Only stop following after twice range
             float distance = PVector.dist(player.position, position);
+
             if(distance < closest_player_distance) {
                 closest_player_distance = distance;
                 target.set(player.position);
+            }
+        }
+
+        if (following != null) {
+            float distance = PVector.dist(following.position, position);
+            if (distance > range * 2 || distance > closest_player_distance * 2) {
+                following = null;
             }
         }
 
@@ -78,11 +87,11 @@ public class Mob extends Agent {
     }
 
     public void display(PGraphics g) {
-        Drawing.shadow(g, position, radius, 0, 0xff102030);
+        Shapes.drawShadow(g, position, radius, 0, 0xff102030);
         g.pushMatrix();
         g.translate(position.x, position.y);
         g.fill(102, 0, 31);
-        Drawing.polygon(g, 0, 0, radius, 5, angle);
+        Shapes.drawPolygon(g, 0, 0, radius, 5, angle);
         g.popMatrix();
     }
 }

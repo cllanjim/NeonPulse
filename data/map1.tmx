@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="28" height="16" tilewidth="64" tileheight="64" nextobjectid="29">
  <tileset firstgid="1" source="NeonPulseTiles.tsx"/>
- <tileset firstgid="36" source="NeonPulseItems.tsx"/>
- <tileset firstgid="37" name="Embedded" tilewidth="32" tileheight="32" tilecount="2" columns="0">
+ <tileset firstgid="37" source="NeonPulseItems.tsx"/>
+ <tileset firstgid="38" name="Embedded" tilewidth="32" tileheight="32" tilecount="2" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
    <image width="32" height="32" source="tiles/wall.png"/>

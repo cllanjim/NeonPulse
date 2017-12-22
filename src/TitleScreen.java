@@ -6,9 +6,7 @@ import static processing.core.PConstants.*;
 
 class TitleScreen extends Screen {
     // Fonts
-    private PFont arcade;
     private PFont rubber;
-    private PFont streamster;
 
     private PGraphics canvas;
     private PImage background;
@@ -21,6 +19,7 @@ class TitleScreen extends Screen {
 
     private static final float PULSE_SPEED = 1500;
 
+    // TODO: Sun over mountains animation
     class Sun {
         PVector position;
         float radius;
@@ -51,9 +50,7 @@ class TitleScreen extends Screen {
 //        sun = new Sun(applet.width / 2, applet.height / 2);
 
         // Text
-        arcade = applet.createFont("fonts/arcade.ttf",32);
-        rubber = applet.createFont("fonts/rubber.ttf",32);
-        streamster = applet.createFont("fonts/streamster.ttf",32);
+        rubber = applet.createFont("fonts/rubber.ttf",72);
 
         // Pulse
         pulse_point = new PVector(0, 0);
@@ -80,13 +77,12 @@ class TitleScreen extends Screen {
 //         sun.display(canvas);
 
         canvas.pushStyle();
-        canvas.textSize(36);
         canvas.textAlign(CENTER);
         canvas.strokeWeight(4);
         canvas.stroke(0xffffffff);
         canvas.textFont(rubber);
         canvas.text("Neon Pulse", applet.width / 2, applet.height / 5);
-        canvas.point(pulse_point.x, applet.height / 5 + 10);
+        canvas.point(pulse_point.x, applet.height / 5 + 16);
         canvas.popStyle();
         canvas.endDraw();
 

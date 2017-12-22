@@ -13,39 +13,38 @@ import processing.sound.SoundFile;
 import java.util.ArrayList;
 
 public class Laser implements Action {
-    Beam beam;
-    Player player;
-    SoundFile sound;
-    float cooldown;
-    float delay;
+    private Beam beam;
+    private Player player;
+    private SoundFile sound;
+    private float delay;
     boolean active;
-    boolean charging;
+    private boolean charging;
 
-    private static final float COOLDOWN = 1;
     private static final float DELAY = 1;
-    private static final float TARGET_FRAMETIME = 1.0f / 60.0f;
+    private static final float TARGET_FRAME_TIME = 1.0f / 60.0f;
 
     Laser(Player player, SoundFile soundFile) {
         this.player = player;
         sound = soundFile;
-        cooldown = 0;
         delay = DELAY;
         beam = new Beam(soundFile);
     }
 
     @Override
     public void ready() {
-        charging = true;
+        if(player.apManager.currentAP() > 0) {
+            charging = true;
+        }
     }
 
     @Override
     public void activate() {
-        if (delay <= 0 && cooldown <= 0) {
+        if (delay <= 0 && player.apManager.currentAP() > 0) {
             // This moves the beginning of the laser to where we expect the player to be next frame.
-            PVector position_offset = PVector.mult(player.velocity, TARGET_FRAMETIME);
+            PVector position_offset = PVector.mult(player.velocity, TARGET_FRAME_TIME);
             beam.activate(PVector.add(player.position, position_offset), player.target);
-            cooldown = COOLDOWN;
             charging = false;
+            player.apManager.spendActionPoint();
         } else {
             interrupt();
         }
@@ -61,9 +60,9 @@ public class Laser implements Action {
     public void update(float delta_time) {
         if (charging) {
             delay -= delta_time;
+            if (player.particleSystem != null) player.particleSystem.attractParticle();
         }
         beam.update(delta_time);
-        cooldown -= delta_time;
     }
 
     @Override
@@ -89,9 +88,10 @@ public class Laser implements Action {
         ArrayList<PVector> collision_positions = new ArrayList<>(4);
         PVector collision_point = new PVector();
         for(int i = 0; i < points.length - 1; i++) {
-            if (Collision.lineSegments(player.position, beam.end_position, points[i], points[i+1], collision_point))
+            if (Collision.lineSegments(player.position, beam.end_position, points[i], points[i+1], collision_point)) {
                 collision_positions.add(collision_point);
                 return true;
+            }
         }
 
         if (collision_positions.size() == 0 ) {
@@ -101,6 +101,7 @@ public class Laser implements Action {
                     p.dist(player.position) > n.dist(player.position)
                             ? -1 : 1);
             beam.end_position.set(collision_positions.get(0));
+            // TODO: Create new beam reflected on this spot with remaining length
             return true;
         }
 

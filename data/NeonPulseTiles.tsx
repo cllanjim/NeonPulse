@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="NeonPulseTiles" tilewidth="65" tileheight="65" tilecount="23" columns="0">
+<tileset name="NeonPulseTiles" tilewidth="65" tileheight="65" tilecount="24" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="3">
   <image width="65" height="65" source="Pit_top_right.png"/>
@@ -20,10 +20,10 @@
   <image width="65" height="65" source="Pit_top.png"/>
  </tile>
  <tile id="7">
-  <image width="65" height="65" source="Pit_mid_left.png"/>
+  <image width="65" height="65" source="Pit_bottom_mid.png"/>
  </tile>
  <tile id="8">
-  <image width="65" height="65" source="Pit_bottom_mid.png"/>
+  <image width="65" height="65" source="pit_transparent.png"/>
  </tile>
  <tile id="9">
   <image width="65" height="65" source="floor_tile.png"/>
@@ -170,6 +170,12 @@
    <object id="2" x="32.5" y="32.5">
     <polyline points="0,0 0,-32.5"/>
    </object>
+  </objectgroup>
+ </tile>
+ <tile id="35">
+  <image width="65" height="65" source="dummy_tile.png"/>
+  <objectgroup draworder="index">
+      <object id="1" x="0" y="0" width="65" height="65"/>
   </objectgroup>
  </tile>
 </tileset>

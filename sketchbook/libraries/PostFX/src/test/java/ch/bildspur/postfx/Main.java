@@ -9,6 +9,6 @@ public class Main {
 
     public static void main(String... args) {
         Sketch sketch = new Sketch();
-        PApplet.runSketch(new String[]{"ch.bildspur.postprocessing.Sketch "}, sketch);
+        PApplet.runSketch(new String[]{"ch.bildspur.postfx.Sketch "}, sketch);
     }
 }

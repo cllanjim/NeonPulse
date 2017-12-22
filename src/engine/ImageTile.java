@@ -2,7 +2,6 @@ package engine;
 
 import processing.core.PGraphics;
 import processing.core.PImage;
-import processing.core.PVector;
 
 public class ImageTile extends Tile {
     private PImage image;

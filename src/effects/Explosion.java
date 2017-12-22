@@ -1,10 +1,10 @@
 package effects;
 
+import engine.Shapes;
 import processing.sound.SoundFile;
 import engine.Agent;
 import engine.Collision;
 import engine.Tile;
-import engine.Drawing;
 import processing.core.PGraphics;
 import processing.core.PVector;
 
@@ -40,7 +40,7 @@ public class Explosion extends Effect {
             g.pushStyle();
             g.noStroke();
             g.fill(191, 0, 31);
-            Drawing.polygon(g, position.x, position.y, radius + lifetime * 10, 8, 0);
+            Shapes.drawPolygon(g, position.x, position.y, radius + lifetime * 10, 8, 0);
 
             if (live) {
                 g.stroke(0xffffffff);

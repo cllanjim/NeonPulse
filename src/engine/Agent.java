@@ -7,6 +7,8 @@ import processing.core.PVector;
 
 import java.util.ArrayList;
 
+import static processing.core.PApplet.abs;
+
 public abstract class Agent {
     public PVector position;
     public PVector velocity;
@@ -15,10 +17,11 @@ public abstract class Agent {
     public int health;
     public float mass;
     public boolean shielded;
+    public int score = 0;
     protected float speed;
     protected float angle;
 
-    CenterGrid.Cell owner_cell;
+    LooseGrid.Cell owner_cell;
     int cell_array_index;
 
     protected Agent() {
@@ -43,6 +46,8 @@ public abstract class Agent {
     public void setPosition(PVector position) {}
 
     public void updateMovement(float delta_time) {
+        // TODO: Velocity verlet movement
+
         // Friction
         PVector friction = PVector.mult(velocity, FRICTION);
 
@@ -68,20 +73,20 @@ public abstract class Agent {
     void collideWithTile(PVector tile_position, float tile_width, float tile_height) {
         float min_distance_x = radius + tile_width / 2;
         float min_distance_y = radius + tile_height / 2;
-
-        PVector dist_vec = PVector.sub(position, tile_position);
-        float x_depth = min_distance_x - PApplet.abs(dist_vec.x);
-        float y_depth = min_distance_y - PApplet.abs(dist_vec.y);
+        float distance_x = position.x - tile_position.x;
+        float distance_y = position.y - tile_position.y;
+        float x_depth = min_distance_x - abs(distance_x);
+        float y_depth = min_distance_y - abs(distance_y);
 
         if (x_depth > 0 || y_depth > 0) {
             if (PApplet.max(x_depth, 0) <= PApplet.max(y_depth, 0)) {
-                if (dist_vec.x < 0) {
+                if (distance_x < 0) {
                     position.x -= x_depth;
                 } else {
                     position.x += x_depth;
                 }
             } else {
-                if (dist_vec.y < 0) {
+                if (distance_y < 0) {
                     position.y -= y_depth;
                 } else {
                     position.y += y_depth;

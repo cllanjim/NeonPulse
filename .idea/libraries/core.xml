@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="core">
+    <CLASSES>
+      <root url="jar://E:/Processing/core/library/core.jar!/" />
+      <root url="jar://E:/Processing/core/library/gluegen-rt-natives-windows-amd64.jar!/" />
+      <root url="jar://E:/Processing/core/library/gluegen-rt-natives-windows-i586.jar!/" />
+      <root url="jar://E:/Processing/core/library/jogl-all-natives-windows-i586.jar!/" />
+      <root url="jar://E:/Processing/core/library/jogl-all-natives-windows-amd64.jar!/" />
+      <root url="jar://E:/Processing/core/library/jogl-all.jar!/" />
+      <root url="jar://E:/Processing/core/library/gluegen-rt.jar!/" />
+      <root url="jar://E:/Processing/modes/java/libraries/net/library/net.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

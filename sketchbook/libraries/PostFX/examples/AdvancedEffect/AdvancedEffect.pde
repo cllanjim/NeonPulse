@@ -1,6 +1,6 @@
-import ch.bildspur.postprocessing.builder.*;
-import ch.bildspur.postprocessing.pass.*;
-import ch.bildspur.postprocessing.*;
+import ch.bildspur.postfx.builder.*;
+import ch.bildspur.postfx.pass.*;
+import ch.bildspur.postfx.*;
 
 PostFXSupervisor supervisor;
 BrightPass brightPass;

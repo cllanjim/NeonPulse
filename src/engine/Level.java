@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Level {
-    PApplet applet;
+    private PApplet applet;
     public ArrayList<PVector> player_spawns;
     public float tile_size;
     private PGraphics background;
@@ -53,10 +53,9 @@ public class Level {
         left = (applet.width - level_width) / 2;
 
         // Derive render data - replaces special locations with base tiles
-        String[] tile_data = level_string;
         render_data = new char[level_rows][level_columns];
-        for (int i = 0, n = tile_data.length; i < n; i++) {
-            char[] row = tile_data[i].toCharArray();
+        for (int i = 0, n = level_string.length; i < n; i++) {
+            char[] row = level_string[i].toCharArray();
             for (int j = 0, m = row.length; j < m; j++) {
                 float tile_center_x = tile_size * (j + 0.5f);
                 float tile_center_y = tile_size * (i + 0.5f);
@@ -137,6 +136,7 @@ public class Level {
 
         if(checkPitCollision(agent.position.x, agent.position.y)) {
             agent.damageLethal(100);
+            agent.score -= 1;
         }
 
         // Top Left, Top Right, Bottom Left, Bottom Right
@@ -162,7 +162,7 @@ public class Level {
     }
 
     // TODO: Following methods do the same thing pretty much. Keep one only and parametrize
-    public void checkTileCollision(ArrayList<PVector> collision_positions, float x, float y) {
+    private void checkTileCollision(ArrayList<PVector> collision_positions, float x, float y) {
         int corner_x = PApplet.floor(x / tile_size);
         int corner_y = PApplet.floor(y / tile_size);
 
@@ -180,7 +180,7 @@ public class Level {
         }
     }
 
-    boolean checkPitCollision(float x, float y) {
+    private boolean checkPitCollision(float x, float y) {
         int corner_x = PApplet.floor(x / tile_size);
         int corner_y = PApplet.floor(y / tile_size);
 
@@ -193,7 +193,7 @@ public class Level {
     }
 
     // Point-Rect Collision
-    boolean checkTileFor(float x, float y, char character) {
+    public boolean checkTileFor(float x, float y, char character) {
         int corner_x = PApplet.floor(x / tile_size);
         int corner_y = PApplet.floor(y / tile_size);
 

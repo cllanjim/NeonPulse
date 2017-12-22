@@ -1,0 +1,1709 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="ANALYZE_TEST_SOURCES" value="false" />
+    <option name="SCOPE_TYPE" value="2" />
+  </component>
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="NeonPulse:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8089f6fe-ccd7-4f10-9d51-d1c34a15a31d" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/data/dummy_tile.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/data/pit_transparent.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/engine/KinematicBody.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/engine/PhysicsBody.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/engine/StaticBody.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/skel/BaseScreen.java" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change beforePath="$PROJECT_DIR$/NeonPulse.pde" afterPath="$PROJECT_DIR$/NeonPulse.pde" />
+      <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change beforePath="$PROJECT_DIR$/data/NeonPulseTiles.tsx" afterPath="$PROJECT_DIR$/data/NeonPulseTiles.tsx" />
+      <change beforePath="$PROJECT_DIR$/data/map1.png" afterPath="$PROJECT_DIR$/data/map1.png" />
+      <change beforePath="$PROJECT_DIR$/data/map1.tmx" afterPath="$PROJECT_DIR$/data/map1.tmx" />
+      <change beforePath="$PROJECT_DIR$/data/map2.png" afterPath="$PROJECT_DIR$/data/map2.png" />
+      <change beforePath="$PROJECT_DIR$/data/map3.png" afterPath="$PROJECT_DIR$/data/map3.png" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/Console/examples/CustomConsole/CustomConsole.pde" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/Console/examples/DefaultConsole/DefaultConsole.pde" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/Console/examples/SettingsConsole/SettingsConsole.pde" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/Console/library.properties" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/Console/library/Console.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/Console/library/log4j.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/Console/library/slf4j-api.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/Console/library/slf4j-log4j.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/Console/reference/allclasses-frame.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/Console/reference/allclasses-noframe.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/Console/reference/at/mukprojects/console/Console.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/Console/reference/at/mukprojects/console/package-frame.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/Console/reference/at/mukprojects/console/package-summary.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/Console/reference/at/mukprojects/console/package-tree.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/Console/reference/constant-values.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/Console/reference/deprecated-list.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/Console/reference/help-doc.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/Console/reference/index-all.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/Console/reference/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/Console/reference/overview-tree.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/Console/reference/package-list" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/Console/reference/script.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/Console/reference/stylesheet.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/Console/src/at/mukprojects/console/Console.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/NP/library/NP.jar" afterPath="$PROJECT_DIR$/sketchbook/libraries/NP/library/NP.jar" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/README.md" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/README.md" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/AdvancedEffect/AdvancedEffect.pde" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/AdvancedEffect/AdvancedEffect.pde" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/CustomShaderEffect/CustomShaderEffect.pde" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/CustomShaderEffect/CustomShaderEffect.pde" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/OffScreenEffect/OffScreenEffect.pde" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/OffScreenEffect/OffScreenEffect.pde" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/ReadMeRendering.pde" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/ReadMeRendering.pde" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000001.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000002.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000003.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000004.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000005.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000006.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000007.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000008.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000009.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000010.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000011.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000012.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000013.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000014.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000015.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000016.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000017.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000018.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000019.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000020.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000021.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000022.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000023.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000024.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000025.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000026.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000027.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000028.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000029.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000030.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000031.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000032.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000033.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000034.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000035.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000036.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000037.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000038.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000039.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000040.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000041.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000042.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000043.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000044.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000045.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000046.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000047.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000048.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000049.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000050.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000051.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000052.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000053.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000054.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000055.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000056.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000057.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000058.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000059.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000060.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000061.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000062.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000063.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000064.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000065.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000066.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000067.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000068.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000069.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000070.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000071.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000072.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000073.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000074.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000075.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000076.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000077.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000078.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000079.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000080.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000081.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000082.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000083.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000084.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000085.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000086.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000087.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000088.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000089.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000090.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000091.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000092.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000093.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000094.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000095.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000096.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000097.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000098.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000099.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000100.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000101.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000102.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000103.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000104.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000105.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000106.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000107.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000108.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000109.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000110.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000111.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000112.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000113.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000114.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000115.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000116.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000117.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000118.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000119.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000120.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000121.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000122.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000123.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000124.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000125.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000126.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000127.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000128.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000129.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000130.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000131.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000132.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000133.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000134.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000135.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000136.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000137.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000138.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000139.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000140.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000141.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000142.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000143.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000144.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000145.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000146.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000147.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000148.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000149.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000150.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000151.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000152.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000153.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000154.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000155.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000156.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000157.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000158.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000159.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000160.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000161.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000162.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000163.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000164.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000165.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000166.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000167.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000168.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000169.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000170.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000171.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000172.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000173.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000174.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000175.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000176.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000177.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000178.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000179.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000180.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000181.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000182.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000183.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000184.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000185.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000186.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000187.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000188.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000189.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000190.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000191.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000192.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000193.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000194.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000195.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000196.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000197.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000198.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000199.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000200.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000201.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000202.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000203.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000204.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000205.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000206.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000207.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000208.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000209.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000210.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000211.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000212.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000213.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000214.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000215.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000216.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000217.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000218.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000219.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000220.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000221.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000222.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000223.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000224.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000225.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000226.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000227.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000228.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000229.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000230.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000231.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000232.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000233.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000234.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000235.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000236.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000237.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000238.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000239.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000240.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000241.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000242.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000243.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000244.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000245.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000246.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000247.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000248.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000249.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000250.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000251.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000252.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000253.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000254.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000255.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000256.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000257.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000258.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000259.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000260.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000261.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000262.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000263.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000264.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000265.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000266.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000267.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000268.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000269.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000270.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000271.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000272.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000273.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000274.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000275.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000276.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000277.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000278.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000279.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000280.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000281.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000282.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000283.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000284.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000285.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000286.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000287.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000288.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000289.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000290.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000291.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000292.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000293.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000294.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000295.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000296.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000297.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000298.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000299.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000300.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000301.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000302.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000303.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000304.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000305.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000306.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000307.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000308.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000309.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000310.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000311.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000312.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000313.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000314.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000315.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000316.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000317.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000318.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000319.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000320.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000321.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000322.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000323.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000324.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000325.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000326.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000327.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000328.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000329.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000330.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000331.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000332.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000333.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000334.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000335.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000336.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000337.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000338.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000339.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000340.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000341.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000342.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000343.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000344.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000345.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000346.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000347.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000348.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000349.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000350.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000351.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000352.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000353.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000354.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000355.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000356.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000357.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000358.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000359.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000360.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000361.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000362.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000363.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000364.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000365.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000366.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000367.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000368.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000369.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000370.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000371.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/ReadMeRendering/render-000372.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/SimpleEffect/SimpleEffect.pde" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/examples/SimpleEffect/SimpleEffect.pde" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/library.properties" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/library.properties" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/PostFXSupervisor.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/PostFXSupervisor.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/Supervisor.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/Supervisor.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/builder/PostFX.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/builder/PostFX.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/builder/PostFXBuilder.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/builder/PostFXBuilder.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/builder/package-summary.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/builder/package-summary.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/builder/package-tree.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/builder/package-tree.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/package-summary.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/package-summary.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/package-tree.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/package-tree.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/BasePass.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/BasePass.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/BloomPass.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/BloomPass.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/BlurPass.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/BlurPass.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/BrightPass.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/BrightPass.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/BrightnessContrastPass.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/BrightnessContrastPass.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/ChromaticAberrationPass.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/ChromaticAberrationPass.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/DenoisePass.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/DenoisePass.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/GrayScalePass.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/GrayScalePass.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/InvertPass.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/InvertPass.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/NoisePass.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/NoisePass.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/Pass.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/Pass.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/PixelatePass.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/PixelatePass.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/RGBSplitPass.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/RGBSplitPass.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/SaturationVibrancePass.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/SaturationVibrancePass.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/SobelPass.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/SobelPass.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/ToonPass.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/ToonPass.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/VignettePass.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/VignettePass.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/package-summary.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/package-summary.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/package-tree.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/ch/bildspur/postfx/pass/package-tree.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/index-all.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/index-all.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/overview-tree.html" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/overview-tree.html" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/package-list" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/reference/package-list" />
+      <change beforePath="$PROJECT_DIR$/sketchbook/libraries/PostFX/src/test/java/ch/bildspur/postfx/Main.java" afterPath="$PROJECT_DIR$/sketchbook/libraries/PostFX/src/test/java/ch/bildspur/postfx/Main.java" />
+      <change beforePath="$PROJECT_DIR$/src/ClientScreen.java" afterPath="$PROJECT_DIR$/src/ClientScreen.java" />
+      <change beforePath="$PROJECT_DIR$/src/GameScreen.java" afterPath="$PROJECT_DIR$/src/TestScreen.java" />
+      <change beforePath="$PROJECT_DIR$/src/InputClient.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/MenuScreen.java" afterPath="$PROJECT_DIR$/src/MenuScreen.java" />
+      <change beforePath="$PROJECT_DIR$/src/NeonPulse.java" afterPath="$PROJECT_DIR$/src/NeonPulse.java" />
+      <change beforePath="$PROJECT_DIR$/src/ParticleScreen.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/ServerScreen.java" afterPath="$PROJECT_DIR$/src/ServerScreen.java" />
+      <change beforePath="$PROJECT_DIR$/src/ShaderScreen.java" afterPath="$PROJECT_DIR$/src/ShaderScreen.java" />
+      <change beforePath="$PROJECT_DIR$/src/TiledScreen.java" afterPath="$PROJECT_DIR$/src/GameScreen.java" />
+      <change beforePath="$PROJECT_DIR$/src/TitleScreen.java" afterPath="$PROJECT_DIR$/src/TitleScreen.java" />
+      <change beforePath="$PROJECT_DIR$/src/effects/Beam.java" afterPath="$PROJECT_DIR$/src/effects/Beam.java" />
+      <change beforePath="$PROJECT_DIR$/src/effects/Effect.java" afterPath="$PROJECT_DIR$/src/effects/Effect.java" />
+      <change beforePath="$PROJECT_DIR$/src/effects/Explosion.java" afterPath="$PROJECT_DIR$/src/effects/Explosion.java" />
+      <change beforePath="$PROJECT_DIR$/src/effects/Payload.java" afterPath="$PROJECT_DIR$/src/effects/Payload.java" />
+      <change beforePath="$PROJECT_DIR$/src/effects/Projectile.java" afterPath="$PROJECT_DIR$/src/effects/Projectile.java" />
+      <change beforePath="$PROJECT_DIR$/src/effects/Pulse.java" afterPath="$PROJECT_DIR$/src/effects/Pulse.java" />
+      <change beforePath="$PROJECT_DIR$/src/effects/Trigger.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/engine/Agent.java" afterPath="$PROJECT_DIR$/src/engine/Agent.java" />
+      <change beforePath="$PROJECT_DIR$/src/engine/AgentController.java" afterPath="$PROJECT_DIR$/src/engine/AgentController.java" />
+      <change beforePath="$PROJECT_DIR$/src/engine/Camera.java" afterPath="$PROJECT_DIR$/src/engine/Camera.java" />
+      <change beforePath="$PROJECT_DIR$/src/engine/CenterGrid.java" afterPath="$PROJECT_DIR$/src/engine/LooseGrid.java" />
+      <change beforePath="$PROJECT_DIR$/src/engine/Collision.java" afterPath="$PROJECT_DIR$/src/engine/Collision.java" />
+      <change beforePath="$PROJECT_DIR$/src/engine/CornerGrid.java" afterPath="$PROJECT_DIR$/src/engine/TightGrid.java" />
+      <change beforePath="$PROJECT_DIR$/src/engine/Drawing.java" afterPath="$PROJECT_DIR$/src/engine/Shapes.java" />
+      <change beforePath="$PROJECT_DIR$/src/engine/GUI.java" afterPath="$PROJECT_DIR$/src/gui/GUI.java" />
+      <change beforePath="$PROJECT_DIR$/src/engine/ImageTile.java" afterPath="$PROJECT_DIR$/src/engine/ImageTile.java" />
+      <change beforePath="$PROJECT_DIR$/src/engine/Input.java" afterPath="$PROJECT_DIR$/src/engine/Input.java" />
+      <change beforePath="$PROJECT_DIR$/src/engine/Level.java" afterPath="$PROJECT_DIR$/src/engine/Level.java" />
+      <change beforePath="$PROJECT_DIR$/src/engine/Screen.java" afterPath="$PROJECT_DIR$/src/engine/Screen.java" />
+      <change beforePath="$PROJECT_DIR$/src/engine/Tilemap.java" afterPath="$PROJECT_DIR$/src/engine/Tilemap.java" />
+      <change beforePath="$PROJECT_DIR$/src/game/ApManager.java" afterPath="$PROJECT_DIR$/src/game/ApManager.java" />
+      <change beforePath="$PROJECT_DIR$/src/game/Grenade.java" afterPath="$PROJECT_DIR$/src/game/Grenade.java" />
+      <change beforePath="$PROJECT_DIR$/src/game/KeyboardInput.java" afterPath="$PROJECT_DIR$/src/game/KeyboardInput.java" />
+      <change beforePath="$PROJECT_DIR$/src/game/Laser.java" afterPath="$PROJECT_DIR$/src/game/Laser.java" />
+      <change beforePath="$PROJECT_DIR$/src/game/Launcher.java" afterPath="$PROJECT_DIR$/src/game/Launcher.java" />
+      <change beforePath="$PROJECT_DIR$/src/game/Loadout.java" afterPath="$PROJECT_DIR$/src/game/Loadout.java" />
+      <change beforePath="$PROJECT_DIR$/src/game/Mob.java" afterPath="$PROJECT_DIR$/src/game/Mob.java" />
+      <change beforePath="$PROJECT_DIR$/src/game/NetworkInput.java" afterPath="$PROJECT_DIR$/src/network/NetworkInput.java" />
+      <change beforePath="$PROJECT_DIR$/src/game/Player.java" afterPath="$PROJECT_DIR$/src/game/Player.java" />
+      <change beforePath="$PROJECT_DIR$/src/game/PlayerInput.java" afterPath="$PROJECT_DIR$/src/game/PlayerInput.java" />
+      <change beforePath="$PROJECT_DIR$/src/game/Shield.java" afterPath="$PROJECT_DIR$/src/game/Shield.java" />
+      <change beforePath="$PROJECT_DIR$/src/gui/CommandBox.java" afterPath="$PROJECT_DIR$/src/gui/CommandBox.java" />
+      <change beforePath="$PROJECT_DIR$/src/ptmx/Ptmx.java" afterPath="$PROJECT_DIR$/src/ptmx/Ptmx.java" />
+      <change beforePath="$PROJECT_DIR$/src/util/CenterParticle.java" afterPath="$PROJECT_DIR$/src/util/CenterParticle.java" />
+      <change beforePath="$PROJECT_DIR$/src/util/Console.java" afterPath="$PROJECT_DIR$/src/engine/Console.java" />
+      <change beforePath="$PROJECT_DIR$/src/util/Particle.java" afterPath="$PROJECT_DIR$/src/util/Particle.java" />
+      <change beforePath="$PROJECT_DIR$/src/util/ParticleSystem.java" afterPath="$PROJECT_DIR$/src/util/ParticleSystem.java" />
+      <change beforePath="$PROJECT_DIR$/src/util/PoissonDisc.java" afterPath="" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="Pure" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Singleton" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>f</find>
+      <find>agent2</find>
+      <find>getCell</find>
+      <find>player</find>
+      <find>ch.bildspur.</find>
+      <find>1610612738</find>
+      <find>PApplet.</find>
+      <find>Ptmx.this.layer</find>
+      <find>0.5</find>
+      <find>(float)</find>
+      <find>[m]</find>
+      <find>objects[i]</find>
+      <find>layer[n]</find>
+      <find>drawmode</find>
+      <find>*</find>
+      <find>void dra</find>
+      <find>readColo</find>
+      <find>mode</find>
+      <find>prop.</find>
+      <find>shape</find>
+      <find>getSha</find>
+      <find>e.</find>
+      <find>animal</find>
+      <find>double</find>
+      <find>clear()</find>
+      <find>tbox</find>
+      <find>h</find>
+      <find>loadp</find>
+      <find>player_position</find>
+      <find>applet.</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>other</replace>
+      <replace>getAgentsAt</replace>
+      <replace>graphics</replace>
+      <replace>agent</replace>
+      <replace />
+      <replace>1610612739</replace>
+      <replace>0.5f</replace>
+      <replace>.get(m)</replace>
+      <replace>objects.get(i)</replace>
+      <replace>layer.get(n)</replace>
+      <replace>shape.properties.</replace>
+      <replace>xml.</replace>
+      <replace>screen</replace>
+      <replace>float</replace>
+      <replace>currentTextBox</replace>
+      <replace>BUTTON_WIDTH</replace>
+      <replace>BUTTON_HEIGHT</replace>
+      <replace>player.target</replace>
+      <replace>player.position</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$/src</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/ptmx/Ptmx.java" />
+        <option value="$PROJECT_DIR$/data/NeonPulseTiles.tsx" />
+        <option value="$PROJECT_DIR$/src/util/CenterParticle.java" />
+        <option value="$PROJECT_DIR$/src/TitleScreen.java" />
+        <option value="$PROJECT_DIR$/NeonPulse.pde" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/src/ParticleScreen.java" />
+        <option value="$PROJECT_DIR$/src/game/PlayerInput.java" />
+        <option value="$PROJECT_DIR$/src/network/NetworkInput.java" />
+        <option value="$PROJECT_DIR$/src/engine/LooseGrid.java" />
+        <option value="$PROJECT_DIR$/src/engine/Camera.java" />
+        <option value="$PROJECT_DIR$/src/game/Player.java" />
+        <option value="$PROJECT_DIR$/src/GameScreen.java" />
+        <option value="$PROJECT_DIR$/src/effects/Actions.java" />
+        <option value="$PROJECT_DIR$/src/effects/Pulse.java" />
+        <option value="$PROJECT_DIR$/src/effects/Effect.java" />
+        <option value="$PROJECT_DIR$/src/effects/Beam.java" />
+        <option value="$PROJECT_DIR$/src/effects/Payload.java" />
+        <option value="$PROJECT_DIR$/src/TiledScreen.java" />
+        <option value="$PROJECT_DIR$/src/game/KeyboardInput.java" />
+        <option value="$PROJECT_DIR$/src/game/Launcher.java" />
+        <option value="$PROJECT_DIR$/src/gui/CommandBox.java" />
+        <option value="$PROJECT_DIR$/src/game/Loadout.java" />
+        <option value="$PROJECT_DIR$/src/game/Mob.java" />
+        <option value="$PROJECT_DIR$/src/game/Shield.java" />
+        <option value="$PROJECT_DIR$/src/gui/GUI.java" />
+        <option value="$PROJECT_DIR$/src/game/Laser.java" />
+        <option value="$PROJECT_DIR$/src/engine/Level.java" />
+        <option value="$PROJECT_DIR$/src/engine/Input.java" />
+        <option value="$PROJECT_DIR$/src/engine/Screen.java" />
+        <option value="$PROJECT_DIR$/src/MenuScreen.java" />
+        <option value="$PROJECT_DIR$/src/engine/Console.java" />
+        <option value="$PROJECT_DIR$/src/game/ApManager.java" />
+        <option value="$PROJECT_DIR$/src/game/Grenade.java" />
+        <option value="$PROJECT_DIR$/src/effects/Action.java" />
+        <option value="$PROJECT_DIR$/src/ClientScreen.java" />
+        <option value="$PROJECT_DIR$/src/ServerScreen.java" />
+        <option value="$PROJECT_DIR$/src/engine/AgentController.java" />
+        <option value="$PROJECT_DIR$/src/engine/Drawing.java" />
+        <option value="$PROJECT_DIR$/src/engine/Shapes.java" />
+        <option value="$PROJECT_DIR$/src/NeonPulse.java" />
+        <option value="$PROJECT_DIR$/src/skel/BaseScreen.java" />
+        <option value="$PROJECT_DIR$/src/engine/Tilemap.java" />
+        <option value="$PROJECT_DIR$/src/util/Particle.java" />
+        <option value="$PROJECT_DIR$/src/util/ParticleSystem.java" />
+        <option value="$PROJECT_DIR$/src/engine/Collision.java" />
+        <option value="$PROJECT_DIR$/src/engine/Agent.java" />
+        <option value="$PROJECT_DIR$/src/TestScreen.java" />
+        <option value="$PROJECT_DIR$/data/levels/level1" />
+        <option value="$PROJECT_DIR$/src/ShaderScreen.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="width" value="976" />
+    <option name="height" value="1038" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Complete">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Java</id>
+          </State>
+          <State>
+            <id>JavaBeans issuesJava</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>JavaBeans issuesJava</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+    <entry key="Performance">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Abstraction issuesJava</id>
+          </State>
+          <State>
+            <id>Java</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>MethodOnlyUsedFromInnerClass</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Declaration redundancyJava</id>
+          </State>
+          <State>
+            <id>Java</id>
+          </State>
+          <State>
+            <id>Performance issuesJava</id>
+          </State>
+          <State>
+            <id>Probable bugsJava</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Declaration redundancyJava</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages PackagesPane="false" ProjectPane="false" />
+      <showMembers PackagesPane="false" ProjectPane="false" />
+      <showModules PackagesPane="true" />
+      <showLibraryContents />
+      <hideEmptyPackages PackagesPane="false" ProjectPane="true" />
+      <abbreviatePackageNames />
+      <autoscrollToSource ProjectPane="true" />
+      <autoscrollFromSource ProjectPane="true" />
+      <sortByType PackagesPane="true" ProjectPane="true" />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Pure" type="58d84e3e:PackageViewProjectNode" />
+              <item name="Pure" type="616d4139:PackageViewModuleNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <expand>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="Pure" type="cbb8eebc:String" user="Pure" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="Pure" type="cbb8eebc:String" user="Pure" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="AndroidView" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="NeonPulse" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NeonPulse" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NeonPulse" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NeonPulse" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/sketchbook/libraries/Console/library/slf4j-log4j.jar!/" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="run.code.analysis.last.selected.profile" value="aLint" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="ToolWindowDependency Viewer.ShowToolbar" value="false" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="extract.method.default.visibility" value="private" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
+    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="pure" />
+    <property name="nodejs_interpreter_path" value="/usr/bin/node" />
+    <property name="typescript-compiler-editor-notification" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="game.Player" />
+      <recent name="height" />
+      <recent name="engine.Drawing" />
+      <recent name="engine.Input" />
+      <recent name="scene.Input" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="network" />
+      <recent name="Map" />
+      <recent name="Scene" />
+      <recent name="Agents" />
+      <recent name="" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/postfx" />
+      <recent name="$PROJECT_DIR$/src/postfx/builder" />
+      <recent name="$PROJECT_DIR$/data" />
+      <recent name="$PROJECT_DIR$/src/PostFX" />
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Projects\Uni\NeonPulse\data" />
+      <recent name="$PROJECT_DIR$/data" />
+      <recent name="$PROJECT_DIR$/data/shaders" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+    </configuration>
+    <configuration name="Neon Pulse" type="Application" factoryName="Application" singleton="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" value="NeonPulse" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="NeonPulse" />
+      <envs />
+      <RunnerSettings RunnerId="Debug with VisualVM">
+        <option name="visualVMId" value="13039907633539" />
+      </RunnerSettings>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration default="true" type="JarApplication" factoryName="JAR Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <envs />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="Pure" />
+      <envs />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file id="idea.log" enabled="true" />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value=",ALPHA_COMPARATOR,SHOW_FIELDS,SHOW_NON_PUBLIC" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8089f6fe-ccd7-4f10-9d51-d1c34a15a31d" name="Default" comment="" />
+      <created>1508406931467</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1508406931467</updated>
+      <workItem from="1510071747763" duration="29282000" />
+      <workItem from="1511181509217" duration="18974000" />
+      <workItem from="1511265074433" duration="3342000" />
+      <workItem from="1511268675788" duration="3660000" />
+      <workItem from="1511277112070" duration="9074000" />
+      <workItem from="1511386185616" duration="2190000" />
+      <workItem from="1511440230137" duration="8076000" />
+      <workItem from="1511629185155" duration="4701000" />
+      <workItem from="1511878291569" duration="8969000" />
+      <workItem from="1511897535965" duration="984000" />
+      <workItem from="1511908686583" duration="4070000" />
+      <workItem from="1511958036919" duration="7965000" />
+      <workItem from="1512068376827" duration="8446000" />
+      <workItem from="1512215967604" duration="35757000" />
+      <workItem from="1512323057770" duration="8092000" />
+      <workItem from="1512483129322" duration="2642000" />
+      <workItem from="1512561678605" duration="3310000" />
+      <workItem from="1512568769099" duration="1998000" />
+      <workItem from="1512582176615" duration="2792000" />
+      <workItem from="1512668568660" duration="42000" />
+      <workItem from="1512671143765" duration="2879000" />
+      <workItem from="1512869158106" duration="542000" />
+      <workItem from="1512869724039" duration="113000" />
+      <workItem from="1512870789796" duration="3341000" />
+      <workItem from="1512874876447" duration="524000" />
+      <workItem from="1512921182672" duration="6864000" />
+      <workItem from="1513029751195" duration="986000" />
+      <workItem from="1513078424504" duration="1798000" />
+      <workItem from="1513106554943" duration="270000" />
+      <workItem from="1513108498062" duration="2120000" />
+      <workItem from="1513111447983" duration="4034000" />
+      <workItem from="1513172033102" duration="4083000" />
+      <workItem from="1513186356828" duration="3675000" />
+      <workItem from="1513249085726" duration="24899000" />
+      <workItem from="1513435091003" duration="18126000" />
+      <workItem from="1513514262421" duration="7756000" />
+      <workItem from="1513552259170" duration="4530000" />
+      <workItem from="1513594228693" duration="7830000" />
+      <workItem from="1513626491594" duration="3115000" />
+      <workItem from="1513631974303" duration="6560000" />
+      <workItem from="1513638722781" duration="24023000" />
+      <workItem from="1513773278692" duration="6129000" />
+      <workItem from="1513881691956" duration="19547000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="318110000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <layout>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3204105" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.32970452" sideWeight="0.50292826" order="9" side_tool="true" content_ui="tabs" x="459" y="153" width="680" height="212" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="true" show_stripe_button="true" weight="0.32659408" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" x="483" y="240" width="755" height="442" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32998326" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3281768" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22019334" sideWeight="0.49455675" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="0.32970452" sideWeight="0.49707174" order="14" side_tool="false" content_ui="tabs" x="1" y="40" width="1916" height="989" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.32970452" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18154311" sideWeight="0.49455675" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.077912256" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39338654" sideWeight="0.49707174" order="6" side_tool="false" content_ui="tabs" x="396" y="238" width="907" height="553" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19912152" sideWeight="0.5054432" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
+      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32663316" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32970452" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.32970452" sideWeight="0.50292826" order="9" side_tool="true" content_ui="tabs" x="459" y="153" width="680" height="212" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
+      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="0.32970452" sideWeight="0.49707174" order="14" side_tool="false" content_ui="tabs" x="961" y="38" width="958" height="991" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18154311" sideWeight="0.49455675" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.077912256" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39338654" sideWeight="0.49707174" order="6" side_tool="false" content_ui="tabs" x="396" y="238" width="907" height="553" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3204105" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="true" show_stripe_button="true" weight="0.32659408" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" x="483" y="240" width="755" height="442" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32998326" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3281768" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.216971" sideWeight="0.49455675" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32663316" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32970452" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.32970452" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19912152" sideWeight="0.5054432" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/ptmx/Ptmx.java</url>
+          <line>297</line>
+          <properties />
+          <option name="timeStamp" value="119" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/engine/Tilemap.java</url>
+          <line>38</line>
+          <properties />
+          <option name="timeStamp" value="147" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="148" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/effects/Actions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="22" lean-forward="true" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/effects/Pulse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-198">
+          <caret line="12" column="31" lean-forward="false" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/engine/Input.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-739">
+          <caret line="46" column="36" lean-forward="true" selection-start-line="46" selection-start-column="36" selection-end-line="46" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Processing/core/library/core.jar!/processing/core/PGraphics.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="1657" column="34" lean-forward="true" selection-start-line="1657" selection-start-column="34" selection-end-line="1657" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/engine/Console.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/PlayerInput.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/ApManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="9" column="20" lean-forward="false" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+          <folding>
+            <element signature="e#1787#1788#0" expanded="false" />
+            <element signature="e#1822#1823#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/Laser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="110" column="53" lean-forward="true" selection-start-line="110" selection-start-column="53" selection-end-line="110" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/Launcher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="15" column="26" lean-forward="true" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/Shield.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-90">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/effects/Effect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="21" lean-forward="true" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/effects/Action.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GameScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="49" column="16" lean-forward="false" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ServerScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ClientScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/engine/Item.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="22" lean-forward="false" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/engine/Shapes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="10" column="19" lean-forward="false" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MenuScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-234">
+          <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/NeonPulse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-522">
+          <caret line="134" column="0" lean-forward="false" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
+          <folding>
+            <element signature="e#3024#3025#0" expanded="false" />
+            <element signature="e#3085#3086#0" expanded="false" />
+            <element signature="e#5871#5872#0" expanded="false" />
+            <element signature="e#5907#5908#0" expanded="false" />
+            <element signature="e#5950#5951#0" expanded="false" />
+            <element signature="e#6010#6011#0" expanded="false" />
+            <element signature="e#6257#6258#0" expanded="false" />
+            <element signature="e#6295#6296#0" expanded="false" />
+            <element signature="e#6327#6328#0" expanded="false" />
+            <element signature="e#6364#6365#0" expanded="false" />
+            <element signature="e#6397#6398#0" expanded="false" />
+            <element signature="e#6436#6437#0" expanded="false" />
+            <element signature="e#6470#6471#0" expanded="false" />
+            <element signature="e#6518#6519#0" expanded="false" />
+            <element signature="e#6553#6554#0" expanded="false" />
+            <element signature="e#6603#6604#0" expanded="false" />
+            <element signature="e#6633#6634#0" expanded="false" />
+            <element signature="e#6664#6665#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TitleScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="45" column="12" lean-forward="false" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/skel/BaseScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#187#188#0" expanded="false" />
+            <element signature="e#216#217#0" expanded="false" />
+            <element signature="e#374#375#0" expanded="false" />
+            <element signature="e#401#402#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/engine/Screen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="13" column="20" lean-forward="true" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
+          <folding>
+            <element signature="e#621#622#0" expanded="false" />
+            <element signature="e#657#658#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/engine/Tile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="22" lean-forward="false" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/engine/AgentController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="90" column="0" lean-forward="true" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/engine/ImageTile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/util/CenterParticle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="10" column="13" lean-forward="true" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/util/ParticleSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#591#592#0" expanded="false" />
+            <element signature="e#660#661#0" expanded="false" />
+            <element signature="e#932#933#0" expanded="false" />
+            <element signature="e#1007#1008#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ptmx/Ptmx.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="663" column="0" lean-forward="false" selection-start-line="663" selection-start-column="0" selection-end-line="663" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/Processing/core/library/core.jar!/processing/core/PVector.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="24" column="11" lean-forward="false" selection-start-line="24" selection-start-column="11" selection-end-line="24" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/Grenade.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="369">
+          <caret line="118" column="0" lean-forward="false" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/engine/Collision.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="32" column="39" lean-forward="true" selection-start-line="32" selection-start-column="39" selection-end-line="32" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/engine/Tilemap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="115" column="25" lean-forward="true" selection-start-line="115" selection-start-column="25" selection-end-line="115" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/engine/Agent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/engine/Level.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-27">
+          <caret line="173" column="78" lean-forward="true" selection-start-line="173" selection-start-column="78" selection-end-line="173" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/levels/level1">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/map3.tmx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TestScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3690">
+          <caret line="252" column="0" lean-forward="false" selection-start-line="252" selection-start-column="0" selection-end-line="252" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ShaderScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1260">
+          <caret line="82" column="23" lean-forward="false" selection-start-line="82" selection-start-column="23" selection-end-line="82" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/map1.tmx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="53" lean-forward="false" selection-start-line="3" selection-start-column="53" selection-end-line="3" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/NeonPulseTiles.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/util/Particle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-153">
+          <caret line="18" column="44" lean-forward="false" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/dictionaries/raulgrell.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/libraries/core.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/libraries/libraries.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/misc.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/modules.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/uiDesigner.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/vcs.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="10" column="14" lean-forward="true" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <last-edited>NeonPulse:jar</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>NeonPulse</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>libraries</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <last-edited>Source</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

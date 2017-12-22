@@ -7,7 +7,7 @@ import processing.sound.SoundFile;
 import engine.Agent;
 import engine.Collision;
 import engine.Tile;
-import engine.Drawing;
+import engine.Shapes;
 
 public class Payload extends Effect {
     private Effect effect;
@@ -15,8 +15,8 @@ public class Payload extends Effect {
     private PVector velocity;
     private PVector acceleration;
     private float angle;
-    public float radius;
     private int frame_count;
+    public float radius;
 
     private static final float DELAY = 0.5f;
     private static final int TAIL_LENGTH = 8;
@@ -97,10 +97,10 @@ public class Payload extends Effect {
             g.pushStyle();
             g.noStroke();
             g.fill(0xfff50455);
-            Drawing.polygon(g, position.x, position.y, radius, 3, angle + PConstants.PI);
-            Drawing.polygon(g, position.x, position.y, radius, 3, angle);
+            Shapes.drawPolygon(g, position.x, position.y, radius, 3, angle + PConstants.PI);
+            Shapes.drawPolygon(g, position.x, position.y, radius, 3, angle);
             for (int i = 1; i < history.length && i < frame_count; i++) {
-                Drawing.polygon(g, history[i].x, history[i].y, radius, 3, angle);
+                Shapes.drawPolygon(g, history[i].x, history[i].y, radius, 3, angle);
             }
             g.popStyle();
         }

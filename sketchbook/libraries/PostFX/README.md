@@ -63,9 +63,9 @@ To use the library you have to install it over the processing contribution manag
 Import following packages to use all classes of the **PostFX** library.
 
 ```java
-import ch.bildspur.postprocessing.builder.*;
-import ch.bildspur.postprocessing.pass.*;
-import ch.bildspur.postprocessing.*;
+import ch.bildspur.postfx.builder.*;
+import ch.bildspur.postfx.pass.*;
+import ch.bildspur.postfx.*;
 ```
 
 Use the library on every `PGraphics3D` or `PGraphics2D` object or even on the screen object (`g`).

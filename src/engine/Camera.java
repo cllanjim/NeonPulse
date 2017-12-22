@@ -11,5 +11,4 @@ public abstract class Camera {
 
     abstract boolean isBoxInView();
     abstract void updatePosition();
-
 }

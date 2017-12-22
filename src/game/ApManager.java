@@ -1,88 +1,83 @@
 package game;
 
-
-
 import processing.core.PApplet;
 import processing.core.PGraphics;
-import processing.core.PVector;
+
+import static processing.core.PApplet.*;
 
 public class ApManager {
-    PApplet applet;
+    private PApplet applet;
+    private Player player;
+    private float angularVelocity;
+    private float actionPoints;
+    private float actionTimer;
+    private float radius;
+    private float angle;
 
-    float angularVelocity;
-    float ap;
-    float apTimer;
-    float centerX, centerY;
-    float circSize;
-    float r;
+    static final float CIRCLE_RADIUS = 12;
+    static final float ACTION_POINTS = 3;
+    static final float CHARGE_DELAY = 2;
 
-    float pSize;
-    float angle;
-
-    public ApManager(PApplet applet, PVector pos, float radius)
+    public ApManager(PApplet applet, Player player, float radius)
     {
-        ap=3;
-        centerX=pos.x;
-        centerY=pos.y;
-        angle=0;
-        circSize=15;
-        r=2*radius;
-        angularVelocity = applet.TWO_PI;
-        this.applet=applet;
-    }//constructor end
-
+        this.applet = applet;
+        this.player = player;
+        this.radius = radius;
+        actionPoints = ACTION_POINTS;
+        angle = 0;
+        angularVelocity = TWO_PI;
+    }
 
     public void display(PGraphics g)
     {
         g.pushMatrix();
-        g.translate(centerX, centerY);
+        g.pushStyle();
+        g.translate(player.position.x, player.position.y);
         g.rotate(angle);
-
-        if (ap>=1)
+        g.fill(player.fill);
+        if (actionPoints >=1)
         {
-            g.fill(200, 0, 0);
-            g.ellipse(r*applet.cos(2*applet.PI/3), r*applet.sin(2*applet.PI/3), circSize, circSize);
+            g.ellipse(radius * cos(2*PI/3), radius * sin(2*PI/3), CIRCLE_RADIUS, CIRCLE_RADIUS);
         }
-        if (ap>=2)
+        if (actionPoints >=2)
         {
-            g.fill(0, 200, 0);
-            g.ellipse(r*applet.cos(4*applet.PI/3), r*applet.sin(4*applet.PI/3), circSize, circSize);
+            g.ellipse(radius * cos(4*PI/3), radius * sin(4*PI/3), CIRCLE_RADIUS, CIRCLE_RADIUS);
         }
-        if (ap>=3)
+        if (actionPoints >=3)
         {
-            g.fill(0, 0, 200);
-            g.ellipse(r*applet.cos(2*applet.PI), r*applet.sin(2*applet.PI), circSize, circSize);
+            g.ellipse(radius * cos(2*PI), radius * sin(2*PI), CIRCLE_RADIUS, CIRCLE_RADIUS);
         }
-
+        g.popStyle();
         g.popMatrix();
-    }//display end
+    }
 
     public void update(float delta_time)
     {
-        angle = angle + angularVelocity * delta_time;
+        angle += angularVelocity * delta_time;
 
-        // create ap
-        if (ap<3)
-            apTimer += delta_time;
-
-        if (apTimer > 1)
+        if (actionPoints < ACTION_POINTS)
         {
-            ap++;
-            apTimer=0;
+            actionTimer += delta_time;
+        }
+
+        if (actionTimer > CHARGE_DELAY)
+        {
+            actionPoints++;
+            actionTimer = 0;
         }
     }
 
     public float currentAP()
     {
-        return ap;
+        return actionPoints;
     }
 
-    public void useAP()
+    public void spendActionPoint()
     {
-        if (ap>0)
+        if (actionPoints > 0)
         {
-            ap--;
-            apTimer=0;
+            actionPoints--;
+            actionTimer = 0;
         }
     }
 

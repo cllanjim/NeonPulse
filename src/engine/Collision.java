@@ -30,16 +30,18 @@ public final class Collision {
 
     // Axis-Aligned Boundary Box Collision
     public static boolean AABB(PVector position_a, PVector dimensions_a, PVector position_b, PVector dimensions_b) {
-        return AABB(position_a, dimensions_a, position_b, dimensions_b.x, dimensions_b.y);
+        return AABB(position_a, dimensions_a.x, dimensions_a.y, position_b, dimensions_b.x, dimensions_b.y);
     }
 
-    public static boolean AABB(PVector position_a, PVector dimensions_a, PVector position_b, float width_b, float height_b) {
-        float collision_distance_x = dimensions_a.x / 2 + width_b / 2;
-        float collision_distance_y = dimensions_a.y / 2 + height_b / 2;
-        PVector center = PVector.add(position_a, PVector.div(dimensions_a, 2));
-        PVector offset = PVector.sub(center, position_b);
-        float collision_depth_x = collision_distance_x - PApplet.abs(offset.x);
-        float collision_depth_y = collision_distance_y - PApplet.abs(offset.y);
+    public static boolean AABB(PVector position_a, float width_a, float height_a, PVector position_b, float width_b, float height_b) {
+        float collision_distance_x = width_a / 2 + width_b / 2;
+        float collision_distance_y = height_a / 2 + height_b / 2;
+        float center_x = position_a.x + width_a / 2;
+        float center_y = position_a.y + height_a / 2;
+        float offset_x = center_x - position_b.x;
+        float offset_y = center_y - position_b.y;
+        float collision_depth_x = collision_distance_x - PApplet.abs(offset_x);
+        float collision_depth_y = collision_distance_y - PApplet.abs(offset_y);
         return (collision_depth_x > 0) && (collision_depth_y > 0);
     }
 
@@ -80,9 +82,14 @@ public final class Collision {
     }
 
     // Point Collision
-    public static boolean pointBox(PVector point, PVector position, PVector dimensions) {
-        return (point.x >= position.x) && (point.x <= (position.x + dimensions.x))
-                && (point.y >= position.y) && (point.y <= (position.y + dimensions.y));
+    public static boolean pointBox(PVector point, PVector position, float width, float height) {
+        return (point.x >= position.x) && (point.x <= (position.x + width))
+                && (point.y >= position.y) && (point.y <= (position.y + height));
+    }
+
+    // Point Collision
+    public static boolean pointRect(float x, float y, float rect_x, float rect_y, float width, float height) {
+        return (x >= rect_x) && (x <= (rect_x + width)) && (y >= rect_y) && (y <= (rect_y + height));
     }
 
     // Point Collision

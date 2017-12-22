@@ -2,6 +2,8 @@ package game;
 
 import effects.Action;
 import effects.Projectile;
+import engine.Level;
+import engine.Tilemap;
 import processing.core.PGraphics;
 import processing.sound.SoundFile;
 import engine.Agent;
@@ -11,7 +13,7 @@ import java.util.ArrayList;
 public class Launcher implements Action {
     private ArrayList<Projectile> bullets;
     private float cooldown;
-    SoundFile sound;
+    private SoundFile sound;
     Player player;
 
     private static final float BULLET_SPEED = 600;
@@ -62,7 +64,24 @@ public class Launcher implements Action {
     public void collideWithAgent(Agent agent) {
         for (int i = bullets.size() - 1; i >= 0; i--) {
             Projectile bullet = bullets.get(i);
-            if(bullet.collideWithAgent(agent, a -> a.addImpulse(bullet.position, 1024))) {
+            if (bullet.collideWithAgent(agent, a -> a.addImpulse(bullet.position, 1024))) {
+                bullets.remove(i);
+            }
+        }
+    }
+
+    public void collideWithLevel(Level level) {
+        for (int i = bullets.size() - 1; i >= 0; i--) {
+            Projectile bullet = bullets.get(i);
+            if(level.checkTileFor(bullet.position.x, bullet.position.y, '#'))
+                bullets.remove(i);
+        }
+    }
+
+    public void collideWithTilemap(Tilemap tilemap) {
+        for (int i = bullets.size() - 1; i >= 0; i--) {
+            Projectile bullet = bullets.get(i);
+            if (tilemap.checkCollision(bullet.position.x, bullet.position.y)) {
                 bullets.remove(i);
             }
         }

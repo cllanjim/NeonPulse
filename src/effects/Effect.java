@@ -8,10 +8,10 @@ import processing.core.PVector;
 
 public abstract class Effect {
     public PVector position;
-    SoundFile sound;
     public boolean active;
-    boolean live;
     public float lifetime;
+    SoundFile sound;
+    boolean live;
     float cooldown;
 
     static final float COOLDOWN = 2;

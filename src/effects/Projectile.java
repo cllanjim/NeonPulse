@@ -2,8 +2,8 @@ package effects;
 
 import engine.Agent;
 import engine.Collision;
+import engine.Shapes;
 import engine.Tile;
-import engine.Drawing;
 import processing.core.PGraphics;
 import processing.core.PVector;
 
@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 
 public class Projectile extends Effect {
     private float heading;
-    private float radius;
+    public float radius;
     private float speed;
 
     private static final int LIFESPAN = 1;
@@ -60,7 +60,7 @@ public class Projectile extends Effect {
         g.pushStyle();
         g.noStroke();
         g.fill(192, 63, 192);
-        Drawing.polygon(g, position.x, position.y, radius, 3, heading);
+        Shapes.drawPolygon(g, position.x, position.y, radius, 3, heading);
         g.popStyle();
     }
 }

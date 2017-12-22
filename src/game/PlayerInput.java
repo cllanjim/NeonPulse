@@ -1,6 +1,5 @@
 package game;
 
-import effects.Action;
 import effects.Effect;
 
 public interface PlayerInput {

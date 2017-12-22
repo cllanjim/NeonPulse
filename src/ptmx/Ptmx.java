@@ -207,7 +207,10 @@ public class Ptmx {
     public abstract static class CollisionShape {
         int id;
         String type;
-        float x, y, width, height;
+        public float x;
+        public float y;
+        public float width;
+        public float height;
         PVector[] points;
 
         CollisionShape(int id, float x, float y) {
@@ -231,7 +234,7 @@ public class Ptmx {
             }
         }
 
-        static CollisionShape fromStringDict(StringDict o) {
+        public static CollisionShape fromStringDict(StringDict o) {
             int id = parseInt(o.get("id"));
             float x = parseInt(o.get("x"));
             float y = parseInt(o.get("y"));
@@ -349,12 +352,12 @@ public class Ptmx {
     }
 
     private static Rectangle makeAABB(PVector[] points) {
-        float minX = Float.MAX_VALUE;
+        float minX =  Float.MAX_VALUE;
         float maxX = -Float.MAX_VALUE;
-        float minY = Float.MAX_VALUE;
+        float minY =  Float.MAX_VALUE;
         float maxY = -Float.MAX_VALUE;
 
-        for(int i = 1; i < points.length - 1; i++) {
+        for(int i = 0; i < points.length; i++) {
             minX = Math.min(minX, points[i].x);
             maxX = Math.max(maxX, points[i].x);
             minY = Math.min(minY, points[i].y);

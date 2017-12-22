@@ -5,6 +5,8 @@ import effects.*;
 import game.*;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 // Controllers
 import org.gamecontrolplus.*;
@@ -13,78 +15,106 @@ import org.gamecontrolplus.*;
 import processing.net.*;
 import processing.sound.AudioDevice;
 
-// PostFX
-import ch.bildspur.postprocessing.builder.*;
-import ch.bildspur.postprocessing.pass.*;
-import ch.bildspur.postprocessing.*;
-
 // Debug
-Debug g_debug;
+static Debug g_debug;
 
 // Networking
-Server g_game_server;
+static Server g_game_server;
 
 // Controllers
-ControlIO g_control_io;
-Configuration g_ps3_controller_config;
-ArrayList<Configuration> g_controller_configs = new ArrayList<Configuration>(3);
+static ControlIO g_control_io;
+static ArrayList<Configuration> g_controller_configs = new ArrayList<Configuration>(3);
 
 // Global / Keyboard Input
-Input g_input = new Input();
+static Input g_input = new Input();
 
 // PostFX
-private PostFX fx;
-private boolean g_post_processing = false;
+static boolean postProcessingActive = false;
 
 // Audio
 private AudioDevice g_audio_server;
 
 // Timing
-private int g_millis = 0;
+private int currentMillis;
 
 // Screens
-private ArrayList<Screen> g_screens = new ArrayList<Screen>(3);
-private int g_current_screen_index = 2;
+private ArrayList<Screen> screens = new ArrayList<Screen>(3);
+private int currentScreenIndex = 0;
+private Screen currentScreen;
+
+static Screen g_game_screen;
+
+static final float TARGET_FRAMERATE = 60;
 
 static final class Config {
-  static final boolean DEBUG = true;
-  static final boolean KEYBOARD = true;
-  static final int PORT = 5204;
+    public static final boolean DEBUG = true;
+    static final boolean KEYBOARD = true;
+    static final int PORT = 5204;
+    static HashMap<String, Float> values = new HashMap<String, Float>();
+
+    static {
+        values.put("AREA_RADIUS", 128f);
+        values.put("AREA_FACTOR", 0f);
+        values.put("AREA_LIFESPAN", 2f);
+        values.put("BEAM_LENGTH", 386f);
+        values.put("BEAM_LIFESPAN", 0.1f);
+        values.put("CONE_ANGLE", PI/3.0f);
+        values.put("CONE_FORCE", 128f);
+        values.put("CONE_LIFESPAN", 1f);
+        values.put("EXPLOSION_FORCE", 256f);
+        values.put("EXPLOSION_RADIUS", 256f);
+        values.put("EXPLOSION_LIFESPAN", 1f);
+        values.put("PULSE_RADIUS", 256f);
+        values.put("PULSE_FORCE", 128f);
+        values.put("PULSE_LIFESPAN", 1f);
+        values.put("PUSH_RANGE", 128f);
+        values.put("PUSH_FORCE", 128f);
+        values.put("PUSH_LIFESPAN", 128f);
+    }
+
+    static void setValue(String key, Float value) {
+        values.put(key, value);
+    }
+
+    static float getValue(String key, Float default_value) {
+        return values.getOrDefault(key, default_value);
+    }
 }
 
 static class Debug {
-  PApplet applet;
-  PGraphics graphics;
+    PApplet applet;
+    PGraphics graphics;
 
-  Debug(PApplet applet) {
-    this.applet = applet;
-    graphics = applet.createGraphics(applet.width, applet.height);
-  }
+    Debug(PApplet applet) {
+        this.applet = applet;
+        graphics = applet.createGraphics(applet.width, applet.height);
+    }
 
-  void begin() {
-    graphics.beginDraw();
-    graphics.clear();
-    graphics.noFill();
-    graphics.stroke(255);
-    graphics.strokeWeight(3);
-  }
+    void begin() {
+        graphics.beginDraw();
+        graphics.clear();
+        graphics.noFill();
+        graphics.stroke(255);
+        graphics.strokeWeight(3);
+    }
 
-  void drawFPS(float x, float y) {
-    graphics.text(applet.frameRate, x, y);
-  }
+    void drawFPS(float x, float y) {
+        graphics.text(applet.frameRate, x, y);
+    }
 
-  void drawCursor(float x, float y) {
-    graphics.point(x, y);
-  }
+    void drawCursor(float x, float y) {
+        graphics.point(x, y);
+    }
 
-  void end() {
-    graphics.endDraw();
-  }
+    PGraphics render() {
+        graphics.endDraw();
+        return graphics;
+    }
 }
 
 public void setup() {
     // Environment
-    frameRate(60);
+    frameRate(TARGET_FRAMERATE);
     noStroke();
     noCursor();
 
@@ -107,17 +137,14 @@ public void setup() {
     // Audio
     g_audio_server = new AudioDevice(this, 44100, 128);
 
-    // PostFX
-    fx = new PostFX(this);
-    fx_supervisor = new PostFXSupervisor(this);
-
     // Screens
+    g_game_screen = new GameScreen(this);
     screens.add(new TitleScreen(this));
-    screens.add(new GameScreen(this));
-    screens.add(new ShaderScreen(this, fx_supervisor));
-    screens.add(new TiledScreen(this));
+    screens.add(new MenuScreen(this));   
+    screens.add(g_game_screen);
+    screens.add(new TestScreen(this));
+    
     currentScreen = screens.get(currentScreenIndex);
-
     currentScreen.load();
 
     // Avoid time skip on first draw
@@ -143,14 +170,8 @@ public void draw() {
     currentScreen.update(deltatime);
 
     // Render Screen
-    PGraphics canvas = currentScreen.render();
     blendMode(BLEND);
-    image(canvas, 0, 0);
-
-    if (postProcessingActive) {
-        blendMode(SCREEN);
-        currentScreen.renderFX(fx);
-    }
+    image(currentScreen.render(), 0, 0);
 
     // Render Debug
     if (Config.DEBUG) {
@@ -173,30 +194,26 @@ public void draw() {
 }
 
 public void keyPressed() {
-  g_input.pressKey(key);
+    g_input.pressKey(key);
 }
 
 public void keyReleased() {
-  g_input.releaseKey(key);
+    g_input.releaseKey(key);
 }
 
 public void mousePressed() {
-  int mouse_index = Input.getButtonIndex(mouseButton);
-  if (mouse_index < 0) return;
-  g_input.curr_button_state[mouse_index] = true;
+    g_input.pressButton(mouseButton);
 }
 
 public void mouseReleased() {
-  int mouse_index = Input.getButtonIndex(mouseButton);
-  if (mouse_index < 0) return;
-  g_input.curr_button_state[mouse_index] = false;
+    g_input.releaseButton(mouseButton);
 }
 
 // TODO: Server object already keeps list of clients, rework server stuff
 public void serverEvent(Server server, Client client) {
-  Screen.addClient(client);
+    Screen.addClient(client);
 }
 
 public void settings() {
-  size(1024, 576, P3D);
+    fullScreen(P2D);
 }

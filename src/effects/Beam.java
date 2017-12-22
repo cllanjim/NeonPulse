@@ -9,7 +9,6 @@ import processing.core.PVector;
 
 public class Beam extends Effect {
     public PVector end_position;
-
     private static final float LENGTH = 360;
     private static final float FORCE = 128;
     private static final float LIFESPAN = 0.1f;

@@ -3,49 +3,46 @@ package util;
 import processing.core.PApplet;
 import processing.core.PVector;
 
+import static processing.core.PConstants.TWO_PI;
+
 class CenterParticle extends Particle
 {
-    float pX, pY;
     float centerX, centerY;
     PVector pV;
 
-    CenterParticle(PApplet applet, PVector l)
+    CenterParticle(PApplet applet, PVector l, float life_span)
     {
-        super(applet, l);
+        super(applet, l, life_span);
 
-        pV= PVector.fromAngle(angle).setMag(applet.random(0,100));
+        this.angle = applet.random(0, TWO_PI);
+        pV = PVector.fromAngle(angle).setMag(applet.random(0,50));
 
         centerX = l.x;//area where particles disappear
         centerY = l.y;
 
         position = new PVector (l.x+pV.x, l.y+pV.y);//creates particle in a random distance from the received point 'l'
-        velocity = new PVector(((l.x - position.x)*0.05f), ((l.y - position.y)*0.05f));
-
-        lifespan = 255.0f;
+        velocity = new PVector(((l.x - position.x)), ((l.y - position.y)));
     }
 
-    CenterParticle(PApplet applet, PVector l, float a1, float a2)
+    CenterParticle(PApplet applet, PVector l, float life_span, float a1, float a2)
     {
-        super(applet, l);
+        super(applet, l, life_span);
 
-        this.angle=applet.random(a1, a2);
-        pV= PVector.fromAngle(angle).setMag(applet.random(0,100));
+        this.angle = applet.random(a1, a2);
+
+        pV = PVector.fromAngle(angle).setMag(applet.random(0,100));
 
         centerX = l.x;//area where particles disappear
         centerY = l.y;
 
         position = new PVector (l.x+pV.x, l.y+pV.y);//creates particle in a random distance from the received point 'l'
-        velocity = new PVector(((l.x - position.x)*0.05f), ((l.y - position.y)*0.05f));
-
-        lifespan = 255.0f;
+        velocity = new PVector(((l.x - position.x)*0.5f), ((l.y - position.y)*0.5f));
     }
 
     // Method to update position
-    void update()
+    void update(float delta_time)
     {
-        position.add(velocity);
-        lifespan -= 5.0;//change how long particle is live
-
+        super.update(delta_time);
         if(position.x>=centerX-5 && position.x<=centerX+5)
             lifespan = 0;
     }

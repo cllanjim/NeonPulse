@@ -13,13 +13,13 @@ import static processing.core.PConstants.P3D;
 import static processing.core.PConstants.SCREEN;
 
 public class ShaderScreen extends Screen {
-    PGraphics canvas;
-    PostFXSupervisor supervisor;
-    SobelPass sobelPass;
-    NegatePass negatePass;
+    private final PGraphics canvas;
+    private final PostFXSupervisor supervisor;
+    private final SobelPass sobelPass;
+    private final NegatePass negatePass;
 
-    float rotationX = 0;
-    float rotationY = 0;
+    private float rotationX = 0;
+    private float rotationY = 0;
 
     ShaderScreen(PApplet applet, PostFXSupervisor applet_supervisor) {
         super(applet);
@@ -70,13 +70,14 @@ public class ShaderScreen extends Screen {
         applet.blendMode(BLEND);
     }
 
-//    public void display(PGraphics g) {
-//        g.blendMode(BLEND);
-//        supervisor.render(canvas);
-//        supervisor.pass(sobelPass);
-//        supervisor.pass(negatePass);
-//        supervisor.compose();
-//    }
+    // TODO: Which way is best
+    public void display(PGraphics g) {
+        g.blendMode(BLEND);
+        supervisor.render(canvas);
+        supervisor.pass(sobelPass);
+        supervisor.pass(negatePass);
+        supervisor.compose();
+    }
 
     @Override
     public void unload() {

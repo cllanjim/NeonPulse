@@ -1,8 +1,5 @@
 package util;
 
-// A class to describe a group of Particles
-// An ArrayList is used to manage the list of Particles
-
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
@@ -11,140 +8,115 @@ import java.util.ArrayList;
 
 public class ParticleSystem
 {
-    ArrayList<Particle> particles;
-    PVector origin;
-    PApplet applet;
+    private final ArrayList<Particle> particles;
+    private final PVector origin;
+    private final PApplet applet;
+    private final float lifespan;
 
-    float angle1, angle2;
-
-    public ParticleSystem(PApplet applet, PVector position)
+    public ParticleSystem(PApplet applet, PVector position, float life_span)
     {
-        this.applet=applet;
+        this.applet = applet;
         origin = position.copy();
         particles = new ArrayList<Particle>();
-    }
-
-    public ParticleSystem(PApplet applet, PVector position, float a1, float a2)
-    {
-        angle1=a1;
-        angle2=a2;
-        this.applet=applet;
-        origin = position.copy();
-        particles = new ArrayList<Particle>();
+        lifespan = life_span;
     }
 
     public void emitParticle()
     {
-        particles.add(new Particle(applet, origin));
+        particles.add(new Particle(applet, origin, lifespan));
     }
 
-    public void emitParticleAngle()
-    {
-        particles.add(new Particle(applet, origin, angle1, angle2));
+    public void emitParticle(float angle1, float angle2) {
+        float angle = applet.random(angle1, angle2);
+        float speed = applet.random(0, 2);
+        particles.add(new Particle(origin, lifespan, angle, speed));
     }
 
     public void attractParticle()
     {
-        particles.add(new CenterParticle(applet, origin));
+        particles.add(new CenterParticle(applet, origin, lifespan));
     }
 
-    public void attractParticleAngle()
+    public void attractParticleAngle(float angle1, float angle2)
     {
-        particles.add(new CenterParticle(applet, origin, angle1, angle2));
+        particles.add(new CenterParticle(applet, origin, lifespan, angle1, angle2));
     }
 
-    public void explodeParticle()
+    public void explodeParticle(int n)
     {
-        for (int a=0; a<100; a++)
+        for (int a = 0; a < n; a++)
         {
-            particles.add(new Particle(applet, origin));
+            particles.add(new Particle(applet, origin, lifespan));
         }
     }
 
-    public void explodeParticleAngle()
+    public void explodeParticle(int n, float angle1, float angle2)
     {
-        for (int a=0; a<100; a++)
+        for (int a = 0; a < n; a++)
         {
-            particles.add(new Particle(applet, origin, angle1, angle2));
+            particles.add(new Particle(applet, origin, lifespan, angle1, angle2));
         }
     }
 
-    public void explodeParticleAngle(float x, float y)
+    public void explodeParticleAngle(int n, float x, float y, float spread)
     {
-        float angularRange = angle2 - angle1;
         float targetAngle = PVector.sub(new PVector(x, y), origin).heading();
-        for (int a=0; a<100; a++)
+        for (int a = 0; a < n; a++)
         {
-            particles.add(new Particle(applet, origin, targetAngle - angularRange/2, targetAngle + angularRange / 2));
+            particles.add(new Particle(applet, origin, lifespan, targetAngle - spread / 2, targetAngle + spread / 2));
         }
     }
 
-    public void implodeParticle()
+    public void implodeParticle(int n)
     {
-        for (int a=0; a<100; a++)
+        for (int a = 0; a < n; a++)
         {
-            particles.add(new CenterParticle(applet, origin));
+            particles.add(new CenterParticle(applet, origin, lifespan));
         }
     }
 
-    public void implodeParticleAngle()
+    public void implodeParticleAngle(int n, float angle1, float angle2)
     {
-        for (int a=0; a<100; a++)
+        for (int a = 0; a < n; a++)
         {
-            particles.add(new CenterParticle(applet, origin, angle1, angle2));
+            particles.add(new CenterParticle(applet, origin, lifespan, angle1, angle2));
         }
     }
 
-    public void implodeParticleAngle(float x, float y)
+    public void implodeParticleAngle(int n, float x, float y, float spread)
     {
-        //does not create particles at pi/2 and 3pi/2
-        float angularRange = angle2 - angle1;
         float targetAngle = PVector.sub(new PVector(x, y), origin).heading();
-        for (int a=0; a<100; a++)
+        for (int a = 0; a < n; a++)
         {
-            particles.add(new CenterParticle(applet, origin, targetAngle - angularRange/2, targetAngle + angularRange / 2));
+            particles.add(new CenterParticle(applet, origin, lifespan, targetAngle - spread/2, targetAngle + spread / 2));
         }
     }
 
-
-
-    public void update()
+    public void update(float delta_time)
     {
         for (int i = particles.size()-1; i >= 0; i--)
         {
             Particle p = particles.get(i);
-            p.update();
-            if (p.isDead())
+            p.update(delta_time);
+            if (p.finished())
             {
                 particles.remove(i);
             }
         }
-    }//update end
+    }
 
-    public void update(float x, float y)
+    public void update(float delta_time, float x, float y)
     {
-        origin.x=x;
-        origin.y=y;
-        for (int i = particles.size()-1; i >= 0; i--)
-        {
-            Particle p = particles.get(i);
-            p.update();
-            if (p.isDead())
-            {
-                particles.remove(i);
-            }
-        }
-    }//update end
+        origin.set(x, y);
+        update(delta_time);
+    }
 
     public void display(PGraphics g)
     {
         for (int i = particles.size()-1; i >= 0; i--)
         {
-
             Particle p = particles.get(i);
             p.display(g);
         }
     }
-
-
 }
