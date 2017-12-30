@@ -39,20 +39,18 @@ class Particle
     Particle(PVector l, float life_span, float angle, float speed)
     {
         this.angle = angle;
-        velocity = PVector.fromAngle(this.angle).setMag(speed);
-        position = l.copy();
+        this.velocity = PVector.fromAngle(this.angle).setMag(speed);
+        this.position = l.copy();
         this.lifespan = life_span;
         this.lifetime = life_span;
     }
 
-    // Method to update position
     void update(float delta_time)
     {
         position.add(PVector.mult(velocity, delta_time));
         lifespan -= delta_time;
     }
 
-    // Method to display
     void display(PGraphics g)
     {
         float opacity = map(lifespan, 0, lifetime, 0, 255);

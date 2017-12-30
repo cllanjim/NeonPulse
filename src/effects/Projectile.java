@@ -2,7 +2,7 @@ package effects;
 
 import engine.Agent;
 import engine.Collision;
-import engine.Shapes;
+import engine.Draw;
 import engine.Tile;
 import processing.core.PGraphics;
 import processing.core.PVector;
@@ -19,7 +19,7 @@ public class Projectile extends Effect {
 
     public Projectile(PVector pos, PVector target, float _speed) {
         super(null);
-        position = new PVector(pos.x, pos.y);
+        position.set(pos.x, pos.y);
         speed = _speed;
         radius = 2;
         lifetime = LIFESPAN;
@@ -28,7 +28,7 @@ public class Projectile extends Effect {
 
     @Override
     public boolean collideWithTile(Tile tile) {
-        return false;
+        return active && tile.isSolid();
     }
 
     @Override
@@ -60,7 +60,7 @@ public class Projectile extends Effect {
         g.pushStyle();
         g.noStroke();
         g.fill(192, 63, 192);
-        Shapes.drawPolygon(g, position.x, position.y, radius, 3, heading);
+        Draw.polygon(g, position.x, position.y, radius, 3, heading);
         g.popStyle();
     }
 }

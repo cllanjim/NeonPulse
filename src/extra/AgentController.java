@@ -1,12 +1,13 @@
-package engine;
+package extra;
 
+import engine.Agent;
 import processing.core.PGraphics;
 import processing.core.PVector;
 
 import java.util.ArrayList;
 
 class AgentController {
-    private ArrayList<Agent> agents;
+    private ArrayList<GridAgent> agents;
     private LooseGrid grid;
     private float width;
     private float height;
@@ -18,18 +19,18 @@ class AgentController {
         this.height = height;
     }
 
-    void add(Agent agent) {
+    void add(GridAgent agent) {
         agents.add(agent);
         grid.addToCell(agent);
     }
 
-    void remove(Agent agent) {
+    void remove(GridAgent agent) {
         grid.removeFromCell(agent);
         agents.remove(agent);
     }
 
     void display(PGraphics g) {
-        for (Agent agent: agents) {
+        for (GridAgent agent: agents) {
             agent.display(g);
         }
     }
@@ -40,7 +41,7 @@ class AgentController {
     }
 
     private void updatePartitioning() {
-        for (Agent agent : agents) {
+        for (GridAgent agent : agents) {
             // Check to see if the agent moved
             if (agent.owner_cell != null) {
                 LooseGrid.Cell newCell = grid.getCellAt(agent.position);
@@ -72,7 +73,7 @@ class AgentController {
         }
     }
 
-    private static void checkCollisions(Agent agent, ArrayList<Agent> agent_list, int first_index) {
+    private static void checkCollisions(Agent agent, ArrayList<GridAgent> agent_list, int first_index) {
         for (int i = first_index; i < agent_list.size(); i++) {
             Agent other = agent_list.get(i);
             checkCollision(agent, other);

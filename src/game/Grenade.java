@@ -113,6 +113,7 @@ public class Grenade implements Action {
         return false;
     }
 
+    // TODO: Figure out a way to do this once - probably join Level and Tilemap
     public void collideWithLevel(Level level) {
         ArrayList<PVector> collision_positions = new ArrayList<>(4);
         level.checkTileCollisions(collision_positions, payload.position, payload.radius);

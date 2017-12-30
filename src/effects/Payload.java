@@ -7,7 +7,7 @@ import processing.sound.SoundFile;
 import engine.Agent;
 import engine.Collision;
 import engine.Tile;
-import engine.Shapes;
+import engine.Draw;
 
 public class Payload extends Effect {
     private Effect effect;
@@ -97,10 +97,10 @@ public class Payload extends Effect {
             g.pushStyle();
             g.noStroke();
             g.fill(0xfff50455);
-            Shapes.drawPolygon(g, position.x, position.y, radius, 3, angle + PConstants.PI);
-            Shapes.drawPolygon(g, position.x, position.y, radius, 3, angle);
+            Draw.polygon(g, position.x, position.y, radius, 3, angle + PConstants.PI);
+            Draw.polygon(g, position.x, position.y, radius, 3, angle);
             for (int i = 1; i < history.length && i < frame_count; i++) {
-                Shapes.drawPolygon(g, history[i].x, history[i].y, radius, 3, angle);
+                Draw.polygon(g, history[i].x, history[i].y, radius, 3, angle);
             }
             g.popStyle();
         }

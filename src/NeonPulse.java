@@ -16,6 +16,7 @@ import processing.sound.AudioDevice;
 // PostFX
 import ch.bildspur.postfx.builder.*;
 import ch.bildspur.postfx.PostFXSupervisor;
+import processing.sound.SoundFile;
 
 public class NeonPulse extends PApplet {
 
@@ -84,12 +85,15 @@ public class NeonPulse extends PApplet {
     }
 
     static class Debug {
+        static SoundFile test_sound = null;
         PApplet applet;
         PGraphics graphics;
+
 
         Debug(PApplet applet) {
             this.applet = applet;
             graphics = applet.createGraphics(applet.width, applet.height);
+            test_sound = new SoundFile(applet,"audio/test.wav");
         }
 
         void begin() {

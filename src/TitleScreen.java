@@ -7,7 +7,6 @@ import static processing.core.PConstants.*;
 class TitleScreen extends Screen {
     // Fonts
     private PFont rubber;
-
     private PGraphics canvas;
     private PImage background;
 

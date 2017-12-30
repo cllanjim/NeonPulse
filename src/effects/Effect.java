@@ -7,7 +7,7 @@ import processing.core.PGraphics;
 import processing.core.PVector;
 
 public abstract class Effect {
-    public PVector position;
+    public final PVector position;
     public boolean active;
     public float lifetime;
     SoundFile sound;

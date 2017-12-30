@@ -33,7 +33,7 @@ public class GamepadInput implements PlayerInput {
         player.impulse.set(left_analog_x, left_analog_y);
         aim_vector.set(right_analog_x, right_analog_y);
 
-        // Keep angle instead of aim vector
+        // TODO: Keep angle instead of aim vector
         if (aim_vector.mag() > AIM_THRESHOLD) {
             player.target.set(player.position.x + right_analog_x * 128, player.position.y + right_analog_y * 128);
         }

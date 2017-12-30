@@ -144,6 +144,7 @@ public class Level {
         checkTileCollision(collision_positions, agent.position.x + agent.radius, agent.position.y - agent.radius);
         checkTileCollision(collision_positions, agent.position.x - agent.radius, agent.position.y + agent.radius);
         checkTileCollision(collision_positions, agent.position.x + agent.radius, agent.position.y + agent.radius);
+
         if (collision_positions.size() == 0)
             return false;
 

@@ -2,7 +2,7 @@ package game;
 
 import effects.Effect;
 import engine.Agent;
-import engine.Shapes;
+import engine.Draw;
 import processing.core.PGraphics;
 import processing.core.PVector;
 
@@ -87,11 +87,11 @@ public class Mob extends Agent {
     }
 
     public void display(PGraphics g) {
-        Shapes.drawShadow(g, position, radius, 0, 0xff102030);
+        Draw.shadow(g, position, radius, 0, 0xff102030);
         g.pushMatrix();
         g.translate(position.x, position.y);
         g.fill(102, 0, 31);
-        Shapes.drawPolygon(g, 0, 0, radius, 5, angle);
+        Draw.polygon(g, 0, 0, radius, 5, angle);
         g.popMatrix();
     }
 }

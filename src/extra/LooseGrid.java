@@ -1,5 +1,6 @@
-package engine;
+package extra;
 
+import engine.Agent;
 import processing.core.PApplet;
 import processing.core.PVector;
 
@@ -26,25 +27,25 @@ public class LooseGrid {
         }
     }
 
-    void addToCell(Agent agent) {
+    void addToCell(GridAgent agent) {
         Cell cell = getCellAt(agent.position);
         addToCell(agent, cell);
     }
 
-    void addToCell(Agent agent, Cell cell) {
+    void addToCell(GridAgent agent, Cell cell) {
         cell.agents.add(agent);
         agent.owner_cell = cell;
         agent.cell_array_index = cell.agents.size() - 1;
     }
 
-    void removeFromCell(Agent agent) {
-        ArrayList<Agent> agents =  agent.owner_cell.agents;
+    void removeFromCell(GridAgent agent) {
+        ArrayList<GridAgent> agents =  agent.owner_cell.agents;
         agents.remove(agent.cell_array_index);
         agent.cell_array_index = -1;
         agent.owner_cell = null;
     }
 
-    ArrayList<Agent> getAgentsAt(int x, int y) {
+    ArrayList<GridAgent> getAgentsAt(int x, int y) {
         Cell cell = getCell(x, y);
         return cell.agents;
     }
@@ -62,7 +63,7 @@ public class LooseGrid {
     }
 
     static class Cell {
-        ArrayList<Agent> agents;
+        ArrayList<GridAgent> agents;
         Cell() {
             agents = new ArrayList<>();
         }

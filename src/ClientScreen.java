@@ -37,9 +37,11 @@ public class ClientScreen extends Screen {
     @Override
     public void update(float deltatime) {
         readNetworkEvents(g_game_client);
+
         if (g_active) {
             sendNetworkEvents(g_game_client);
         }
+
         g_events.clear();
     }
 

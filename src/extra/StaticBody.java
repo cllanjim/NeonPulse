@@ -1,4 +1,4 @@
-package engine;
+package extra;
 
 public class StaticBody {
 }

@@ -8,8 +8,8 @@ import static processing.core.PConstants.CLOSE;
 import static processing.core.PConstants.PI;
 import static processing.core.PConstants.TWO_PI;
 
-public class Shapes {
-    public static void drawPolygon(PGraphics g, float x, float y, float radius, int num_points, float rotation) {
+public class Draw {
+    public static void polygon(PGraphics g, float x, float y, float radius, int num_points, float rotation) {
         g.beginShape();
         for (float a = rotation; a < TWO_PI + rotation; a += TWO_PI / num_points) {
             float sx = x + PApplet.cos(a) * radius;
@@ -19,7 +19,7 @@ public class Shapes {
         g.endShape(CLOSE);
     }
 
-    public static void drawShadow(PGraphics g, PVector agent_position, float radius, float height, int fill) {
+    public static void shadow(PGraphics g, PVector agent_position, float radius, float height, int fill) {
         g.pushMatrix();
         g.pushStyle();
         g.translate(agent_position.x, agent_position.y);
@@ -30,17 +30,17 @@ public class Shapes {
         g.popMatrix();
     }
 
-    public static void drawPlayer(PGraphics g, PVector position, float angle, float radius, int fill) {
+    public static void player(PGraphics g, PVector position, float angle, float radius, int fill) {
         g.pushMatrix();
         g.pushStyle();
         g.translate(position.x, position.y);
         PVector dir = PVector.fromAngle(angle).mult(2);
         g.fill(0xff000000);
-        drawPolygon(g, 0, 0, radius, 4, angle + PI / 4);
+        polygon(g, 0, 0, radius, 4, angle + PI / 4);
         g.fill(0xffffffff);
-        drawPolygon(g, 0, 0, radius, 3, angle);
+        polygon(g, 0, 0, radius, 3, angle);
         g.fill(fill);
-        drawPolygon(g, -dir.x, -dir.y, 0.75f * radius, 3, angle);
+        polygon(g, -dir.x, -dir.y, 0.75f * radius, 3, angle);
         g.popStyle();
         g.popMatrix();
     }

@@ -1,7 +1,7 @@
 package game;
 
 import effects.Action;
-import engine.Shapes;
+import engine.Draw;
 import processing.sound.SoundFile;
 import engine.Agent;
 import processing.core.PGraphics;
@@ -61,7 +61,7 @@ public class Shield implements Action {
             g.pushStyle();
             g.fill(102, 102, 0, 127);
             float adjusted_radius = radius - 8 * (LIFESPAN - lifetime) / 200;
-            Shapes.drawPolygon(g, player.position.x, player.position.y, adjusted_radius, 8, 0);
+            Draw.polygon(g, player.position.x, player.position.y, adjusted_radius, 8, 0);
             g.popStyle();
         }
     }

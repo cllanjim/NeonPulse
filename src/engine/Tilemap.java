@@ -90,14 +90,6 @@ public class Tilemap {
 
     public void display(PGraphics g) {
         map.draw(g, 0 ,0);
-//        g.pushStyle();
-//        g.stroke(0xFFFFFFF);
-//        g.strokeWeight(2);
-//        g.fill(0xFFFFFFFF, 128);
-//        for (Ptmx.CollisionShape s : shapes) {
-//            s.display(g);
-//        }
-//        g.popStyle();
     }
 
     public boolean collideWithAgent(Agent agent) {
@@ -109,6 +101,7 @@ public class Tilemap {
         }
 
         checkTileCollisions(collision_positions, agent.position, agent.radius);
+
         if (collision_positions.size() == 0)
             return false;
 

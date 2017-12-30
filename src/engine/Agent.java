@@ -1,13 +1,13 @@
 package engine;
 
 import game.Player;
-import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
 
 import java.util.ArrayList;
 
 import static processing.core.PApplet.abs;
+import static processing.core.PApplet.max;
 
 public abstract class Agent {
     public PVector position;
@@ -21,9 +21,6 @@ public abstract class Agent {
     protected float speed;
     protected float angle;
 
-    LooseGrid.Cell owner_cell;
-    int cell_array_index;
-
     protected Agent() {
         position = new PVector(0,0);
         velocity = new PVector(0,0);
@@ -35,6 +32,10 @@ public abstract class Agent {
     abstract public void update(ArrayList<Player> players, float delta_time);
     abstract public void display(PGraphics graphics);
 
+    public void addImpulse(PVector force_vector) {
+        impulse.add(force_vector);
+    }
+
     public void addImpulse(PVector source, float force) {
         impulse.add(PVector.sub(position, source).normalize().mult(force));
     }
@@ -43,7 +44,9 @@ public abstract class Agent {
         position.add(target.setMag(speed));
     }
 
-    public void setPosition(PVector position) {}
+    public void setPosition(PVector position) {
+        this.position.set(position);
+    }
 
     public void updateMovement(float delta_time) {
         // TODO: Velocity verlet movement
@@ -79,7 +82,7 @@ public abstract class Agent {
         float y_depth = min_distance_y - abs(distance_y);
 
         if (x_depth > 0 || y_depth > 0) {
-            if (PApplet.max(x_depth, 0) <= PApplet.max(y_depth, 0)) {
+            if (max(x_depth, 0) <= max(y_depth, 0)) {
                 if (distance_x < 0) {
                     position.x -= x_depth;
                 } else {

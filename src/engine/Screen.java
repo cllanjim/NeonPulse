@@ -18,12 +18,11 @@ public abstract class Screen {
     public abstract PGraphics render();
     public abstract void unload();
 
-    public void renderFX(PostFX fx) { }
-
-    // Textures
     protected Screen(PApplet applet) {
         this.applet = applet;
     }
+
+    public void renderFX(PostFX fx) { }
 
     public void handleInput() { }
     public void addPlayer(Player player) {

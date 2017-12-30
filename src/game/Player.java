@@ -1,7 +1,7 @@
 package game;
 
 import effects.*;
-import engine.Shapes;
+import engine.Draw;
 import processing.core.PApplet;
 import processing.sound.SoundFile;
 import engine.Agent;
@@ -21,6 +21,7 @@ public class Player extends Agent {
     public Laser laser;
     public Launcher gun;
     public Shield shield;
+
     public ParticleSystem particleSystem;
 
     int fill = 0xffffffff;
@@ -91,11 +92,12 @@ public class Player extends Agent {
 
     public void respawn(float x, float y) {
         position.set(x, y);
+        velocity.set(0, 0);
         health = HEALTH;
     }
 
     public void display(PGraphics g) {
-        Shapes.drawPlayer(g, position, angle, radius, fill);
+        Draw.player(g, position, angle, radius, fill);
 
         // Skills
         apManager.display(g);

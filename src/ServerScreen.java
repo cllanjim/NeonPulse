@@ -1,5 +1,3 @@
-import effects.Area;
-import effects.Pulse;
 import engine.Input;
 import engine.Screen;
 import game.Player;

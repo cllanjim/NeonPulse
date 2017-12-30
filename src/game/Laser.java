@@ -60,7 +60,7 @@ public class Laser implements Action {
     public void update(float delta_time) {
         if (charging) {
             delay -= delta_time;
-            if (player.particleSystem != null) player.particleSystem.attractParticle();
+            if (player.particleSystem != null) player.particleSystem.attract();
         }
         beam.update(delta_time);
     }

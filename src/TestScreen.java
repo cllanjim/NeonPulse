@@ -25,7 +25,6 @@ class TestScreen extends Screen {
     private PGraphics canvas;
 
 //    private PImage bg;
-
 //    private int cols = 160;
 //    private int rows = 90;
 //    private float offset = 0;
@@ -33,8 +32,6 @@ class TestScreen extends Screen {
     private float round_timer;
 
     private HashMap<Character, Tile> tile_map = new HashMap<>();
-
-    private static SoundFile test_sound;
 
     // Constants
     private static final float TILE_SIZE = 32;
@@ -55,9 +52,6 @@ class TestScreen extends Screen {
         tile_map.put('#', new ImageTile(wall_texture, true));
         tile_map.put(' ', new ImageTile(floor_texture, false));
         tile_map.put('X', new ImageTile(pit_texture, false));
-
-        // Sounds
-        test_sound = new SoundFile(applet,"audio/test.wav");
     }
 
     public void load() {
@@ -71,9 +65,9 @@ class TestScreen extends Screen {
         // TODO: Player Lobby in Title game_screen
         // Load Player 1 - Keyboard Control
         if (NeonPulse.Config.KEYBOARD) {
-            Player player = new Player(applet, new KeyboardInput(NeonPulse.g_input), test_sound);
-            player.addEffect("E", new Pulse(test_sound));
-            player.addEffect("R", new Area(test_sound));
+            Player player = new Player(applet, new KeyboardInput(NeonPulse.g_input), NeonPulse.Debug.test_sound);
+            player.addEffect("E", new Pulse(NeonPulse.Debug.test_sound));
+            player.addEffect("R", new Area(NeonPulse.Debug.test_sound));
             addPlayer(player);
         }
 
@@ -82,9 +76,9 @@ class TestScreen extends Screen {
         for (ControlDevice gamepad : devices) {
             for (Configuration configuration : NeonPulse.g_controller_configs) {
                 if (gamepad.matches(configuration)) {
-                    Player player = new Player(applet, new GamepadInput(gamepad), test_sound);
-                    player.addEffect("TRIANGLE", new Pulse(test_sound));
-                    player.addEffect("CIRCLE", new Area(test_sound));
+                    Player player = new Player(applet, new GamepadInput(gamepad), NeonPulse.Debug.test_sound);
+                    player.addEffect("TRIANGLE", new Pulse(NeonPulse.Debug.test_sound));
+                    player.addEffect("CIRCLE", new Area(NeonPulse.Debug.test_sound));
                     addPlayer(player);
                     break;
                 }
@@ -157,20 +151,6 @@ class TestScreen extends Screen {
         // Draw
         canvas.beginDraw();
         canvas.background(0);
-
-//        float y_offset = offset;
-//        bg.loadPixels();
-//        for (int y = 0; y < rows; y++) {
-//            float x_offset = 0;
-//            for (int x = 0; x < cols; x++) {
-//                float noise = applet.noise(x_offset, y_offset);
-//                bg.pixels[x + y * x] = applet.color(PApplet.map(noise, -1, 1, 0, 255));
-//                x_offset += 1f;
-//            }
-//            y_offset += 1f;
-//        }
-//        bg.updatePixels();
-//        canvas.image(bg, 0 ,0, 1920, 1080);
 
         canvas.pushMatrix();
         canvas.translate(level.left, level.top);
