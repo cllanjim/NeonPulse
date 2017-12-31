@@ -19,7 +19,7 @@ public class Launcher implements Action {
     private static final float BULLET_SPEED = 600;
     private static final float DELAY = 0.2f;
 
-    public Launcher(Player player, SoundFile launcher_sound) {
+    Launcher(Player player, SoundFile launcher_sound) {
         bullets = new ArrayList<>(4);
         sound = launcher_sound;
         this.player = player;

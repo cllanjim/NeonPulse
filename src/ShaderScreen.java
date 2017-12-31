@@ -2,7 +2,7 @@ import ch.bildspur.postfx.*;
 import ch.bildspur.postfx.builder.PostFX;
 import ch.bildspur.postfx.pass.*;
 
-import postprocessing.NegatePass;
+import postprocessing.LightingPass;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 
@@ -16,7 +16,7 @@ public class ShaderScreen extends Screen {
     private final PGraphics canvas;
     private final PostFXSupervisor supervisor;
     private final SobelPass sobelPass;
-    private final NegatePass negatePass;
+    private final LightingPass lightingPass;
 
     private float rotationX = 0;
     private float rotationY = 0;
@@ -26,7 +26,7 @@ public class ShaderScreen extends Screen {
         supervisor = applet_supervisor;
         canvas = applet.createGraphics(applet.width, applet.height, P3D);
         sobelPass = new SobelPass(applet);
-        negatePass = new NegatePass(applet);
+        lightingPass = new LightingPass(applet);
     }
 
     @Override
@@ -64,18 +64,18 @@ public class ShaderScreen extends Screen {
         return canvas;
     }
 
+    // TODO: Supervisor + lighting pass
     public void renderFX(PostFX fx) {
         applet.blendMode(SCREEN);
         fx.render(canvas).sobel().blur(5, 50).compose();
         applet.blendMode(BLEND);
     }
 
-    // TODO: Which way is best
     public void display(PGraphics g) {
         g.blendMode(BLEND);
         supervisor.render(canvas);
         supervisor.pass(sobelPass);
-        supervisor.pass(negatePass);
+        supervisor.pass(lightingPass);
         supervisor.compose();
     }
 

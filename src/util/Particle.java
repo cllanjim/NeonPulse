@@ -36,11 +36,11 @@ class Particle
         this.lifetime = life_span;
     }
 
-    Particle(PVector l, float life_span, float angle, float speed)
+    Particle(PVector origin, float life_span, float angle, float speed)
     {
         this.angle = angle;
         this.velocity = PVector.fromAngle(this.angle).setMag(speed);
-        this.position = l.copy();
+        this.position = origin.copy();
         this.lifespan = life_span;
         this.lifetime = life_span;
     }

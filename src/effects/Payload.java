@@ -7,16 +7,17 @@ import processing.sound.SoundFile;
 import engine.Agent;
 import engine.Collision;
 import engine.Tile;
-import engine.Draw;
+import game.Draw;
 
 public class Payload extends Effect {
     private Effect effect;
     private PVector[] history;
-    private PVector velocity;
+    public PVector velocity;
     private PVector acceleration;
+    public float radius;
+    private float mass;
     private float angle;
     private int frame_count;
-    public float radius;
 
     private static final float DELAY = 0.5f;
     private static final int TAIL_LENGTH = 8;
@@ -29,7 +30,7 @@ public class Payload extends Effect {
         acceleration = new PVector(0, 0);
         history = new PVector[TAIL_LENGTH];
         frame_count = 0;
-        radius = 8;
+        radius = 4;
         angle = 0;
     }
 
@@ -111,5 +112,9 @@ public class Payload extends Effect {
 
     public void setAcceleration(float x, float y) {
         acceleration.set(x, y);
+    }
+
+    public void addImpulse(PVector impulse) {
+        velocity.add(impulse);
     }
 }

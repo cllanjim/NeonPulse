@@ -1,6 +1,7 @@
 import engine.*;
 import processing.core.*;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -88,7 +89,6 @@ public class NeonPulse extends PApplet {
         static SoundFile test_sound = null;
         PApplet applet;
         PGraphics graphics;
-
 
         Debug(PApplet applet) {
             this.applet = applet;
@@ -221,12 +221,13 @@ public class NeonPulse extends PApplet {
         currentScreen = screen;
     }
 
+    @Override
     public void keyPressed() {
-        g_input.pressKey(key);
+        g_input.pressKey(key, keyCode);
     }
 
     public void keyReleased() {
-        g_input.releaseKey(key);
+        g_input.releaseKey(key, keyCode);
     }
 
     public void mousePressed() {

@@ -20,7 +20,6 @@ public class ClientScreen extends Screen {
     ClientScreen(PApplet applet) {
         super(applet);
         canvas = applet.createGraphics(applet.width, applet.height, PConstants.P2D);
-
     }
 
     @Override

@@ -5,6 +5,8 @@ import processing.core.PVector;
 
 import java.util.Arrays;
 
+import static processing.core.PConstants.CODED;
+
 public class Input {
     private PVector prev_mouse_position;
     private PVector curr_mouse_position;
@@ -59,13 +61,17 @@ public class Input {
         curr_key_state[key_index] = state;
     }
 
-    public void pressKey(char key) {
-        int key_index = getKeyIndex(key);
-        if (key_index < 0) return;
-        curr_key_state[key_index] = true;
+    public void pressKey(int key, int keyCode) {
+        if (key == CODED) {
+            
+        } else {
+            int key_index = getKeyIndex(key);
+            if (key_index < 0) return;
+            curr_key_state[key_index] = true;
+        }
     }
 
-    public void releaseKey(char key) {
+    public void releaseKey(int key, int keyCode) {
         int key_index = getKeyIndex(key);
         if (key_index < 0) return;
         curr_key_state[key_index] = false;

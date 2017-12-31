@@ -41,14 +41,11 @@ public class Cone extends Effect {
     }
 
     public void activate(PVector source, PVector target) {
-        if (cooldown <= 0) {
             position.set(source);
             sound.play();
             angle = PVector.sub(target, source).heading();
             lifetime = 0;
             active = true;
-            cooldown = COOLDOWN;
-        }
     }
 
     public void update(float delta_time) {
@@ -59,8 +56,6 @@ public class Cone extends Effect {
                 active = false;
             }
         }
-
-        cooldown -= delta_time;
     }
 
     public void display(PGraphics g) {

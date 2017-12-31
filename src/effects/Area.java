@@ -13,7 +13,6 @@ public class Area extends Effect {
 
     private static final float RANGE = 64;
     private static final float LIFESPAN = 1;
-    static final float COOLDOWN = 4;
 
     public Area(SoundFile area_sound) {
         super(area_sound);
@@ -37,14 +36,11 @@ public class Area extends Effect {
     }
 
     public void activate(PVector source, PVector target) {
-        if (cooldown <= 0) {
             position.set(source);
             angle = PVector.sub(target, source).heading();
             sound.play();
             active = true;
             lifetime = 0;
-            cooldown = COOLDOWN;
-        }
     }
 
     public void update(float delta_time) {
@@ -54,7 +50,6 @@ public class Area extends Effect {
                 active = false;
             }
         }
-        cooldown -= delta_time;
     }
 
     public void display(PGraphics g) {

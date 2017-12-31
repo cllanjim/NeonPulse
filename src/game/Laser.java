@@ -32,22 +32,24 @@ public class Laser implements Action {
 
     @Override
     public void ready() {
-        if(player.apManager.currentAP() > 0) {
+        if (charging && active) {
+            if (delay <= 0) {
+                player.apManager.spendActionPoint();
+                PVector position_offset = PVector.mult(player.velocity, TARGET_FRAME_TIME);
+                beam.activate(PVector.add(player.position, position_offset), player.target);
+                interrupt();
+                active = false;
+            }
+        }
+        if (player.apManager.currentAP() > 0 && active) {
             charging = true;
         }
     }
 
     @Override
     public void activate() {
-        if (delay <= 0 && player.apManager.currentAP() > 0) {
-            // This moves the beginning of the laser to where we expect the player to be next frame.
-            PVector position_offset = PVector.mult(player.velocity, TARGET_FRAME_TIME);
-            beam.activate(PVector.add(player.position, position_offset), player.target);
-            charging = false;
-            player.apManager.spendActionPoint();
-        } else {
-            interrupt();
-        }
+        active = true;
+        interrupt();
     }
 
     @Override
@@ -78,26 +80,26 @@ public class Laser implements Action {
     private boolean collideWithTile(PVector tile_position, float tile_width, float tile_height) {
         // TODO: get tile data from map instead of instantiating this every time.
         // Although it's only on shooting
-        PVector[] points = new PVector[] {
-                new PVector(tile_position.x - tile_width/2, tile_position.y - tile_height / 2),
-                new PVector(tile_position.x + tile_width/2, tile_position.y - tile_height / 2),
-                new PVector(tile_position.x + tile_width/2, tile_position.y + tile_height / 2),
-                new PVector(tile_position.x - tile_width/2, tile_position.y + tile_height / 2),
+        PVector[] points = new PVector[]{
+                new PVector(tile_position.x - tile_width / 2, tile_position.y - tile_height / 2),
+                new PVector(tile_position.x + tile_width / 2, tile_position.y - tile_height / 2),
+                new PVector(tile_position.x + tile_width / 2, tile_position.y + tile_height / 2),
+                new PVector(tile_position.x - tile_width / 2, tile_position.y + tile_height / 2),
         };
 
         ArrayList<PVector> collision_positions = new ArrayList<>(4);
         PVector collision_point = new PVector();
-        for(int i = 0; i < points.length - 1; i++) {
-            if (Collision.lineSegments(player.position, beam.end_position, points[i], points[i+1], collision_point)) {
+        for (int i = 0; i < points.length - 1; i++) {
+            if (Collision.lineSegments(player.position, beam.end_position, points[i], points[i + 1], collision_point)) {
                 collision_positions.add(collision_point);
                 return true;
             }
         }
 
-        if (collision_positions.size() == 0 ) {
+        if (collision_positions.size() == 0) {
             return false;
         } else {
-            collision_positions.sort( (p, n) ->
+            collision_positions.sort((p, n) ->
                     p.dist(player.position) > n.dist(player.position)
                             ? -1 : 1);
             beam.end_position.set(collision_positions.get(0));

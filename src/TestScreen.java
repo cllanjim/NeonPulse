@@ -34,7 +34,7 @@ class TestScreen extends Screen {
     private HashMap<Character, Tile> tile_map = new HashMap<>();
 
     // Constants
-    private static final float TILE_SIZE = 32;
+    private static final int TILE_SIZE = 32;
     private static final float ROUND_TIME = 30;
 
     TestScreen(PApplet applet) {
@@ -49,9 +49,9 @@ class TestScreen extends Screen {
         PImage pit_texture = applet.loadImage("tiles/pit.png");
 
         // Tiles
-        tile_map.put('#', new ImageTile(wall_texture, true));
-        tile_map.put(' ', new ImageTile(floor_texture, false));
-        tile_map.put('X', new ImageTile(pit_texture, false));
+        tile_map.put('#', new Tile(wall_texture, true));
+        tile_map.put(' ', new Tile(floor_texture, false));
+        tile_map.put('X', new Tile(pit_texture, false));
     }
 
     public void load() {
@@ -202,8 +202,7 @@ class TestScreen extends Screen {
 
     public void addPlayer(Player player) {
         player.setFill(Player.PLAYER_COLORS[players.size() % Player.PLAYER_COLORS.length]);
-        player.position.set(level.player_spawns.get(current_spawn_point));
-        current_spawn_point = (current_spawn_point + 1) % level.player_spawns.size();
+        player.position.set(level.getPlayerSpawn());
         super.addPlayer(player);
     }
 
@@ -218,9 +217,9 @@ class TestScreen extends Screen {
     // 'X' - Pit
     // ' ' - Floor
     private static final String[] LEVEL_1 = {
-            "#######################################################",
-            "#1                                                   3#",
-            "#                                                     #",
+            "   #################################################   ",
+            " 1                                                   3 ",
+            "                                                       ",
             "# ####                                     ####       #",
             "#                                                     #",
             "#                                                     #",
@@ -245,9 +244,9 @@ class TestScreen extends Screen {
             "#                                                     #",
             "#                                                     #",
             "#       ####                                     #### #",
-            "#                                                     #",
-            "#4                                                   2#",
-            "#######################################################",
+            "                                                       ",
+            " 4                                                   2 ",
+            "   #################################################   ",
     };
 
     private static final String[] LEVEL_2 = {

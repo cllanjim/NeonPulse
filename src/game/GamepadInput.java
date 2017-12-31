@@ -35,12 +35,7 @@ public class GamepadInput implements PlayerInput {
 
         // TODO: Keep angle instead of aim vector
         if (aim_vector.mag() > AIM_THRESHOLD) {
-            player.target.set(player.position.x + right_analog_x * 128, player.position.y + right_analog_y * 128);
-        }
-
-        // Shield
-        if (input.getButton("X").pressed()) {
-            player.shield.activate();
+            player.target.set(player.position.x + right_analog_x * player.radius, player.position.y + right_analog_y * player.radius);
         }
 
         for (Pair<String, Effect> binding : effect_bindings) {

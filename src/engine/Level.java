@@ -9,19 +9,22 @@ import java.util.HashMap;
 
 public class Level {
     private PApplet applet;
-    public ArrayList<PVector> player_spawns;
-    public float tile_size;
+    private ArrayList<PVector> player_spawns;
+    private int curr_spawn_index;
     private PGraphics background;
     private PGraphics foreground;
     private char[][] render_data;
+    public int tile_size;
     private int level_rows;
     private int level_columns;
+    public int level_width;
+    public int level_height;
     public float top;
     public float left;
 
     private HashMap<Character, Tile> tile_map;
 
-    public Level(PApplet applet, String[] level_string, HashMap<Character, Tile> level_tile_map, float size) {
+    public Level(PApplet applet, String[] level_string, HashMap<Character, Tile> level_tile_map, int size) {
         this.applet = applet;
         player_spawns = new ArrayList<>(4);
         background = applet.createGraphics(applet.width, applet.height);
@@ -45,9 +48,8 @@ public class Level {
         // Get level data
         level_rows = level_string.length;
         level_columns = level_string[0].length();
-
-        float level_width = level_columns * tile_size;
-        float level_height = level_rows * tile_size;
+        level_width = level_columns * tile_size;
+        level_height = level_rows * tile_size;
 
         top = (applet.height - level_height) / 2;
         left = (applet.width - level_width) / 2;
@@ -131,9 +133,23 @@ public class Level {
 //        g.image(foreground, 0, 0);
     }
 
+    public PVector getPlayerSpawn() {
+        PVector spawn_point = player_spawns.get(curr_spawn_index);
+        curr_spawn_index = (curr_spawn_index + 1) % player_spawns.size();
+        return spawn_point;
+    }
+
     public boolean collideWithAgent(Agent agent) {
         ArrayList<PVector> collision_positions = new ArrayList<>(4);
 
+        // Wrap if outside world
+        if (agent.position.x < 0) agent.position.x = level_width;
+        if (agent.position.x > level_width) agent.position.x = 0;
+        if (agent.position.y < 0) agent.position.y = level_height;
+        if (agent.position.y > level_height) agent.position.y = 0;
+
+        // Kill if in pit
+        // TODO: Replace with event system
         if(checkPitCollision(agent.position.x, agent.position.y)) {
             agent.damageLethal(100);
             agent.score -= 1;
@@ -164,17 +180,15 @@ public class Level {
 
     // TODO: Following methods do the same thing pretty much. Keep one only and parametrize
     private void checkTileCollision(ArrayList<PVector> collision_positions, float x, float y) {
-        int corner_x = PApplet.floor(x / tile_size);
-        int corner_y = PApplet.floor(y / tile_size);
+        int col = PApplet.floor(x / tile_size);
+        int row = PApplet.floor(y / tile_size);
 
         // Don't collide if outside world
-        if (corner_x < 0 || corner_x >= level_columns || corner_y < 0 || corner_y >= level_rows) {
-            return;
-        }
+        if (col < 0 || col >= level_columns || row < 0 || row >= level_rows) return;
 
         // TODO: Get specific tiles/references, use custom collision functions
-        if (render_data[corner_y][corner_x] == '#') {
-            PVector collision_pos = new PVector(corner_x, corner_y);
+        if (render_data[row][col] == '#') {
+            PVector collision_pos = new PVector(col, row);
             collision_pos.mult(tile_size);
             collision_pos.add(tile_size / 2, tile_size / 2);
             collision_positions.add(collision_pos);
@@ -182,28 +196,18 @@ public class Level {
     }
 
     private boolean checkPitCollision(float x, float y) {
-        int corner_x = PApplet.floor(x / tile_size);
-        int corner_y = PApplet.floor(y / tile_size);
-
-        // Don't collide if outside world
-        if (corner_x < 0 || corner_x >= level_columns || corner_y < 0 || corner_y >= level_rows) {
-            return true;
-        }
-
-        return (render_data[corner_y][corner_x] == 'X');
+        int col = PApplet.floor(x / tile_size);
+        int row = PApplet.floor(y / tile_size);
+        if (col < 0 || col >= level_columns || row < 0 || row >= level_rows) return true;
+        return (render_data[row][col] == 'X');
     }
 
     // Point-Rect Collision
     public boolean checkTileFor(float x, float y, char character) {
-        int corner_x = PApplet.floor(x / tile_size);
-        int corner_y = PApplet.floor(y / tile_size);
-
-        // Don't collide if outside world
-        if (corner_x < 0 || corner_x >= level_columns || corner_y < 0 || corner_y >= level_rows) {
-            return false;
-        }
-
-        return (render_data[corner_y][corner_x] == character);
+        int col = PApplet.floor(x / tile_size);
+        int row = PApplet.floor(y / tile_size);
+        if (col < 0 || col >= level_columns || row < 0 || row >= level_rows) return false;
+        return (render_data[row][col] == character);
     }
 
     public Tile getTileAt(float x, float y) {

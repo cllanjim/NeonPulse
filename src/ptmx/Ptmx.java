@@ -204,6 +204,7 @@ public class Ptmx {
         }
     }
 
+    // TODO: Defaults and warnings for missing values, with error message pointing to tsx/tmx
     public abstract static class CollisionShape {
         int id;
         String type;
@@ -261,7 +262,7 @@ public class Ptmx {
             type = "rectangle";
             this.width = width;
             this.height = height;
-            this.points = makeCornerPoints(x, y, width, height);
+            this.points = getPointsFromCorner(x, y, width, height);
         }
 
         @Override
@@ -276,7 +277,7 @@ public class Ptmx {
             type = "ellipse";
             this.width = width;
             this.height = height;
-            this.points = makeCornerPoints(x, y, width, height);
+            this.points = getPointsFromCorner(x, y, width, height);
         }
 
         @Override
@@ -288,8 +289,8 @@ public class Ptmx {
     private static class Polygon extends CollisionShape {
         Polygon(int id, float x, float y, PVector[] points) {
             super(id, x, y);
-            type = "polygon";
             this.points = points;
+            type = "polygon";
         }
 
         @Override
@@ -333,7 +334,7 @@ public class Ptmx {
         return pointsArray;
     }
 
-    private static PVector[] makeCornerPoints(float x, float y, float width, float height) {
+    private static PVector[] getPointsFromCorner(float x, float y, float width, float height) {
         return new PVector[] {
                 new PVector(x, y),
                 new PVector(x + width, y),
@@ -342,7 +343,7 @@ public class Ptmx {
         };
     }
 
-    private static PVector[] makeCenterPoints(float x, float y, float width, float height) {
+    private static PVector[] getPointsFromCenter(float x, float y, float width, float height) {
         return new PVector[] {
                 new PVector(x - width/2, y - height / 2),
                 new PVector(x + width/2, y - height / 2),
@@ -351,13 +352,13 @@ public class Ptmx {
         };
     }
 
-    private static Rectangle makeAABB(PVector[] points) {
+    private static Rectangle makeAABB(float x, float y, PVector[] points) {
         float minX =  Float.MAX_VALUE;
         float maxX = -Float.MAX_VALUE;
         float minY =  Float.MAX_VALUE;
         float maxY = -Float.MAX_VALUE;
 
-        for(int i = 0; i < points.length; i++) {
+        for (int i = 0; i < points.length; i++) {
             minX = Math.min(minX, points[i].x);
             maxX = Math.max(maxX, points[i].x);
             minY = Math.min(minY, points[i].y);
@@ -367,7 +368,7 @@ public class Ptmx {
         float width = maxX - minX;
         float height = maxY - minY;
         
-        return new Rectangle(0, minX, minY, width, height);
+        return new Rectangle(0, x + minX, y + minY, width, height);
     }
 
     public class Layer {
@@ -662,10 +663,8 @@ public class Ptmx {
             this.camtop = floor(top);
         }
         pg.pushMatrix();
-//        pg.resetMatrix();
         pg.pushStyle();
         pg.imageMode(parent.CORNER);
-//        pg.clear();
     }
 
     private void finishDraw(PGraphics pg) {
@@ -713,7 +712,6 @@ public class Ptmx {
 
     private void drawObject(PGraphics pg, Layer l, StringDict o) {
         pg.pushMatrix();
-        pg.resetMatrix();
         pg.pushStyle();
         pg.ellipseMode(CORNER);
         pg.translate(parseFloat(o.get("x")) - l.offsetx - this.camleft, parseFloat(o.get("y")) - l.offsety - this.camtop);
@@ -851,7 +849,7 @@ public class Ptmx {
         else return null;
     }
 
-    public ArrayList<CollisionShape> getShapesAt(int n, int x, int y) {
+    public ArrayList<CollisionShape> getShapes(int n, int x, int y) {
         if (n >= 0 && n < this.layers.size() && this.layers.get(n).type.equals("layer"))
             return this.layers.get(n).getShapesAt(x, y);
         else return null;

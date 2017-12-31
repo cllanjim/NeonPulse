@@ -10,6 +10,5 @@ public interface Action {
 
     void update(float delta_time);
     void display(PGraphics graphics);
-
     void collideWithAgent(Agent agent);
 }

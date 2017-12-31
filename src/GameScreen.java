@@ -126,6 +126,7 @@ public class GameScreen extends Screen {
         for (Player player : players) {
             player.display(canvas);
         }
+
         canvas.popMatrix();
 
         canvas.textAlign(CENTER);
@@ -133,7 +134,7 @@ public class GameScreen extends Screen {
         canvas.text(parseInt(round_timer), canvas.width/2, 36);
 
         // Player Scores
-        for (int i = 0; i < players.size(); i ++) {
+        for (int i = 0; i < players.size(); i++) {
             canvas.pushStyle();
             canvas.fill(0xff000000, 127);
             canvas.rect(canvas.width/6 * (i + 1) - 18, 4, 36, 36);

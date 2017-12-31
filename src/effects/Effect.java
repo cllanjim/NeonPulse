@@ -12,9 +12,6 @@ public abstract class Effect {
     public float lifetime;
     SoundFile sound;
     boolean live;
-    float cooldown;
-
-    static final float COOLDOWN = 2;
 
     Effect(SoundFile effect_sound) {
         position = new PVector(0,0);
@@ -22,7 +19,6 @@ public abstract class Effect {
         active = false;
         live = false;
         lifetime = 0;
-        cooldown = 0;
     }
 
     public abstract boolean collideWithAgent(Agent agent);

@@ -1,4 +1,4 @@
-package engine;
+package game;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;

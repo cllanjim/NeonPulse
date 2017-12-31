@@ -5,11 +5,11 @@ import ch.bildspur.postfx.pass.Pass;
 import processing.opengl.*;
 import processing.core.*;
 
-public class NegatePass implements Pass
+public class LightingPass implements Pass
 {
   PShader shader;
 
-  public NegatePass(PApplet applet)
+  public LightingPass(PApplet applet)
   {
     shader = applet.loadShader("shaders/negateFrag.glsl");
   }

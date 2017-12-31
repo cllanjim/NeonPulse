@@ -29,8 +29,6 @@ public class ServerScreen extends Screen {
 
     @Override
     public void load() {
-        // Networking
-
         if (server == null) {
             try {
                 server = new Server(applet, NeonPulse.Config.PORT);
@@ -39,7 +37,6 @@ public class ServerScreen extends Screen {
             }
         }
 
-        // Load Network players
         for (Client network_client : clients) {
             Player player = new Player(applet, new NetworkInput(new Input(), network_client), test_sound);
             addPlayer(player);

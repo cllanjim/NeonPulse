@@ -1,6 +1,6 @@
 package effects;
 
-import engine.Draw;
+import game.Draw;
 import processing.sound.SoundFile;
 import engine.Agent;
 import engine.Collision;

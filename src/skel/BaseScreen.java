@@ -6,8 +6,11 @@ import processing.core.PGraphics;
 
 public class BaseScreen extends Screen {
 
+    private final PGraphics canvas;
+
     protected BaseScreen(PApplet applet) {
         super(applet);
+        canvas = applet.createGraphics(applet.width, applet.height);
     }
 
     @Override

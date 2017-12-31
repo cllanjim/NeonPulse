@@ -2,7 +2,7 @@ package effects;
 
 import engine.Agent;
 import engine.Collision;
-import engine.Draw;
+import game.Draw;
 import engine.Tile;
 import processing.core.PGraphics;
 import processing.core.PVector;
@@ -44,6 +44,14 @@ public class Projectile extends Effect {
     public boolean collideWithAgent(Agent agent, Consumer<Agent> effectFn) {
         if (Collision.circular(agent.position, agent.radius, position, radius)) {
             effectFn.accept(agent);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean collideWithTile(Tile tile, Consumer<Tile> effectFn) {
+        if (active && tile.isSolid()) {
+            effectFn.accept(tile);
             return true;
         }
         return false;

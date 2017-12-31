@@ -37,7 +37,6 @@ public class Beam extends Effect {
     }
 
     public void activate(PVector source, PVector target) {
-        if (cooldown <= 0) {
             position.set(source);
             sound.play();
             lifetime = 0;
@@ -45,8 +44,6 @@ public class Beam extends Effect {
             end_position.set(PVector.add(source, direction));
             active = true;
             live = true;
-            cooldown = COOLDOWN;
-        }
     }
 
     public void update(float delta_time) {
@@ -57,7 +54,6 @@ public class Beam extends Effect {
             }
             lifetime += delta_time;
         }
-        cooldown -= delta_time;
     }
 
     public void display(PGraphics g) {

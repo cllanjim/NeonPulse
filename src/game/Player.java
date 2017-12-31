@@ -1,7 +1,6 @@
 package game;
 
 import effects.*;
-import engine.Draw;
 import processing.core.PApplet;
 import processing.sound.SoundFile;
 import engine.Agent;
@@ -13,14 +12,13 @@ import java.util.ArrayList;
 
 public class Player extends Agent {
     public PlayerInput input;
-    public ApManager apManager;
+    public APManager apManager;
     public Loadout loadout;
     PVector target;
 
     public Grenade grenade;
     public Laser laser;
     public Launcher gun;
-    public Shield shield;
 
     public ParticleSystem particleSystem;
 
@@ -43,11 +41,10 @@ public class Player extends Agent {
         input = playerInput;
         loadout = new Loadout();
 
-        shield = new Shield(this, player_sound);
         grenade = new Grenade(this, player_sound);
         laser = new Laser(this, player_sound);
         gun = new Launcher(this, player_sound);
-        apManager = new ApManager(applet, this, RADIUS * 2);
+        apManager = new APManager(applet, this, RADIUS * 2);
         particleSystem = new ParticleSystem(applet, position, 1);
 
         target = new PVector(0, 0);
@@ -76,7 +73,6 @@ public class Player extends Agent {
     private void updateEffects(float delta_time) {
         particleSystem.update(delta_time, position.x, position.y);
         grenade.update(delta_time);
-        shield.update(delta_time);
         gun.update(delta_time);
         laser.update(delta_time);
         loadout.update(delta_time);
@@ -85,7 +81,6 @@ public class Player extends Agent {
     public void collideWithEffects(Player other) {
         other.grenade.collideWithAgent(this);
         other.laser.collideWithAgent(this);
-        other.shield.collideWithAgent(this);
         other.gun.collideWithAgent(this);
         other.loadout.collideWithAgent(this);
     }
@@ -104,7 +99,6 @@ public class Player extends Agent {
         grenade.display(g);
         laser.display(g);
         gun.display(g);
-        shield.display(g);
         loadout.display(g);
         particleSystem.display(g);
     }

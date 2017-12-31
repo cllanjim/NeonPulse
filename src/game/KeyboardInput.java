@@ -30,9 +30,6 @@ public class KeyboardInput implements PlayerInput {
 
         player.target.set(input.getMousePosition());
 
-        // Shield
-        if (input.isKeyPressed('Q')) player.shield.activate();
-
         for (Pair<Character, Effect> binding : effect_bindings) {
             if (input.isKeyPressed(binding.first)) {
                 binding.second.activate(player.position, player.target);

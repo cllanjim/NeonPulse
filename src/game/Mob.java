@@ -2,7 +2,6 @@ package game;
 
 import effects.Effect;
 import engine.Agent;
-import engine.Draw;
 import processing.core.PGraphics;
 import processing.core.PVector;
 
@@ -64,20 +63,12 @@ public class Mob extends Agent {
             }
 
             player.grenade.collideWithAgent(this);
-            player.shield.collideWithAgent(this);
             player.gun.collideWithAgent(this);
 
             for(Effect effect: player.loadout.effects) {
                 effect.collideWithAgent(this);
             }
         }
-    }
-
-    public void respawn(float x, float y) {
-        position.set(x, y);
-        velocity.set(0, 0);
-        impulse.set(0, 0);
-        health = 100;
     }
 
     private void setTarget(PVector target_position) {

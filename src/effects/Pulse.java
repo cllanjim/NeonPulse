@@ -43,13 +43,10 @@ public class Pulse extends Effect {
     }
 
     public void activate(PVector source, PVector target) {
-        if (cooldown <= 0) {
             this.position.set(source);
             sound.play();
             lifetime = 0;
             active = true;
-            cooldown = COOLDOWN;
-        }
     }
 
     public void update(float delta_time) {
@@ -61,8 +58,6 @@ public class Pulse extends Effect {
                 active = false;
             }
         }
-
-        cooldown -= delta_time;
     }
 
     public void display(PGraphics g) {
