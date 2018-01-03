@@ -4,9 +4,14 @@
 # Log file
 *.log
 
-# Package Files #
+# Package Files
 *.zip
 *.tar.gz
 *.rar
 
+# Build files
 out/
+
+# Game files
+local/
+screenshot.png

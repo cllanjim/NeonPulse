@@ -5,9 +5,7 @@ import processing.core.PVector;
 
 // TODO: Make functions return collision depth?
 // TODO: circleRect
-// TODO: Probably avoid PVectors within the calcs
 public final class Collision {
-
     private Collision() {}
 
     // Circular Collision
@@ -18,7 +16,7 @@ public final class Collision {
         return (collision_depth > 0);
     }
 
-    // TODO: Is this alright? Should I return early on wrong angle? Branching vs calc
+    // Directional Circular Collision
     public static boolean arcCircle(PVector position_a, float radius_a, float angle, float range, PVector position_b, float radius_b) {
         float heading = PVector.sub(position_b, position_a).heading();
         float angle_diff = PApplet.abs(angle - heading);
@@ -45,6 +43,7 @@ public final class Collision {
         return (collision_depth_x > 0) && (collision_depth_y > 0);
     }
 
+    // Line-Circle Collision
     public static boolean lineCircle(PVector line_start, PVector line_end, PVector circle_position, float circle_radius) {
         PVector line_vector = PVector.sub(line_end, line_start);
         PVector circle_vector = PVector.sub(circle_position, line_start);
@@ -60,7 +59,7 @@ public final class Collision {
         return (closestPoint.dist(circle_position) < circle_radius);
     }
 
-    // TODO: Make another version of this that handles intersection point
+    // Segment - Segment Collision
     public static boolean lineSegments(PVector a_start, PVector a_end, PVector b_start, PVector b_end, PVector intersection_point) {
         PVector a_vector = PVector.sub(a_end, a_start);
         PVector b_vector = PVector.sub(b_end, b_start);
@@ -79,12 +78,6 @@ public final class Collision {
             return true;
         }
         return false;
-    }
-
-    // Point Collision
-    public static boolean pointBox(PVector point, PVector position, float width, float height) {
-        return (point.x >= position.x) && (point.x <= (position.x + width))
-                && (point.y >= position.y) && (point.y <= (position.y + height));
     }
 
     // Point Collision

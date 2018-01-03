@@ -8,20 +8,20 @@ import util.Pair;
 import java.util.ArrayList;
 
 public class GamepadInput implements PlayerInput {
-    private ControlDevice input;
-    private PVector aim_vector;
+    private final ControlDevice input;
+    private final ArrayList<Pair<String, Effect>> effectBindings;
+    private final PVector aimVector;
     private boolean aiming;
     private boolean charging;
     private boolean dashing;
-    private ArrayList<Pair<String, Effect>> effect_bindings;
 
     private static final float AIM_THRESHOLD = 0.4f;
 
     public GamepadInput(ControlDevice gamepad) {
         input = gamepad;
-        aim_vector = new PVector(1,0);
+        aimVector = new PVector(1,0);
         aiming = false;
-        effect_bindings = new ArrayList<>();
+        effectBindings = new ArrayList<>();
     }
 
     public void handleInput(Player player) {
@@ -31,14 +31,14 @@ public class GamepadInput implements PlayerInput {
         float right_analog_y = input.getSlider("ANALOG_RIGHT_Y").getValue();
 
         player.impulse.set(left_analog_x, left_analog_y);
-        aim_vector.set(right_analog_x, right_analog_y);
+        aimVector.set(right_analog_x, right_analog_y);
 
         // TODO: Keep angle instead of aim vector
-        if (aim_vector.mag() > AIM_THRESHOLD) {
+        if (aimVector.mag() > AIM_THRESHOLD) {
             player.target.set(player.position.x + right_analog_x * player.radius, player.position.y + right_analog_y * player.radius);
         }
 
-        for (Pair<String, Effect> binding : effect_bindings) {
+        for (Pair<String, Effect> binding : effectBindings) {
             if (input.getButton(binding.first).pressed()) {
                 binding.second.activate(player.position, player.target);
             }
@@ -76,6 +76,6 @@ public class GamepadInput implements PlayerInput {
 
     @Override
     public void addBinding(String binding_name, Effect effect) {
-        effect_bindings.add(new Pair<>(binding_name, effect));
+        effectBindings.add(new Pair<>(binding_name, effect));
     }
 }

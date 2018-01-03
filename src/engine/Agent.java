@@ -16,10 +16,9 @@ public abstract class Agent {
     public float radius;
     public int health;
     public float mass;
-    public boolean shielded;
     public int score = 0;
     protected float speed;
-    protected float angle;
+    public float angle;
 
     protected Agent() {
         position = new PVector(0,0);
@@ -27,7 +26,7 @@ public abstract class Agent {
         impulse = new PVector(0,0);
     }
 
-    private static final float FRICTION = 0.15f;
+    private static final float DAMPING = 0.15f;
 
     abstract public void update(ArrayList<Player> players, float delta_time);
     abstract public void display(PGraphics graphics);
@@ -49,13 +48,8 @@ public abstract class Agent {
     }
 
     public void updateMovement(float delta_time) {
-        // TODO: Velocity verlet movement
-
-        // Friction
-        PVector friction = PVector.mult(velocity, FRICTION);
-
-        // Movement
-        velocity.add(impulse).sub(friction);
+        PVector damping = PVector.mult(velocity, DAMPING);
+        velocity.add(impulse).sub(damping);
         position.add(PVector.mult(velocity, delta_time));
     }
 
@@ -73,7 +67,7 @@ public abstract class Agent {
         return false;
     }
 
-    void collideWithTile(PVector tile_position, float tile_width, float tile_height) {
+    protected void collideWithTile(PVector tile_position, float tile_width, float tile_height) {
         float min_distance_x = radius + tile_width / 2;
         float min_distance_y = radius + tile_height / 2;
         float distance_x = position.x - tile_position.x;
@@ -99,7 +93,6 @@ public abstract class Agent {
     }
 
     public boolean damageLethal(int damage) {
-        if (shielded) return false;
         health -= damage;
         return (damage < 0);
     }

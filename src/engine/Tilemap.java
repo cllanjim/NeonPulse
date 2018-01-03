@@ -9,19 +9,13 @@ import ptmx.Ptmx;
 import java.util.ArrayList;
 import java.util.List;
 
+import static processing.core.PApplet.floor;
 import static processing.core.PConstants.CORNER;
 
-public class Tilemap {
-    public float mapWidth;
-    public float mapHeight;
-    public float tileWidth;
-    public float tileHeight;
-    public float level_width;
-    public float level_height;
-    public float top, left;
-    public Ptmx map;
-    private ArrayList<Ptmx.CollisionShape> pits;
-    List<Ptmx.CollisionShape> shapes;
+public class Tilemap extends Level {
+    public final Ptmx map;
+    private final ArrayList<Ptmx.CollisionShape> pits;
+    private final List<Ptmx.CollisionShape> shapes;
 
     public Tilemap(PApplet applet, String tile_map) {
         // Load Map
@@ -44,15 +38,15 @@ public class Tilemap {
             pits.add(Ptmx.CollisionShape.fromStringDict(obj));
         }
 
-        mapWidth = map_size.x;
-        mapHeight = map_size.y;
-        tileWidth = tile_size.x;
-        tileHeight = tile_size.y;
-        level_width = mapWidth * tile_size.x;
-        level_height = mapHeight * tile_size.y;
+        mapWidth = floor(map_size.x);
+        mapHeight = floor(map_size.y);
+        tileWidth = floor(tile_size.x);
+        tileHeight = floor(tile_size.y);
+        levelWidth = floor(mapWidth * tile_size.x);
+        levelHeight = floor(mapHeight * tile_size.y);
 
-        top = (applet.height - level_height) / 2;
-        left = (applet.width - level_width) / 2;
+        top = (applet.height - levelHeight) / 2;
+        left = (applet.width - levelWidth) / 2;
     }
 
     public void update(float delta_time) {
@@ -86,7 +80,7 @@ public class Tilemap {
         int row = PApplet.floor(y / tileHeight);
 
         // No collision outside world, or if shapes are null
-        return col >= 0 && !(col >= mapWidth) && row >= 0 && !(row >= mapHeight)
+        return col >= 0 && col < mapWidth && row >= 0 && row < mapHeight
                 && map.getLayer(0).getShapesAt(col, row) != null;
     }
 
@@ -98,10 +92,10 @@ public class Tilemap {
         ArrayList<PVector> collision_positions = new ArrayList<>(4);
 
         // Wrap if outside world
-        if (agent.position.x < 0) agent.position.x = level_width;
-        if (agent.position.x > level_width) agent.position.x = 0;
-        if (agent.position.y < 0) agent.position.y = level_height;
-        if (agent.position.y > level_height) agent.position.y = 0;
+        if (agent.position.x < 0) agent.position.x = levelWidth;
+        if (agent.position.x > levelWidth) agent.position.x = 0;
+        if (agent.position.y < 0) agent.position.y = levelHeight;
+        if (agent.position.y > levelHeight) agent.position.y = 0;
 
         if (checkPitCollision(agent.position.x, agent.position.y)) {
             agent.damageLethal(100);
@@ -122,7 +116,7 @@ public class Tilemap {
         int row = PApplet.floor(y / tileHeight);
 
         // Don't collide if outside world
-        if (col < 0 || col >= mapWidth || row < 0 || row >= mapHeight)  return false;
+        if (col < 0 || col >= mapWidth || row < 0 || row >= mapHeight) return false;
 
         if (pits == null) return false;
         for (Ptmx.CollisionShape shape : pits) {
@@ -133,112 +127,8 @@ public class Tilemap {
         return false;
     }
 
-    void getPoints(List<PVector> points, PVector p0, PVector p1) {
-        float dx = p1.x - p0.x;
-        float dy = p1.y - p0.y;
-        float nx = Math.abs(dx);
-        float ny = Math.abs(dy);
-        float sign_x = dx > 0 ? 1 : -1;
-        float sign_y = dy > 0 ? 1 : -1;
-
-        PVector p = new PVector(p0.x, p0.y);
-        points.add(new PVector(p.x, p.y));
-
-        for (int ix = 0, iy = 0; ix < nx || iy < ny; ) {
-            if ((0.5 + ix) / nx == (0.5 + iy) / ny) {
-                // next step is diagonal
-                p.x += sign_x;
-                p.y += sign_y;
-                ix++;
-                iy++;
-            } else if ((0.5 + ix) / nx < (0.5 + iy) / ny) {
-                // next step is horizontal
-                p.x += sign_x;
-                ix++;
-            } else {
-                // next step is vertical
-                p.y += sign_y;
-                iy++;
-            }
-            points.add(new PVector(p.x, p.y));
-        }
-    }
-
-    void getPoints(List<PVector> points, int y1, int x1, int y2, int x2) {
-        int i;               // loop counter
-        int ystep, xstep;    // the step on y and x axis
-        int y = y1, x = x1;  // the line points
-        int ddy, ddx;        // compulsory variables: the double values of dy and dx
-
-        int dx = x2 - x1;
-        int dy = y2 - y1;
-
-        points.add(new PVector(y1, x1));  // first point
-
-        // NB the last point can't be here, because of its previous point (which has to be verified)
-
-        if (dy < 0) {
-            ystep = -1;
-            dy = -dy;
-        } else {
-            ystep = 1;
-        }
-
-        if (dx < 0) {
-            xstep = -1;
-            dx = -dx;
-        } else {
-            xstep = 1;
-        }
-
-        ddy = 2 * dy;
-        ddx = 2 * dx;
-
-        if (ddx >= ddy) {  // first octant (0 <= slope <= 1)
-            // compulsory initialization (even for errorprev, needed when dx==dy)
-            int errorprev = dx;
-            int error = dx;  // start in the middle of the square
-            for (i = 0; i < dx; i++) {  // do not use the first point (already done)
-                x += xstep;
-                error += ddy;
-                if (error > ddx) {  // increment y if AFTER the middle ( > )
-                    y += ystep;
-                    error -= ddx;
-                    // three cases (octant == right->right-top for directions below):
-                    if (error + errorprev < ddx)  // bottom square also
-                        points.add(new PVector(y - ystep, x));
-                    else if (error + errorprev > ddx)  // left square also
-                        points.add(new PVector(y, x - xstep));
-                    else {  // corner: bottom and left squares also
-                        points.add(new PVector(y - ystep, x));
-                        points.add(new PVector(y, x - xstep));
-                    }
-                }
-                points.add(new PVector(y, x));
-                errorprev = error;
-            }
-        } else {  // the same as above
-            int errorprev = dy;
-            int error = dy;
-            for (i = 0; i < dy; i++) {
-                y += ystep;
-                error += ddx;
-                if (error > ddy) {
-                    x += xstep;
-                    error -= ddy;
-                    if (error + errorprev < ddy)
-                        points.add(new PVector(y, x - xstep));
-                    else if (error + errorprev > ddy)
-                        points.add(new PVector(y - ystep, x));
-                    else {
-                        points.add(new PVector(y, x - xstep));
-                        points.add(new PVector(y - ystep, x));
-                    }
-                }
-                points.add(new PVector(y, x));
-                errorprev = error;
-            }
-        }
-        assert((y == y2) && (x == x2));  // the last point (y2,x2) has to be the same with the last point of the algorithm
+    @Override
+    public PVector getSpawnPoint() {
+        return new PVector(100, 100);
     }
 }

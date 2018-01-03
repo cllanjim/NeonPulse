@@ -7,7 +7,7 @@ import processing.core.PVector;
 import java.util.ArrayList;
 
 class Chain {
-    ArrayList<Link> links = new ArrayList<>(4);
+    private final ArrayList<Link> links = new ArrayList<>(4);
 
     Chain(PVector position, int length, int num_links) {
         links.add(new Link(position, 0, 0));

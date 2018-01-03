@@ -2,7 +2,7 @@ package game;
 
 import effects.Action;
 import effects.Projectile;
-import engine.Level;
+import engine.StringMap;
 import engine.Tilemap;
 import processing.core.PGraphics;
 import processing.sound.SoundFile;
@@ -11,10 +11,11 @@ import engine.Agent;
 import java.util.ArrayList;
 
 public class Launcher implements Action {
-    private ArrayList<Projectile> bullets;
+    private final ArrayList<Projectile> bullets;
+    private final SoundFile sound;
+    private final Player player;
+
     private float cooldown;
-    private SoundFile sound;
-    Player player;
 
     private static final float BULLET_SPEED = 600;
     private static final float DELAY = 0.2f;
@@ -70,7 +71,7 @@ public class Launcher implements Action {
         }
     }
 
-    public void collideWithLevel(Level level) {
+    public void collideWithLevel(StringMap level) {
         for (int i = bullets.size() - 1; i >= 0; i--) {
             Projectile bullet = bullets.get(i);
             if(level.checkTileFor(bullet.position.x, bullet.position.y, '#'))

@@ -2,22 +2,23 @@ package game;
 
 import effects.Action;
 import effects.Beam;
-import engine.Agent;
-import engine.Collision;
-import engine.Level;
-import engine.Tilemap;
+import engine.*;
 import processing.core.PGraphics;
 import processing.core.PVector;
 import processing.sound.SoundFile;
+import ptmx.Ptmx;
 
 import java.util.ArrayList;
 
+import static processing.core.PApplet.abs;
+import static processing.core.PApplet.floor;
+
 public class Laser implements Action {
-    private Beam beam;
-    private Player player;
-    private SoundFile sound;
+    private final Beam beam;
+    private final Player player;
+    private final SoundFile sound;
     private float delay;
-    boolean active;
+    private boolean active;
     private boolean charging;
 
     private static final float DELAY = 1;
@@ -87,33 +88,61 @@ public class Laser implements Action {
                 new PVector(tile_position.x - tile_width / 2, tile_position.y + tile_height / 2),
         };
 
-        ArrayList<PVector> collision_positions = new ArrayList<>(4);
         PVector collision_point = new PVector();
+        float closest_distance = Float.MAX_VALUE;
         for (int i = 0; i < points.length - 1; i++) {
-            if (Collision.lineSegments(player.position, beam.end_position, points[i], points[i + 1], collision_point)) {
-                collision_positions.add(collision_point);
-                return true;
+            if (Collision.lineSegments(player.position, beam.endPosition, points[i], points[i + 1], collision_point)) {
+                float point_distance = collision_point.dist(player.position);
+                if (point_distance < closest_distance) {
+                    closest_distance = point_distance;
+                }
             }
         }
 
-        if (collision_positions.size() == 0) {
+        if (closest_distance == Float.MAX_VALUE) {
             return false;
         } else {
-            collision_positions.sort((p, n) ->
-                    p.dist(player.position) > n.dist(player.position)
-                            ? -1 : 1);
-            beam.end_position.set(collision_positions.get(0));
             // TODO: Create new beam reflected on this spot with remaining length
+            beam.setLength(closest_distance);
             return true;
         }
 
     }
 
-    public void collideWithLevel(Level level) {
-        // TODO: Get all tiles the laser passes over?
+    public void collideWithLevel(StringMap level) {
+        if (beam.active) {
+            ArrayList<PVector> tiles = new ArrayList<>(8);
+            level.getGridPoints(tiles, player.position, beam.endPosition);
+            int num_tiles = tiles.size();
+            if (num_tiles > 0) {
+                for (int i = 0; i < num_tiles; i++) {
+                    PVector tile_pos = tiles.get(i)
+                            .mult(level.tileWidth)
+                            .add(level.tileWidth / 2, level.tileHeight / 2);
+                    if (level.checkTileFor(tile_pos.x, tile_pos.y, '#')
+                            && collideWithTile(tile_pos, level.tileWidth, level.tileHeight)) {
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     public void collideWithTilemap(Tilemap tilemap) {
-        // TODO: Get all tiles the laser passes over? Efficiently?
+        if (beam.active) {
+            ArrayList<PVector> tiles = new ArrayList<>(8);
+            tilemap.getGridPoints(tiles, player.position, beam.endPosition);
+            int num_tiles = tiles.size();
+            if (num_tiles > 0) {
+                for (PVector tile_pos : tiles) {
+                    ArrayList<Ptmx.CollisionShape> shapes = tilemap.map.getShapes(0, floor(tile_pos.x), floor(tile_pos.y));
+                    if (shapes != null) {
+                        tile_pos.mult(tilemap.tileWidth)
+                                .add(tilemap.tileWidth / 2, tilemap.tileHeight / 2);
+                        if (collideWithTile(tile_pos, tilemap.tileWidth, tilemap.tileHeight)) return;
+                    }
+                }
+            }
+        }
     }
 }

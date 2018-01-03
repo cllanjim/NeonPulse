@@ -1,7 +1,6 @@
 import engine.*;
 import processing.core.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.Map;
 import org.gamecontrolplus.*;
 
 // Networking
-import processing.net.*;
 import processing.sound.AudioDevice;
 
 // PostFX
@@ -20,7 +18,6 @@ import ch.bildspur.postfx.PostFXSupervisor;
 import processing.sound.SoundFile;
 
 public class NeonPulse extends PApplet {
-
     // Debug - Sets up a canvas on which to draw debug information
     static Debug g_debug = null;
 
@@ -124,7 +121,7 @@ public class NeonPulse extends PApplet {
         noStroke();
         noCursor();
 
-        // TODO: Auto-updater
+        // TODO: Auto-updater?
         // saveStream("local/latest", "http://raulgrell.com/latest");
 
         // Debug
@@ -145,14 +142,12 @@ public class NeonPulse extends PApplet {
 
         // Screens
         g_game_screen = new GameScreen(this);
-
-        screens.add(new TitleScreen(this));
-        screens.add(new MenuScreen(this, g_game_screen));
+        screens.add(new TitleScreen(this, g_game_screen));
         screens.add(g_game_screen);
         screens.add(new TestScreen(this));
-        screens.add(new ShaderScreen(this, fx_supervisor));
-        screens.add(new ServerScreen(this));
-        screens.add(new ClientScreen(this));
+//        screens.add(new ShaderScreen(this, fx_supervisor));
+//        screens.add(new ClientScreen(this));
+//        screens.add(new ServerScreen(this));
 
         // Load first game_screen
         currentScreen = screens.get(currentScreenIndex);
@@ -172,7 +167,6 @@ public class NeonPulse extends PApplet {
         if (Config.DEBUG) {
             g_debug.begin();
             g_debug.drawFPS(0, 20);
-            g_debug.drawCursor(mouseX, mouseY);
         }
 
         // Run Screen
@@ -195,15 +189,16 @@ public class NeonPulse extends PApplet {
 
         // Global handlers
         if (g_input.isKeyPressed('P')) save("screenshot.png");
-        if (g_input.isKeyPressed('U')) togglePostProcessing();
         if (g_input.isKeyPressed('O')) reloadScreen();
-        if (g_input.isKeyPressed('I')) goToNextScreen();
+        if (g_input.isKeyPressed('I')) loadNextScreen();
+        if (g_input.isKeyPressed('U')) togglePostProcessing();
 
         // History
         g_input.saveInputState(mouseX, mouseY);
     }
 
     private void reloadScreen() {
+        currentScreen.unload();
         currentScreen.load();
     }
 
@@ -211,14 +206,15 @@ public class NeonPulse extends PApplet {
         postProcessingActive = !postProcessingActive;
     }
 
-    private void goToNextScreen() {
+    private void loadNextScreen() {
         currentScreenIndex = (currentScreenIndex + 1) % screens.size();
-        currentScreen = screens.get(currentScreenIndex);
-        currentScreen.load();
+        goToScreen(screens.get(currentScreenIndex));
     }
 
     static void goToScreen(Screen screen) {
+        currentScreen.unload();
         currentScreen = screen;
+        currentScreen.load();
     }
 
     @Override

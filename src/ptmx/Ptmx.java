@@ -495,6 +495,7 @@ public class Ptmx {
 
         public ArrayList<CollisionShape> getShapesAt(int x, int y) {
             int tile_index = y * mapwidth + x;
+            if (tile_index > data.length) return null;
             return Ptmx.this.collision_map.get(data[tile_index]);
         }
     }

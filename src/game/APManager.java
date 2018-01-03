@@ -6,20 +6,18 @@ import processing.core.PGraphics;
 import static processing.core.PApplet.*;
 
 public class APManager {
-    private PApplet applet;
-    private Player player;
+    private final Player player;
     private float angularVelocity;
     private float actionTimer;
     private float radius;
     private float angle;
     private int actionPoints;
 
-    static final float CIRCLE_RADIUS = 12;
-    static final float CHARGE_DELAY = 2;
-    static final int MAX_ACTION_POINTS = 3;
+    private static final float CIRCLE_RADIUS = 12;
+    private static final float CHARGE_DELAY = 1;
+    private static final int MAX_ACTION_POINTS = 3;
 
-    APManager(PApplet applet, Player player, float radius) {
-        this.applet = applet;
+    APManager(Player player, float radius) {
         this.player = player;
         this.radius = radius;
         actionPoints = MAX_ACTION_POINTS;

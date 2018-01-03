@@ -142,7 +142,6 @@ public void setup() {
     screens.add(new TitleScreen(this));
     screens.add(new MenuScreen(this));   
     screens.add(g_game_screen);
-    screens.add(new TestScreen(this));
     
     currentScreen = screens.get(currentScreenIndex);
     currentScreen.load();

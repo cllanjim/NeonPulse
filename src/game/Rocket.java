@@ -3,13 +3,13 @@ package game;
 import effects.Action;
 import effects.Explosion;
 import effects.Payload;
+import engine.StringMap;
 import engine.Tilemap;
 import processing.sound.SoundFile;
 import engine.Agent;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
-import engine.Level;
 
 import java.util.ArrayList;
 
@@ -92,12 +92,12 @@ public class Rocket implements Action {
     }
 
     // TODO: Figure out a way to do this once - probably join Level and Tilemap
-    public void collideWithLevel(Level level) {
+    public void collideWithLevel(StringMap level) {
         ArrayList<PVector> collision_positions = new ArrayList<>(4);
-        level.checkTileCollisions(collision_positions, payload.position, payload.radius);
+        level.checkCornerCollisions(collision_positions, payload.position, payload.radius);
         if (collision_positions.size() == 0) return;
         for (PVector pos : collision_positions) {
-            if (collideWithTile(pos, level.tile_size, level.tile_size)) {
+            if (collideWithTile(pos, level.tileWidth, level.tileHeight)) {
                 return;
             }
         }

@@ -7,7 +7,7 @@ import processing.core.*;
 
 public class LightingPass implements Pass
 {
-  PShader shader;
+  private final PShader shader;
 
   public LightingPass(PApplet applet)
   {

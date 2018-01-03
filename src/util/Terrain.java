@@ -7,14 +7,14 @@ import static processing.core.PConstants.P3D;
 import static processing.core.PConstants.PI;
 
 public class Terrain {
-    private PApplet applet;
+    private final PApplet applet;
     private int cols;
     private int rows;
     private int scale = 60;
     private int width = 2000;
     private int height = 1600;
 
-    private float terrain_offset = 0;
+    private float offset = 0;
     private float[][] terrain;
     private PGraphics graphics;
 
@@ -28,9 +28,9 @@ public class Terrain {
     }
 
     public void update() {
-        terrain_offset -= 0.1f;
+        offset -= 0.1f;
 
-        float y_offset = terrain_offset;
+        float y_offset = offset;
         for (int y = 0; y < rows; y++) {
             float x_offset = 0;
             for (int x = 0; x < cols; x++) {

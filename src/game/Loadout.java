@@ -6,7 +6,7 @@ import processing.core.PGraphics;
 import java.util.ArrayList;
 
 public class Loadout {
-    ArrayList<Effect> effects;
+    public ArrayList<Effect> effects;
 
     Loadout() {
         effects = new ArrayList<>();

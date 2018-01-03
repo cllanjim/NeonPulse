@@ -6,7 +6,6 @@ import org.gamecontrolplus.Configuration;
 import org.gamecontrolplus.ControlDevice;
 import processing.core.PApplet;
 import processing.core.PGraphics;
-import processing.sound.SoundFile;
 import engine.Screen;
 import engine.Tilemap;
 
@@ -16,12 +15,12 @@ import static processing.core.PApplet.parseInt;
 import static processing.core.PConstants.*;
 
 public class GameScreen extends Screen {
-    private Tilemap tilemap;
     private final PGraphics canvas;
-    private String current_map_path = MAPS[0];
-    private float round_timer;
-    private static final float ROUND_TIME = 120;
+    private Tilemap tilemap;
+    private String currentMapPath = MAPS[0];
+    private float roundTimer;
 
+    private static final float ROUND_TIME = 120;
     private static final String[] MAPS = {
             "map1.tmx",
             "map2.tmx",
@@ -34,16 +33,15 @@ public class GameScreen extends Screen {
     }
 
     public void load() {
-        loadMap(current_map_path);
+        loadMap(currentMapPath);
         loadPlayers();
     }
 
     public void loadMap(String path) {
-        current_map_path = path;
+        currentMapPath = path;
         tilemap = new Tilemap(applet, path);
-        round_timer = ROUND_TIME;
+        roundTimer = ROUND_TIME;
     }
-
 
     void loadPlayers() {
         players.clear();
@@ -71,9 +69,15 @@ public class GameScreen extends Screen {
         }
     }
 
+    public void handleInput() {
+        // Change Level
+        if (NeonPulse.g_input.isKeyPressed('L')) nextRound();
+    }
+
     public void update(float delta_time) {
-        tilemap.map.update(delta_time * 1000);
-        for (int i = 0; i < players.size(); i++ ) {
+        tilemap.update(delta_time * 1000);
+
+        for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
             player.update(players, delta_time);
             player.updateMovement(delta_time);
@@ -95,23 +99,17 @@ public class GameScreen extends Screen {
             }
 
             player.grenade.collideWithTilemap(tilemap);
+            player.laser.collideWithTilemap(tilemap);
             tilemap.collideWithAgent(player);
 
             // Cleanup
-            if (player.health < 0) {
-                player.respawn(applet.random(80, applet.width - 80), applet.random(80, applet.height - 80));
+            if (player.alive && player.health < 0) {
+                player.respawn(tilemap.getSpawnPoint());
             }
         }
 
-        if (round_timer < 0) nextRound();
-        round_timer -= delta_time;
-    }
-
-    public void handleInput() {
-        // Change Level
-        if (NeonPulse.g_input.isKeyPressed('L')) {
-            nextRound();
-        }
+        if (roundTimer < 0) nextRound();
+        roundTimer -= delta_time;
     }
 
     public PGraphics render() {
@@ -131,7 +129,7 @@ public class GameScreen extends Screen {
 
         canvas.textAlign(CENTER);
         canvas.textSize(36);
-        canvas.text(parseInt(round_timer), canvas.width/2, 36);
+        canvas.text(parseInt(roundTimer), canvas.width/2, 36);
 
         // Player Scores
         for (int i = 0; i < players.size(); i++) {

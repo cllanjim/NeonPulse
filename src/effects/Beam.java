@@ -8,21 +8,23 @@ import processing.core.PGraphics;
 import processing.core.PVector;
 
 public class Beam extends Effect {
-    public PVector end_position;
+    public PVector segment;
+    public PVector endPosition;
     private static final float LENGTH = 360;
     private static final float FORCE = 128;
     private static final float LIFESPAN = 0.1f;
 
     public Beam(SoundFile beam_sound) {
         super(beam_sound);
-        end_position = new PVector(0, 0);
+        segment = new PVector(0, 0);
+        endPosition = new PVector(0, 0);
     }
 
     @Override
     public boolean collideWithAgent(Agent agent) {
         if (live) {
-            if (Collision.lineCircle(position, end_position, agent.position, agent.radius)) {
-                end_position.set(agent.position);
+            if (Collision.lineCircle(position, endPosition, agent.position, agent.radius)) {
+                endPosition.set(agent.position);
                 agent.impulse.add(PVector.sub(agent.position, position).setMag(FORCE));
                 agent.damageLethal(10);
                 return true;
@@ -40,16 +42,17 @@ public class Beam extends Effect {
             position.set(source);
             sound.play();
             lifetime = 0;
-            PVector direction = PVector.sub(target, source).setMag(LENGTH);
-            end_position.set(PVector.add(source, direction));
+            segment.set(PVector.sub(target, source).setMag(LENGTH));
+            endPosition.set(PVector.add(source, segment));
             active = true;
             live = true;
     }
 
     public void update(float delta_time) {
         if(active) {
-            if (lifetime > 0) live = false;
             if (lifetime > LIFESPAN) {
+                // Keep live while active?
+                live = false;
                 active = false;
             }
             lifetime += delta_time;
@@ -61,8 +64,13 @@ public class Beam extends Effect {
             g.pushStyle();
             g.stroke(0xffff00ff);
             g.strokeWeight(8);
-            g.line(position.x, position.y, end_position.x, end_position.y);
+            g.line(position.x, position.y, endPosition.x, endPosition.y);
             g.popStyle();
         }
+    }
+
+    public void setLength(float length) {
+        segment.setMag(length);
+        endPosition.set(PVector.add(position, segment));
     }
 }

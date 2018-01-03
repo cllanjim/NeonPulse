@@ -2,6 +2,7 @@ package game;
 
 import effects.Effect;
 import engine.Input;
+import processing.core.PVector;
 import util.Pair;
 
 import java.util.ArrayList;
@@ -10,17 +11,17 @@ import static processing.core.PConstants.LEFT;
 import static processing.core.PConstants.RIGHT;
 
 public class KeyboardInput implements PlayerInput {
-    public Input input;
-    private ArrayList<Pair<Character, Effect>> effect_bindings;
+    private final ArrayList<Pair<Character, Effect>> effectBindings;
+    private final Input input;
 
     public KeyboardInput(Input keyboard_input) {
         this.input = keyboard_input;
-        effect_bindings = new ArrayList<>();
+        effectBindings = new ArrayList<>();
     }
 
     @Override
     public void handleInput(Player player) {
-        player.impulse.set(0, 0);
+         player.impulse.set(0, 0);
 
         if (input.isKeyDown('W')) player.impulse.add(0, -1);
         if (input.isKeyDown('A')) player.impulse.add(-1, 0);
@@ -29,8 +30,9 @@ public class KeyboardInput implements PlayerInput {
         if (player.impulse.mag() != 0)  player.impulse.normalize();
 
         player.target.set(input.getMousePosition());
+        player.angle = PVector.sub(player.target, player.position).heading();
 
-        for (Pair<Character, Effect> binding : effect_bindings) {
+        for (Pair<Character, Effect> binding : effectBindings) {
             if (input.isKeyPressed(binding.first)) {
                 binding.second.activate(player.position, player.target);
             }
@@ -53,6 +55,6 @@ public class KeyboardInput implements PlayerInput {
 
     @Override
     public void addBinding(String binding_name, Effect effect) {
-        effect_bindings.add(new Pair<>(binding_name.charAt(0), effect));
+        effectBindings.add(new Pair<>(binding_name.charAt(0), effect));
     }
 }

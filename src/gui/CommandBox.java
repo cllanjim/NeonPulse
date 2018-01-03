@@ -74,7 +74,7 @@ public class CommandBox {
         }
     }
 
-    class TextBox {
+    static class TextBox {
         final int textColour, baseColour, borderColour, selectionColor;
         final short x, y, w, h, xw, yh, lim;
         int frameCount;
