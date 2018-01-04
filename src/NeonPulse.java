@@ -1,5 +1,13 @@
-import engine.*;
-import processing.core.*;
+import ch.bildspur.postfx.PostFXSupervisor;
+import ch.bildspur.postfx.builder.PostFX;
+import engine.GameScreen;
+import engine.Input;
+import org.gamecontrolplus.Configuration;
+import org.gamecontrolplus.ControlIO;
+import processing.core.PApplet;
+import processing.core.PGraphics;
+import processing.sound.AudioDevice;
+import processing.sound.SoundFile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,15 +15,8 @@ import java.util.List;
 import java.util.Map;
 
 // Controllers
-import org.gamecontrolplus.*;
-
 // Networking
-import processing.sound.AudioDevice;
-
 // PostFX
-import ch.bildspur.postfx.builder.*;
-import ch.bildspur.postfx.PostFXSupervisor;
-import processing.sound.SoundFile;
 
 public class NeonPulse extends PApplet {
     // Debug - Sets up a canvas on which to draw debug information
@@ -39,10 +40,9 @@ public class NeonPulse extends PApplet {
     private int currentMillis;
 
     // Screens
-    private static int currentScreenIndex = 0;
-    private static final ArrayList<Screen> screens = new ArrayList<Screen>(3);
-    private static GameScreen g_game_screen = null;
-    private static Screen currentScreen = null;
+    private int currentScreenIndex = 0;
+    private final ArrayList<GameScreen> screens = new ArrayList<GameScreen>(3);
+    private static GameScreen currentScreen = null;
 
     // Settings
     private static boolean postProcessingActive = false;
@@ -52,7 +52,7 @@ public class NeonPulse extends PApplet {
         static final boolean DEBUG = true;
         static final boolean KEYBOARD = true;
         static final int PORT = 5204;
-        static final Map<String,Float> values = new HashMap<>();
+        static final Map<String, Float> values = new HashMap<String, Float>();
 
         static {
             values.put("AREA_RADIUS", 128f);
@@ -141,7 +141,8 @@ public class NeonPulse extends PApplet {
         fx_supervisor = new PostFXSupervisor(this);
 
         // Screens
-        g_game_screen = new GameScreen(this);
+        MainScreen g_game_screen = new MainScreen(this);
+
         screens.add(new TitleScreen(this, g_game_screen));
         screens.add(g_game_screen);
         screens.add(new TestScreen(this));
@@ -169,11 +170,11 @@ public class NeonPulse extends PApplet {
             g_debug.drawFPS(0, 20);
         }
 
-        // Run Screen
+        // Run GameScreen
         currentScreen.handleInput();
         currentScreen.update(deltatime);
 
-        // Render Screen
+        // Render GameScreen
         blendMode(BLEND);
         image(currentScreen.render(), 0, 0);
 
@@ -197,12 +198,12 @@ public class NeonPulse extends PApplet {
         g_input.saveInputState(mouseX, mouseY);
     }
 
-    private void reloadScreen() {
+    private static void reloadScreen() {
         currentScreen.unload();
         currentScreen.load();
     }
 
-    private void togglePostProcessing() {
+    private static void togglePostProcessing() {
         postProcessingActive = !postProcessingActive;
     }
 
@@ -211,7 +212,7 @@ public class NeonPulse extends PApplet {
         goToScreen(screens.get(currentScreenIndex));
     }
 
-    static void goToScreen(Screen screen) {
+    public static void goToScreen(GameScreen screen) {
         currentScreen.unload();
         currentScreen = screen;
         currentScreen.load();

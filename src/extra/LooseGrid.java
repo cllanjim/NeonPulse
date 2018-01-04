@@ -1,6 +1,5 @@
 package extra;
 
-import engine.Agent;
 import processing.core.PApplet;
 import processing.core.PVector;
 

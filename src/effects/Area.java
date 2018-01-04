@@ -1,11 +1,11 @@
 package effects;
 
-import processing.sound.SoundFile;
 import engine.Agent;
 import engine.Collision;
 import engine.Tile;
 import processing.core.PGraphics;
 import processing.core.PVector;
+import processing.sound.SoundFile;
 
 public class Area extends Effect {
     private float angle;

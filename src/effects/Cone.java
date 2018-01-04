@@ -1,6 +1,5 @@
 package effects;
 
-import processing.sound.SoundFile;
 import engine.Agent;
 import engine.Collision;
 import engine.Tile;
@@ -8,6 +7,7 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.core.PVector;
+import processing.sound.SoundFile;
 
 public class Cone extends Effect {
     private float range;

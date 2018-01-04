@@ -4,9 +4,7 @@ import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
 
-import static processing.core.PConstants.CLOSE;
-import static processing.core.PConstants.PI;
-import static processing.core.PConstants.TWO_PI;
+import static processing.core.PConstants.*;
 
 public class Draw {
     public static void polygon(PGraphics g, float x, float y, float radius, int num_points, float rotation) {

@@ -8,7 +8,6 @@ import processing.core.PVector;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static processing.core.PApplet.abs;
 import static sun.dc.pr.Rasterizer.TILE_SIZE;
 
 public class StringMap extends Level {

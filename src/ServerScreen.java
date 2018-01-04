@@ -1,6 +1,5 @@
 import engine.Input;
 import game.KeyboardInput;
-import game.Player;
 import network.JoinEvent;
 import network.NetworkEvent;
 import network.NetworkPlayer;
@@ -8,14 +7,14 @@ import processing.core.PApplet;
 import processing.net.Client;
 import processing.net.Server;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import static processing.core.PApplet.*;
+import static processing.core.PApplet.println;
 
 public class ServerScreen extends TestScreen {
+    private final ArrayList<NetworkPlayer> networkPlayers;
+
     private static Server server = null;
-    private ArrayList<NetworkPlayer> networkPlayers;
 
     ServerScreen(PApplet applet) {
         super(applet);

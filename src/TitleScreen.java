@@ -1,36 +1,37 @@
-import engine.Screen;
+import engine.GameScreen;
+import processing.core.*;
 import util.Pair;
 import util.Terrain;
-import processing.core.*;
 
 import java.util.ArrayList;
 
 import static processing.core.PConstants.*;
 
-class TitleScreen extends Screen {
+class TitleScreen extends GameScreen {
     // Fonts
     private PFont rubber;
     private PGraphics canvas;
     private PImage background;
 
     // Maps
-    private ArrayList<Pair<PVector, String>> maps;
-    private PImage map1;
-    private PImage map2;
-    private PImage map3;
+    private final ArrayList<Pair<PVector, String>> maps;
+    private final PImage map1;
+    private final PImage map2;
+    private final PImage map3;
 
     private static final float BUTTON_WIDTH  = 512;
     private static final float BUTTON_HEIGHT = 288;
 
     // Screens
-    private final GameScreen gameScreen;
-    private final ScreenState screenState;
+    private final MainScreen mainScreen;
+    private ScreenState screenState;
 
     // Intro and Background
-    private Terrain mountains;
-    private Terrain floor;
-    private Sun sun;
+    private final Terrain mountains;
+    private final Terrain floor;
+    private final Sun sun;
     private PVector pulsePoint;
+    private float timer;
 
     private static final float PULSE_SPEED = 1500;
 
@@ -50,12 +51,14 @@ class TitleScreen extends Screen {
             radius = 200;
         }
 
+        void update(float delta_time) {}
+
         void display(PGraphics g) {
             g.ellipse(position.x, position.y, radius * 2, radius * 2);
         }
     }
 
-    TitleScreen(PApplet applet, GameScreen game_screen) {
+    TitleScreen(PApplet applet, MainScreen game_screen) {
         super(applet);
         canvas = applet.createGraphics(applet.width, applet.height, P2D);
         screenState = ScreenState.INTRO;
@@ -65,11 +68,11 @@ class TitleScreen extends Screen {
         background.resize(applet.width, applet.height);
 
         // Terrain
-//        mountains = new Terrain(applet);
-//        floor = new Terrain(applet);
+        mountains = new Terrain(applet);
+        floor = new Terrain(applet);
 
         // Sun
-//        sun = new Sun(applet.width / 2, applet.height / 2);
+        sun = new Sun(applet.width / 2, applet.height / 2);
 
         // Text
         rubber = applet.createFont("fonts/rubber.ttf",72);
@@ -77,7 +80,7 @@ class TitleScreen extends Screen {
         // Pulse
         pulsePoint = new PVector(0, 0);
 
-        this.gameScreen = game_screen;
+        this.mainScreen = game_screen;
 
         canvas = applet.createGraphics(applet.width, applet.height, P2D);
 
@@ -96,6 +99,8 @@ class TitleScreen extends Screen {
     }
 
     public void load() {
+        screenState = ScreenState.INTRO;
+        timer = 3;
     }
 
     @Override
@@ -107,25 +112,42 @@ class TitleScreen extends Screen {
                         && m.x <= map.first.x + BUTTON_WIDTH
                         && m.y >= map.first.y
                         && m.y <= map.first.y + BUTTON_HEIGHT) {
-                    NeonPulse.goToScreen(gameScreen);
-                    gameScreen.loadMap(map.second);
-                    gameScreen.loadPlayers();
+                    NeonPulse.goToScreen(mainScreen);
+                    mainScreen.loadMap(map.second);
+                    mainScreen.loadPlayers();
                     return;
                 }
             }
         }
     }
 
-    public void update(float deltatime) {
-        pulsePoint.x = (pulsePoint.x + deltatime * PULSE_SPEED) % applet.width;
-//         mountains.update();
-//         floor.update();
-//         sun.update();
+    public void update(float delta_time) {
+        pulsePoint.x = (pulsePoint.x + delta_time * PULSE_SPEED) % applet.width;
+        mountains.update();
+        floor.update();
+        sun.update(delta_time);
 
         switch (screenState) {
-            case INTRO:
-            case TITLE:
-            case MAP:
+            case INTRO: {
+                timer -= delta_time;
+                if (timer < 0) {
+                    screenState = ScreenState.TITLE;
+                    timer = 2;
+                }
+                break;
+            }
+            case TITLE: {
+                timer -= delta_time;
+                if (timer < 0) {
+                    screenState = ScreenState.MAP;
+                }
+                // TODO: Handle player creation
+                break;
+            }
+            case MAP: {
+                // TODO: Handle map selection
+                break;
+            }
         }
     }
 
@@ -133,12 +155,15 @@ class TitleScreen extends Screen {
         canvas.beginDraw();
         canvas.background(0xffffffff);
 
-         canvas.image(background, 0, 0);
-//         canvas.image(mountains.render(), 0, 0);
-//         canvas.image(floor.render(), 0, 0);
-//
-//         sun.display(canvas);
+        // Background
+        canvas.image(background, 0, 0);
 
+        // Animation
+        canvas.image(mountains.render(), 0, 0);
+        canvas.image(floor.render(), 0, 0);
+        sun.display(canvas);
+
+        // Screen
         canvas.pushStyle();
         canvas.textAlign(CENTER);
         canvas.strokeWeight(4);
@@ -147,23 +172,24 @@ class TitleScreen extends Screen {
         canvas.point(pulsePoint.x, applet.height / 5 + 16);
 
         switch (screenState) {
-            case INTRO:
+            case INTRO: {
                 break;
-            case TITLE:
+            }
+            case TITLE: {
                 canvas.text("Neon Pulse", applet.width / 2, applet.height / 4);
                 break;
-            case MAP:
-                canvas.text("Select Map", canvas.width/2, canvas.height / 5);
-
-                canvas.image(map1,100, 420, BUTTON_WIDTH, BUTTON_HEIGHT);
-                canvas.image(map2,700, 420, BUTTON_WIDTH, BUTTON_HEIGHT);
-                canvas.image(map3,1300, 420, BUTTON_WIDTH, BUTTON_HEIGHT);
-            break;
+            }
+            case MAP: {
+                canvas.text("Select Map", canvas.width / 2, canvas.height / 5);
+                canvas.image(map1, 100, 420, BUTTON_WIDTH, BUTTON_HEIGHT);
+                canvas.image(map2, 700, 420, BUTTON_WIDTH, BUTTON_HEIGHT);
+                canvas.image(map3, 1300, 420, BUTTON_WIDTH, BUTTON_HEIGHT);
+                break;
+            }
         }
 
         canvas.popStyle();
         canvas.endDraw();
-
 
         return canvas;
     }

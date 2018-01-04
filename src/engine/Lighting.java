@@ -1,6 +1,8 @@
 package engine;
 
-import processing.core.*;
+import processing.core.PApplet;
+import processing.core.PGraphics;
+import processing.core.PImage;
 
 import java.util.ArrayList;
 

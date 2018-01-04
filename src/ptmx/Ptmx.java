@@ -1,7 +1,8 @@
 package ptmx;
 
 import processing.core.*;
-import processing.data.*;
+import processing.data.StringDict;
+import processing.data.XML;
 import util.MultiMap;
 
 import java.util.ArrayList;

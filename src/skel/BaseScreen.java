@@ -1,10 +1,10 @@
 package skel;
 
-import engine.Screen;
+import engine.GameScreen;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 
-public class BaseScreen extends Screen {
+public class BaseScreen extends GameScreen {
 
     private final PGraphics canvas;
 

@@ -1,10 +1,10 @@
 package effects;
 
-import processing.sound.SoundFile;
 import engine.Agent;
 import engine.Tile;
 import processing.core.PGraphics;
 import processing.core.PVector;
+import processing.sound.SoundFile;
 
 public abstract class Effect {
     public final PVector position;

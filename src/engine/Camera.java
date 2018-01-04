@@ -11,4 +11,6 @@ public abstract class Camera {
 
     abstract boolean isBoxInView(float x, float y, float width, float height);
     abstract void updatePosition(float x, float y);
+    abstract PVector screenToWorld(PVector point);
+    abstract PVector worldToScreen(PVector point);
 }

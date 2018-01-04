@@ -2,8 +2,8 @@ package effects;
 
 import engine.Agent;
 import engine.Collision;
-import game.Draw;
 import engine.Tile;
+import game.Draw;
 import processing.core.PGraphics;
 import processing.core.PVector;
 

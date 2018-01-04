@@ -1,7 +1,6 @@
 package effects;
 
 import engine.Agent;
-import engine.Collision;
 import engine.Tile;
 import processing.core.PGraphics;
 import processing.core.PVector;

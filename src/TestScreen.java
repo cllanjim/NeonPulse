@@ -1,14 +1,19 @@
 import ch.bildspur.postfx.builder.PostFX;
 import effects.Area;
 import effects.Pulse;
-import game.*;
+import engine.GameScreen;
+import engine.Lighting;
+import engine.StringMap;
+import engine.Tile;
+import game.GamepadInput;
+import game.KeyboardInput;
+import game.Player;
 import org.gamecontrolplus.Configuration;
-import processing.core.PVector;
-import engine.*;
 import org.gamecontrolplus.ControlDevice;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
+import processing.core.PVector;
 import util.Boxes;
 
 import java.util.HashMap;
@@ -17,16 +22,13 @@ import java.util.List;
 import static processing.core.PApplet.parseInt;
 import static processing.core.PConstants.*;
 
-class TestScreen extends Screen {
+class TestScreen extends GameScreen {
     private StringMap level;
     Player testPlayer;
 
     private int currentLevelIndex = 0;
     private final PGraphics canvas;
     private final Lighting lighting;
-    private final PGraphics background;
-
-    private Boxes b;
 
     private float roundTimer;
 
@@ -39,8 +41,6 @@ class TestScreen extends Screen {
     TestScreen(PApplet applet) {
         super(applet);
         canvas = applet.createGraphics(applet.width, applet.height, P2D);
-        background = applet.createGraphics(applet.width, applet.height, P2D);
-        b = new Boxes(applet);
 
         // Images
         PImage smoke_texture = applet.loadImage("texture.png");
@@ -76,9 +76,8 @@ class TestScreen extends Screen {
             Player player = new Player(applet, new KeyboardInput(NeonPulse.g_input), NeonPulse.Debug.test_sound);
             player.addEffect("E", new Pulse(NeonPulse.Debug.test_sound));
             player.addEffect("R", new Area(NeonPulse.Debug.test_sound));
-            addPlayer(player);
             testPlayer = player;
-            lighting.addLight(player.light);
+            addPlayer(player);
         }
 
         // Load Controller Players
@@ -90,7 +89,6 @@ class TestScreen extends Screen {
                     player.addEffect("TRIANGLE", new Pulse(NeonPulse.Debug.test_sound));
                     player.addEffect("CIRCLE", new Area(NeonPulse.Debug.test_sound));
                     addPlayer(player);
-                    lighting.addLight(player.light);
                     break;
                 }
             }
@@ -101,15 +99,9 @@ class TestScreen extends Screen {
         if (NeonPulse.g_input.isKeyPressed('L')) {
             nextLevel();
         }
-
-        if (NeonPulse.g_input.isKeyPressed('K')) {
-            // Change Level
-            testPlayer.damageLethal(10);
-        }
     }
 
     public void update(float delta_time) {
-        b.update(delta_time);
         level.update(delta_time);
         updatePlayers(delta_time);
         roundTimer -= delta_time;
@@ -164,8 +156,6 @@ class TestScreen extends Screen {
         // Draw
         canvas.beginDraw();
         canvas.background(0);
-
-        b.display(canvas);
 
         canvas.pushMatrix();
         canvas.translate(level.left, level.top);

@@ -2,8 +2,9 @@ package postprocessing;
 
 import ch.bildspur.postfx.Supervisor;
 import ch.bildspur.postfx.pass.Pass;
-import processing.opengl.*;
-import processing.core.*;
+import processing.core.PApplet;
+import processing.core.PGraphics;
+import processing.opengl.PShader;
 
 public class LightingPass implements Pass
 {

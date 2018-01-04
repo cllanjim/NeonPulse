@@ -1,18 +1,14 @@
-import ch.bildspur.postfx.*;
+import ch.bildspur.postfx.PostFXSupervisor;
 import ch.bildspur.postfx.builder.PostFX;
-import ch.bildspur.postfx.pass.*;
-
+import ch.bildspur.postfx.pass.SobelPass;
+import engine.GameScreen;
 import postprocessing.LightingPass;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 
-import engine.*;
+import static processing.core.PConstants.*;
 
-import static processing.core.PConstants.BLEND;
-import static processing.core.PConstants.P3D;
-import static processing.core.PConstants.SCREEN;
-
-public class ShaderScreen extends Screen {
+public class ShaderScreen extends GameScreen {
     private final PGraphics canvas;
     private final PostFXSupervisor supervisor;
     private final SobelPass sobelPass;

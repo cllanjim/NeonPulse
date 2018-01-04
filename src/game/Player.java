@@ -1,19 +1,17 @@
 package game;
 
-import effects.*;
+import effects.Effect;
+import engine.Agent;
 import engine.Input;
-import engine.Level;
 import engine.Light;
 import processing.core.PApplet;
-import processing.sound.SoundFile;
-import engine.Agent;
 import processing.core.PGraphics;
 import processing.core.PVector;
+import processing.sound.SoundFile;
 import util.ParticleSystem;
 
 import java.util.ArrayList;
 
-import static processing.core.PApplet.println;
 import static processing.core.PConstants.TWO_PI;
 
 public class Player extends Agent {
@@ -26,7 +24,6 @@ public class Player extends Agent {
     public Grenade grenade;
     public Laser laser;
     public Launcher gun;
-
     public ParticleSystem particleSystem;
     public Light light;
 
@@ -100,7 +97,7 @@ public class Player extends Agent {
         apManager = new APManager(this, RADIUS * 2);
 
         particleSystem = new ParticleSystem(applet, position, 1);
-        light = new Light(position.x, position.y, 1024);
+        light = new Light(position.x, position.y, 512);
 
         target = new PVector(0, 0);
         health = HEALTH;

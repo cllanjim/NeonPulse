@@ -1,35 +1,30 @@
-import engine.*;
-import network.*;
-import util.*;
-import effects.*;
-import game.*;
+import engine.Input;
+import engine.GameScreen;
+
+import ch.bildspur.postfx.PostFXSupervisor;
+import ch.bildspur.postfx.builder.PostFX;
+
+import org.gamecontrolplus.Configuration;
+import org.gamecontrolplus.ControlIO;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+// Debug - Sets up a canvas on which to draw debug information
+static Debug g_debug = null;
 
 // Controllers
-import org.gamecontrolplus.*;
-
-// Networking
-import processing.net.*;
-import processing.sound.AudioDevice;
-
-// Debug
-static Debug g_debug;
-
-// Networking
-static Server g_game_server;
-
-// Controllers
-static ControlIO g_control_io;
-static ArrayList<Configuration> g_controller_configs = new ArrayList<Configuration>(3);
+static ControlIO g_control_io = null;
+static List<Configuration> g_controller_configs = new ArrayList<Configuration>(3);
 
 // Global / Keyboard Input
 static Input g_input = new Input();
 
 // PostFX
-static boolean postProcessingActive = false;
+private PostFX fx;
+private PostFXSupervisor fx_supervisor;
 
 // Audio
 private AudioDevice g_audio_server;
@@ -38,19 +33,19 @@ private AudioDevice g_audio_server;
 private int currentMillis;
 
 // Screens
-private ArrayList<Screen> screens = new ArrayList<Screen>(3);
 private int currentScreenIndex = 0;
-private Screen currentScreen;
+private final ArrayList<GameScreen> screens = new ArrayList<GameScreen>(3);
+private static GameScreen currentScreen = null;
 
-static Screen g_game_screen;
-
-static final float TARGET_FRAMERATE = 60;
+// Settings
+private static boolean postProcessingActive = false;
+private static final float TARGET_FRAMERATE = 60;
 
 static final class Config {
-    public static final boolean DEBUG = true;
+    static final boolean DEBUG = true;
     static final boolean KEYBOARD = true;
     static final int PORT = 5204;
-    static HashMap<String, Float> values = new HashMap<String, Float>();
+    static final Map<String,Float> values = new HashMap<String, Float>();
 
     static {
         values.put("AREA_RADIUS", 128f);
@@ -75,19 +70,20 @@ static final class Config {
     static void setValue(String key, Float value) {
         values.put(key, value);
     }
-
     static float getValue(String key, Float default_value) {
         return values.getOrDefault(key, default_value);
     }
 }
 
 static class Debug {
+    static SoundFile test_sound = null;
     PApplet applet;
     PGraphics graphics;
 
     Debug(PApplet applet) {
         this.applet = applet;
         graphics = applet.createGraphics(applet.width, applet.height);
+        test_sound = new SoundFile(applet,"audio/test.wav");
     }
 
     void begin() {
@@ -118,6 +114,9 @@ public void setup() {
     noStroke();
     noCursor();
 
+    // TODO: Auto-updater?
+    // saveStream("local/latest", "http://raulgrell.com/latest");
+
     // Debug
     g_debug = new Debug(this);
 
@@ -127,26 +126,28 @@ public void setup() {
     g_controller_configs.add(Configuration.makeConfiguration(this, "config/gamepad_ps4"));
     g_controller_configs.add(Configuration.makeConfiguration(this, "config/gamepad_xbox"));
 
-    // Networking
-    try {
-        g_game_server = new Server(this, Config.PORT);
-    } catch (Exception e) {
-        println(e);
-    }
-
     // Audio
     g_audio_server = new AudioDevice(this, 44100, 128);
 
+    // PostFX
+    fx = new PostFX(this);
+    fx_supervisor = new PostFXSupervisor(this);
+
     // Screens
-    g_game_screen = new GameScreen(this);
-    screens.add(new TitleScreen(this));
-    screens.add(new MenuScreen(this));   
+    MainScreen g_game_screen = new MainScreen(this);
+
+    screens.add(new TitleScreen(this, g_game_screen));
     screens.add(g_game_screen);
-    
+    screens.add(new TestScreen(this));
+//        screens.add(new ShaderScreen(this, fx_supervisor));
+//        screens.add(new ClientScreen(this));
+//        screens.add(new ServerScreen(this));
+
+    // Load first game_screen
     currentScreen = screens.get(currentScreenIndex);
     currentScreen.load();
 
-    // Avoid time skip on first draw
+    // Reduce time skip on first draw
     currentMillis = millis();
 }
 
@@ -160,17 +161,19 @@ public void draw() {
     if (Config.DEBUG) {
         g_debug.begin();
         g_debug.drawFPS(0, 20);
-        g_debug.drawCursor(mouseX, mouseY);
     }
 
-    // Run Screen
+    // Run GameScreen
     currentScreen.handleInput();
-    currentScreen.handleEvents(g_game_server);
     currentScreen.update(deltatime);
 
-    // Render Screen
+    // Render GameScreen
     blendMode(BLEND);
     image(currentScreen.render(), 0, 0);
+
+    if (postProcessingActive) {
+        currentScreen.renderFX(fx);
+    }
 
     // Render Debug
     if (Config.DEBUG) {
@@ -180,24 +183,41 @@ public void draw() {
 
     // Global handlers
     if (g_input.isKeyPressed('P')) save("screenshot.png");
-    if (g_input.isKeyPressed('U')) postProcessingActive = !postProcessingActive;
-    if (g_input.isKeyPressed('O')) currentScreen.load();
-    if (g_input.isKeyPressed('I')) {
-        currentScreenIndex = (currentScreenIndex + 1) % screens.size();
-        currentScreen = screens.get(currentScreenIndex);
-        currentScreen.load();
-    }
+    if (g_input.isKeyPressed('O')) reloadScreen();
+    if (g_input.isKeyPressed('I')) loadNextScreen();
+    if (g_input.isKeyPressed('U')) togglePostProcessing();
 
     // History
     g_input.saveInputState(mouseX, mouseY);
 }
 
+private static void reloadScreen() {
+    currentScreen.unload();
+    currentScreen.load();
+}
+
+private static void togglePostProcessing() {
+    postProcessingActive = !postProcessingActive;
+}
+
+private void loadNextScreen() {
+    currentScreenIndex = (currentScreenIndex + 1) % screens.size();
+    goToScreen(screens.get(currentScreenIndex));
+}
+
+public static void goToScreen(GameScreen screen) {
+    currentScreen.unload();
+    currentScreen = screen;
+    currentScreen.load();
+}
+
+@Override
 public void keyPressed() {
-    g_input.pressKey(key);
+    g_input.pressKey(key, keyCode);
 }
 
 public void keyReleased() {
-    g_input.releaseKey(key);
+    g_input.releaseKey(key, keyCode);
 }
 
 public void mousePressed() {
@@ -206,11 +226,6 @@ public void mousePressed() {
 
 public void mouseReleased() {
     g_input.releaseButton(mouseButton);
-}
-
-// TODO: Server object already keeps list of clients, rework server stuff
-public void serverEvent(Server server, Client client) {
-    Screen.addClient(client);
 }
 
 public void settings() {

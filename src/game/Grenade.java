@@ -1,15 +1,15 @@
 package game;
 
-import effects.Action;
+import engine.Action;
 import effects.Explosion;
 import effects.Payload;
+import engine.Agent;
 import engine.StringMap;
 import engine.Tilemap;
-import processing.sound.SoundFile;
-import engine.Agent;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
+import processing.sound.SoundFile;
 
 import java.util.ArrayList;
 

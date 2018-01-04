@@ -1,8 +1,11 @@
 package util;
 
+import processing.core.PApplet;
+import processing.core.PGraphics;
+import processing.core.PVector;
+
 import java.util.ArrayList;
 
-import processing.core.*;
 import static processing.core.PConstants.CENTER;
 import static processing.core.PConstants.CORNER;
 
