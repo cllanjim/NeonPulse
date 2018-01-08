@@ -1,4 +1,4 @@
-import engine.Input;
+import engine.InputState;
 import engine.InputHandler;
 import game.KeyboardInput;
 import game.Player;
@@ -41,7 +41,8 @@ public class ClientScreen extends TestScreen implements InputHandler {
         players.clear();
 
         if (NeonPulse.Config.KEYBOARD) {
-            testPlayer = new Player(applet, new KeyboardInput(NeonPulse.g_input), NeonPulse.Debug.test_sound);
+            NeonPulse.g_inputEmitter.addListener(this);
+            testPlayer = new Player(applet, new KeyboardInput(new InputState()), NeonPulse.Debug.test_sound);
             addPlayer(testPlayer);
         }
     }
@@ -89,7 +90,7 @@ public class ClientScreen extends TestScreen implements InputHandler {
 
     @Override
     public void onKeyPressed(int key, int keyCode) {
-        int key_index = Input.getKeyIndex(key);
+        int key_index = InputState.getKeyIndex(key);
         if (key_index >= 0) {
             networkEvents.add(new KeyEvent(playerIndex, key_index, true));
         }
@@ -97,7 +98,7 @@ public class ClientScreen extends TestScreen implements InputHandler {
 
     @Override
     public void onKeyReleased(int key, int keyCode) {
-        int key_index = Input.getKeyIndex(key);
+        int key_index = InputState.getKeyIndex(key);
         if (key_index >= 0) {
             networkEvents.add(new KeyEvent(playerIndex, key_index, false));
         }
@@ -105,7 +106,7 @@ public class ClientScreen extends TestScreen implements InputHandler {
 
     @Override
     public void onButtonPressed(int button) {
-        int button_index = Input.getButtonIndex(button);
+        int button_index = InputState.getButtonIndex(button);
         if (button_index >= 0) {
             networkEvents.add(new ButtonEvent(playerIndex, button_index, false));
         }
@@ -113,7 +114,7 @@ public class ClientScreen extends TestScreen implements InputHandler {
 
     @Override
     public void onButtonReleased(int button) {
-        int button_index = Input.getButtonIndex(button);
+        int button_index = InputState.getButtonIndex(button);
         if (button_index >= 0) {
             networkEvents.add(new ButtonEvent(playerIndex, button_index, false));
         }
@@ -121,7 +122,7 @@ public class ClientScreen extends TestScreen implements InputHandler {
 
     @Override
     public void unload() {
-        NeonPulse.g_input.removeListener(this);
+        NeonPulse.g_inputEmitter.removeListener(this);
         if (gameClient != null && gameClient.active()) {
             QuitEvent quit = new QuitEvent(playerIndex, true);
             gameClient.write(quit.data);

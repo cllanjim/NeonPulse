@@ -1,6 +1,6 @@
 package game;
 
-import engine.Action;
+import engine.Item;
 import effects.Beam;
 import engine.Agent;
 import engine.Collision;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import static processing.core.PApplet.floor;
 
-public class Laser implements Action {
+public class Laser implements Item {
     private final Beam beam;
     private final Player player;
     private final SoundFile sound;

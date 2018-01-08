@@ -1,7 +1,7 @@
 package game;
 
 import effects.Effect;
-import engine.Input;
+import engine.InputState;
 import processing.core.PVector;
 import util.Pair;
 
@@ -12,10 +12,10 @@ import static processing.core.PConstants.RIGHT;
 
 public class KeyboardInput implements PlayerInput {
     private final ArrayList<Pair<Character, Effect>> effectBindings;
-    private final Input input;
+    private final InputState inputState;
 
-    public KeyboardInput(Input keyboard_input) {
-        this.input = keyboard_input;
+    public KeyboardInput(InputState keyboard_inputState) {
+        this.inputState = keyboard_inputState;
         effectBindings = new ArrayList<>();
     }
 
@@ -23,34 +23,34 @@ public class KeyboardInput implements PlayerInput {
     public void handleInput(Player player) {
          player.impulse.set(0, 0);
 
-        if (input.isKeyDown('W')) player.impulse.add(0, -1);
-        if (input.isKeyDown('A')) player.impulse.add(-1, 0);
-        if (input.isKeyDown('S')) player.impulse.add(0, 1);
-        if (input.isKeyDown('D')) player.impulse.add(1, 0);
+        if (inputState.isKeyDown('W')) player.impulse.add(0, -1);
+        if (inputState.isKeyDown('A')) player.impulse.add(-1, 0);
+        if (inputState.isKeyDown('S')) player.impulse.add(0, 1);
+        if (inputState.isKeyDown('D')) player.impulse.add(1, 0);
         if (player.impulse.mag() != 0)  player.impulse.normalize();
 
-        player.target.set(input.getMousePosition());
+        player.target.set(inputState.getMousePosition());
         player.angle = PVector.sub(player.target, player.position).heading();
 
         for (Pair<Character, Effect> binding : effectBindings) {
-            if (input.isKeyPressed(binding.first)) {
+            if (inputState.isKeyPressed(binding.first)) {
                 binding.second.activate(player.position, player.target);
             }
         }
 
         // Laser
-        if (input.isKeyDown('F')) player.laser.ready();
-        if (input.isKeyReleased('F')) player.laser.activate();
+        if (inputState.isKeyDown('F')) player.laser.ready();
+        if (inputState.isKeyReleased('F')) player.laser.activate();
 
         // Grenade
-        if (input.isButtonDown(RIGHT)) player.grenade.ready();
-        if (input.isButtonReleased(RIGHT)) player.grenade.activate();
+        if (inputState.isButtonDown(RIGHT)) player.grenade.ready();
+        if (inputState.isButtonReleased(RIGHT)) player.grenade.activate();
 
         // Gun
-        if (input.isKeyDown('C')) player.gun.activate();
+        if (inputState.isKeyDown('C')) player.gun.activate();
 
         // Dash
-        if (input.isButtonPressed(LEFT)) player.impulse.mult(10);
+        if (inputState.isButtonPressed(LEFT)) player.impulse.mult(10);
     }
 
     @Override

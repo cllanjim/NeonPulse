@@ -1,4 +1,4 @@
-import engine.Input;
+import engine.InputState;
 import game.KeyboardInput;
 import network.JoinEvent;
 import network.NetworkEvent;
@@ -36,7 +36,7 @@ public class ServerScreen extends TestScreen {
         if (server != null && server.active()) {
             for (int i = 0; i < server.clientCount; i++) {
                 Client client = server.clients[i];
-                NetworkPlayer player = new NetworkPlayer(applet, new KeyboardInput(new Input()), client, NeonPulse.Debug.test_sound);
+                NetworkPlayer player = new NetworkPlayer(applet, new KeyboardInput(new InputState()), client, NeonPulse.Debug.test_sound);
                 networkPlayers.add(player);
                 addPlayer(player);
             }
@@ -75,7 +75,7 @@ public class ServerScreen extends TestScreen {
                         case NetworkEvent.JOIN: {
                             int player_index = players.size();
                             PApplet.println("Player ", player_index, " joined");
-                            addPlayer(new NetworkPlayer(applet, new KeyboardInput(new Input()), current, null));
+                            addPlayer(new NetworkPlayer(applet, new KeyboardInput(new InputState()), current, null));
                             JoinEvent join = new JoinEvent(player_index, true);
                             current.write(join.data);
                             break;

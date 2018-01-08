@@ -2,7 +2,7 @@ package game;
 
 import effects.Effect;
 import engine.Agent;
-import engine.Input;
+import engine.InputState;
 import engine.Light;
 import processing.core.PApplet;
 import processing.core.PGraphics;
@@ -36,13 +36,13 @@ public class Player extends Agent {
     private static final float RADIUS = 24;
 
     interface PlayerState {
-        void handleInput(Player player, Input input);
+        void handleInput(Player player, InputState inputState);
         void update(Player player, float delta_time);
     }
 
     static class NormalState implements PlayerState {
         @Override
-        public void handleInput(Player player, Input input) {
+        public void handleInput(Player player, InputState inputState) {
             player.input.handleInput(player);
         }
 
@@ -60,7 +60,7 @@ public class Player extends Agent {
         }
 
         @Override
-        public void handleInput(Player player, Input input) {
+        public void handleInput(Player player, InputState inputState) {
         }
 
         @Override

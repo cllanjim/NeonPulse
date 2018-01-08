@@ -8,35 +8,25 @@ import java.util.Arrays;
 
 import static processing.core.PConstants.*;
 
-public class Input {
+public class InputState implements InputHandler {
     private final PVector prevMousePosition;
     private final PVector currMousePosition;
     private boolean[] currKeyState;
     private boolean[] prevKeyState;
     private boolean[] currButtonState;
     private boolean[] prevButtonState;
-    private ArrayList<InputHandler> listeners;
 
-    public Input() {
+    public InputState() {
         prevMousePosition = new PVector(0, 0);
         currMousePosition = new PVector(0, 0);
         currKeyState = new boolean[255];
         prevKeyState = new boolean[255];
         currButtonState = new boolean[2];
         prevButtonState = new boolean[2];
-        listeners = new ArrayList<>();
-    }
-
-    public void addListener(InputHandler inputHandler) {
-        listeners.add(inputHandler);
-    }
-
-    public void removeListener(InputHandler inputHandler) {
-        listeners.remove(inputHandler);
     }
 
     public static int getKeyIndex(int key_character) {
-        int key_index = -1;
+        int key_index = key_character;
         if (key_character >= 'A' && key_character <= 'Z') {
             key_index = key_character - 'A';
         } else if (key_character >= 'a' && key_character <= 'z') {
@@ -55,26 +45,19 @@ public class Input {
         return mouse_index;
     }
 
-    public void pressButton(int mouseButton) {
+    public void onButtonPressed(int mouseButton) {
         int mouse_index = getButtonIndex(mouseButton);
         if (mouse_index < 0) return;
         currButtonState[mouse_index] = true;
+}
 
-        for (InputHandler inputHandler: listeners) {
-            inputHandler.onButtonPressed(mouseButton);
-        }
-    }
-
-    public void releaseButton(int mouseButton) {
+    public void onButtonReleased(int mouseButton) {
         int mouse_index = getButtonIndex(mouseButton);
         if (mouse_index < 0) return;
         currButtonState[mouse_index] = false;
-        for (InputHandler inputHandler: listeners) {
-            inputHandler.onButtonReleased(mouseButton);
-        }
     }
 
-    public void pressKey(int key, int keyCode) {
+    public void onKeyPressed(int key, int keyCode) {
         if (key == CODED) {
             switch (keyCode) {
                 case ALT:
@@ -84,18 +67,16 @@ public class Input {
                 case DOWN:
                 case LEFT:
                 case RIGHT:
+                    currKeyState[keyCode] = true;
             }
         } else {
             int key_index = getKeyIndex(key);
             if (key_index < 0) return;
             currKeyState[key_index] = true;
         }
-        for (InputHandler inputHandler: listeners) {
-            inputHandler.onKeyPressed(key, keyCode);
-        }
     }
 
-    public void releaseKey(int key, int keyCode) {
+    public void onKeyReleased(int key, int keyCode) {
         if (key == CODED) {
             switch (keyCode) {
                 case ALT:
@@ -105,14 +86,12 @@ public class Input {
                 case DOWN:
                 case LEFT:
                 case RIGHT:
+                    currKeyState[keyCode] = false;
             }
         } else {
             int key_index = getKeyIndex(key);
             if (key_index < 0) return;
             currKeyState[key_index] = false;
-        }
-        for (InputHandler inputHandler: listeners) {
-            inputHandler.onKeyReleased(key, keyCode);
         }
     }
 

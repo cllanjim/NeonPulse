@@ -105,8 +105,8 @@ class TitleScreen extends GameScreen {
 
     @Override
     public void handleInput() {
-        PVector m = NeonPulse.g_input.getMousePosition();
-        if(NeonPulse.g_input.isButtonPressed(LEFT)) {
+        PVector m = NeonPulse.g_inputState.getMousePosition();
+        if(NeonPulse.g_inputState.isButtonPressed(LEFT)) {
             for (Pair<PVector, String> map : maps) {
                 if( m.x >= map.first.x
                         && m.x <= map.first.x + BUTTON_WIDTH

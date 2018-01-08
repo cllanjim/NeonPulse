@@ -60,12 +60,12 @@ public class Payload extends Effect {
     }
 
     @Override
-    public void activate(PVector source, PVector target) {
+    public void activate(PVector source, PVector velocity) {
         position.set(source);
         active = true;
         lifetime = 0;
         frame_count = 0;
-        velocity.set(target);
+        this.velocity.set(velocity);
     }
 
     public void activateEffect(PVector target) {

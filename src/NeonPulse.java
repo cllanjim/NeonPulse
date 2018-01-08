@@ -1,7 +1,8 @@
 import ch.bildspur.postfx.PostFXSupervisor;
 import ch.bildspur.postfx.builder.PostFX;
 import engine.GameScreen;
-import engine.Input;
+import engine.InputEmitter;
+import engine.InputState;
 import org.gamecontrolplus.Configuration;
 import org.gamecontrolplus.ControlIO;
 import processing.core.PApplet;
@@ -27,7 +28,8 @@ public class NeonPulse extends PApplet {
     static List<Configuration> g_controller_configs = new ArrayList<Configuration>(3);
 
     // Global / Keyboard Input
-    static Input g_input = new Input();
+    static InputState g_inputState = new InputState();
+    static InputEmitter g_inputEmitter = new InputEmitter();
 
     // PostFX
     private PostFX fx;
@@ -146,7 +148,7 @@ public class NeonPulse extends PApplet {
         screens.add(new TitleScreen(this, g_game_screen));
         screens.add(g_game_screen);
         screens.add(new TestScreen(this));
-//        screens.add(new ShaderScreen(this, fx_supervisor));
+        screens.add(new ShaderScreen(this, fx_supervisor));
 //        screens.add(new ClientScreen(this));
 //        screens.add(new ServerScreen(this));
 
@@ -189,13 +191,13 @@ public class NeonPulse extends PApplet {
         }
 
         // Global handlers
-        if (g_input.isKeyPressed('P')) save("screenshot.png");
-        if (g_input.isKeyPressed('O')) reloadScreen();
-        if (g_input.isKeyPressed('I')) loadNextScreen();
-        if (g_input.isKeyPressed('U')) togglePostProcessing();
+        if (g_inputState.isKeyPressed('P')) save("screenshot.png");
+        if (g_inputState.isKeyPressed('O')) reloadScreen();
+        if (g_inputState.isKeyPressed('I')) loadNextScreen();
+        if (g_inputState.isKeyPressed('U')) togglePostProcessing();
 
         // History
-        g_input.saveInputState(mouseX, mouseY);
+        g_inputState.saveInputState(mouseX, mouseY);
     }
 
     private static void reloadScreen() {
@@ -218,21 +220,24 @@ public class NeonPulse extends PApplet {
         currentScreen.load();
     }
 
-    @Override
     public void keyPressed() {
-        g_input.pressKey(key, keyCode);
+        g_inputState.onKeyPressed(key, keyCode);
+        g_inputEmitter.onKeyPressed(key, keyCode);
     }
 
     public void keyReleased() {
-        g_input.releaseKey(key, keyCode);
+        g_inputState.onKeyReleased(key, keyCode);
+        g_inputEmitter.onKeyReleased(key, keyCode);
     }
 
     public void mousePressed() {
-        g_input.pressButton(mouseButton);
+        g_inputState.onButtonPressed(mouseButton);
+        g_inputEmitter.onButtonPressed(mouseButton);
     }
 
     public void mouseReleased() {
-        g_input.releaseButton(mouseButton);
+        g_inputState.onButtonReleased(mouseButton);
+        g_inputEmitter.onButtonReleased(mouseButton);
     }
 
     public void settings() {

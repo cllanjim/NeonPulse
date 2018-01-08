@@ -56,13 +56,11 @@ public class APManager {
         }
     }
 
-    public float currentAP()
-    {
+    public float currentAP() {
         return actionPoints;
     }
 
-    public void spendActionPoint()
-    {
+    public void spendActionPoint() {
         if (actionPoints > 0) {
             actionPoints--;
             actionTimer = 0;

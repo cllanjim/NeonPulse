@@ -1,6 +1,6 @@
 package game;
 
-import engine.Action;
+import engine.Item;
 import effects.Projectile;
 import engine.Agent;
 import engine.StringMap;
@@ -10,7 +10,7 @@ import processing.sound.SoundFile;
 
 import java.util.ArrayList;
 
-public class Launcher implements Action {
+public class Launcher implements Item {
     private final ArrayList<Projectile> bullets;
     private final SoundFile sound;
     private final Player player;

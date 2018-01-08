@@ -123,7 +123,6 @@ public class Tilemap extends Level {
             if (Collision.pointRect(x, y, shape.x, shape.y, shape.width, shape.height))
                 return true;
         }
-
         return false;
     }
 

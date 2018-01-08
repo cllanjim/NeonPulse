@@ -14,7 +14,6 @@ import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
 import processing.core.PVector;
-import util.Boxes;
 
 import java.util.HashMap;
 import java.util.List;
@@ -73,7 +72,7 @@ class TestScreen extends GameScreen {
         // TODO: Player Lobby in Title game_screen
         // Load Player 1 - Keyboard Control
         if (NeonPulse.Config.KEYBOARD) {
-            Player player = new Player(applet, new KeyboardInput(NeonPulse.g_input), NeonPulse.Debug.test_sound);
+            Player player = new Player(applet, new KeyboardInput(NeonPulse.g_inputState), NeonPulse.Debug.test_sound);
             player.addEffect("E", new Pulse(NeonPulse.Debug.test_sound));
             player.addEffect("R", new Area(NeonPulse.Debug.test_sound));
             testPlayer = player;
@@ -96,7 +95,7 @@ class TestScreen extends GameScreen {
     }
 
     public void handleInput() {
-        if (NeonPulse.g_input.isKeyPressed('L')) {
+        if (NeonPulse.g_inputState.isKeyPressed('L')) {
             nextLevel();
         }
     }
@@ -176,7 +175,7 @@ class TestScreen extends GameScreen {
 
         // Mouse
         canvas.pushStyle();
-        PVector mouse = NeonPulse.g_input.getMousePosition();
+        PVector mouse = NeonPulse.g_inputState.getMousePosition();
         canvas.stroke(0xffffffff);
         canvas.strokeWeight(2);
         canvas.point(mouse.x, mouse.y);

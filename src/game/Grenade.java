@@ -1,6 +1,6 @@
 package game;
 
-import engine.Action;
+import engine.Item;
 import effects.Explosion;
 import effects.Payload;
 import engine.Agent;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import static processing.core.PApplet.max;
 
-public class Grenade implements Action {
+public class Grenade implements Item {
     private final Payload payload;
     private final Player player;
     private final SoundFile sound;

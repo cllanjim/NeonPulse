@@ -50,7 +50,7 @@ public class MainScreen extends GameScreen {
 
         // Load Player 1 - Keyboard Control
         if (NeonPulse.Config.KEYBOARD) {
-            Player player = new Player(applet, new KeyboardInput(NeonPulse.g_input), NeonPulse.Debug.test_sound);
+            Player player = new Player(applet, new KeyboardInput(NeonPulse.g_inputState), NeonPulse.Debug.test_sound);
             player.addEffect("R", new Area(NeonPulse.Debug.test_sound));
             player.addEffect("E", new Pulse(NeonPulse.Debug.test_sound));
             addPlayer(player);
@@ -73,7 +73,7 @@ public class MainScreen extends GameScreen {
 
     public void handleInput() {
         // Change Level
-        if (NeonPulse.g_input.isKeyPressed('L')) nextRound();
+        if (NeonPulse.g_inputState.isKeyPressed('L')) nextRound();
     }
 
     public void update(float delta_time) {

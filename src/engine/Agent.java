@@ -20,6 +20,9 @@ public abstract class Agent {
     protected float speed;
     public float angle;
 
+    abstract public void update(ArrayList<Player> players, float delta_time);
+    abstract public void display(PGraphics graphics);
+
     protected Agent() {
         position = new PVector(0,0);
         velocity = new PVector(0,0);
@@ -28,15 +31,8 @@ public abstract class Agent {
 
     private static final float DAMPING = 0.15f;
 
-    abstract public void update(ArrayList<Player> players, float delta_time);
-    abstract public void display(PGraphics graphics);
-
-    public void addImpulse(PVector force_vector) {
-        impulse.add(force_vector);
-    }
-
     public void addImpulse(PVector source, float force) {
-        impulse.add(PVector.sub(position, source).normalize().mult(force));
+        impulse.add(PVector.sub(position, source).setMag(force));
     }
 
     public void moveTowards(PVector target, float speed) {

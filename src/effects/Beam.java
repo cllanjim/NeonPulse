@@ -51,7 +51,6 @@ public class Beam extends Effect {
     public void update(float delta_time) {
         if(active) {
             if (lifetime > LIFESPAN) {
-                // Keep live while active?
                 live = false;
                 active = false;
             }

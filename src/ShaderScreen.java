@@ -1,5 +1,6 @@
 import ch.bildspur.postfx.PostFXSupervisor;
 import ch.bildspur.postfx.builder.PostFX;
+import ch.bildspur.postfx.pass.BlurPass;
 import ch.bildspur.postfx.pass.SobelPass;
 import engine.GameScreen;
 import postprocessing.LightingPass;
@@ -13,6 +14,7 @@ public class ShaderScreen extends GameScreen {
     private final PostFXSupervisor supervisor;
     private final SobelPass sobelPass;
     private final LightingPass lightingPass;
+    private final BlurPass blurPass;
 
     private float rotationX = 0;
     private float rotationY = 0;
@@ -22,6 +24,7 @@ public class ShaderScreen extends GameScreen {
         supervisor = applet_supervisor;
         canvas = applet.createGraphics(applet.width, applet.height, P3D);
         sobelPass = new SobelPass(applet);
+        blurPass = new BlurPass(applet);
         lightingPass = new LightingPass(applet);
     }
 
@@ -63,16 +66,12 @@ public class ShaderScreen extends GameScreen {
     // TODO: Supervisor + lighting pass
     public void renderFX(PostFX fx) {
         applet.blendMode(SCREEN);
-        fx.render(canvas).sobel().blur(5, 50).compose();
-        applet.blendMode(BLEND);
-    }
-
-    public void display(PGraphics g) {
-        g.blendMode(BLEND);
         supervisor.render(canvas);
         supervisor.pass(sobelPass);
         supervisor.pass(lightingPass);
+        supervisor.pass(blurPass);
         supervisor.compose();
+        applet.blendMode(BLEND);
     }
 
     @Override

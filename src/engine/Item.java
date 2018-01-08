@@ -2,7 +2,7 @@ package engine;
 
 import processing.core.PGraphics;
 
-public interface Action {
+public interface Item {
     void ready();
     void activate();
     void interrupt();

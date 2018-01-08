@@ -11,7 +11,6 @@ import java.util.function.Predicate;
 
 public class Custom extends Effect {
     private Consumer<Agent> effectFn;
-    // TODO: CollisionComponent
     private Predicate<Agent> collisionFn;
 
     Custom(Consumer<Agent> effectFn, Predicate<Agent> collisionFn, SoundFile effect_sound) {
@@ -23,7 +22,6 @@ public class Custom extends Effect {
     @Override
     public boolean collideWithAgent(Agent agent) {
         if (active) {
-            // This won't work as is, collision func needs state
             if (collisionFn.test(agent)) {
                 effectFn.accept(agent);
                 return true;
@@ -38,17 +36,11 @@ public class Custom extends Effect {
     }
 
     @Override
-    public void activate(PVector source, PVector target) {
-
-    }
+    public void activate(PVector source, PVector target) {}
 
     @Override
-    public void update(float delta_time) {
-
-    }
+    public void update(float delta_time) {}
 
     @Override
-    public void display(PGraphics g) {
-
-    }
+    public void display(PGraphics g) {}
 }

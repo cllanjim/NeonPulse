@@ -1,6 +1,6 @@
 package game;
 
-import engine.Action;
+import engine.Item;
 import effects.Explosion;
 import effects.Payload;
 import engine.Agent;
@@ -10,20 +10,26 @@ import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
 import processing.sound.SoundFile;
+import util.ParticleSystem;
 
 import java.util.ArrayList;
 
-public class Rocket implements Action {
-    private Payload payload;
-    private Player player;
-    private SoundFile sound;
+import static processing.core.PConstants.PI;
+import static processing.core.PConstants.TWO_PI;
+
+public class Rocket implements Item {
+    private final Payload payload;
+    private final Player player;
+    private final SoundFile sound;
+    private final PVector target_vector;
+    private final ParticleSystem particleSystem;
     private float speed;
     private boolean aiming;
-    private PVector target_vector;
 
-    Rocket(Player player, SoundFile grenade_sound) {
+    Rocket(Player player, ParticleSystem particle_system, SoundFile grenade_sound) {
         payload = new Payload(new Explosion(grenade_sound), grenade_sound);
         this.player = player;
+        particleSystem = particle_system;
         sound = grenade_sound;
         target_vector = new PVector(0,0);
         speed = 512;
@@ -35,15 +41,16 @@ public class Rocket implements Action {
         if (player.apManager.currentAP() < 1) return;
         aiming = true;
         target_vector.set(PVector.sub(player.target, player.position).normalize());
+        PVector launch_vector = PVector.mult(target_vector, speed).add(player.velocity);
+        payload.activate(player.position, launch_vector);
+        player.apManager.spendActionPoint();
     }
 
     @Override
     public void activate() {
-        if (aiming && !payload.active) {
+        if (aiming && payload.active) {
             aiming = false;
-            PVector launch_vector = PVector.mult(target_vector, speed).add(player.velocity);
-            payload.activate(player.position, launch_vector);
-            player.apManager.spendActionPoint();
+            payload.activateEffect(player.position);
         }
     }
 
@@ -53,8 +60,10 @@ public class Rocket implements Action {
     }
 
     public void update(float delta_time) {
-        payload.addImpulse(player.target);
+        payload.addImpulse(PVector.sub(player.target, player.position).setMag(32));
         payload.update(delta_time);
+        particleSystem.setAngle(payload.velocity.heading() + PI, PI / 6);
+        particleSystem.emit();
     }
 
     public void display(PGraphics g) {
