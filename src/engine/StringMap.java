@@ -26,7 +26,8 @@ public class StringMap extends Level {
         background = applet.createGraphics(applet.width, applet.height);
         foreground = applet.createGraphics(applet.width, applet.height);
         tileMap = level_tile_map;
-
+        tileWidth = size;
+        tileHeight = size;
         load(level_string);
     }
 
@@ -38,9 +39,6 @@ public class StringMap extends Level {
     private void load(String[] level_string) {
         unload();
 
-        // Get level data
-        tileWidth = TILE_SIZE;
-        tileHeight = TILE_SIZE;
         mapWidth = level_string[0].length();
         mapHeight = level_string.length;
         levelWidth = mapWidth * tileWidth;
@@ -61,7 +59,8 @@ public class StringMap extends Level {
                     case ' ':
                     case 'X': {
                         render_data[i][j] = row[j];
-                    } break;
+                    }
+                    break;
                     // Players
                     case '1':
                     case '2':
@@ -71,7 +70,8 @@ public class StringMap extends Level {
                     }
                     default: {
                         render_data[i][j] = ' ';
-                    } break;
+                    }
+                    break;
                 }
             }
         }
@@ -84,20 +84,44 @@ public class StringMap extends Level {
 
     private void render() {
         background.beginDraw();
+
+        background.translate(left, top);
+
+        // Wrapped exterior tiles
+        int num_h = left / tileWidth + 1;
+        int num_v = top / tileHeight + 1;
+
         for (int i = 0, n = render_data.length; i < n; i++) {
             char[] row = render_data[i];
-            for (int j = 0, m = row.length; j < m; j++) {
+
+            for (int j = 0; j < row.length; j++) {
                 char tile_char = row[j];
-                float tile_corner_x = j * tileWidth;
-                float tile_corner_y = i * tileHeight;
-                Tile tile = tileMap.get(tile_char);
-                if (tile != null) {
-                    tile.display(background, tile_corner_x, tile_corner_y, tileWidth, tileHeight);
-                } else {
-                    PApplet.println("No tile found for character: ", tile_char);
+                int corner_x = j * tileWidth;
+                int corner_y = i * tileHeight;
+
+                renderTile(tile_char, corner_x, corner_y);
+
+                // Wrap Sides
+                int opp_col_index = mapWidth - (j + 1);
+                if (j < num_h) {
+                    renderTile(row[opp_col_index], -tileWidth * (j + 1), corner_y);
+                } else if (j > mapWidth - num_h) {
+                    renderTile(row[opp_col_index], (mapWidth + opp_col_index) * tileWidth, corner_y);
+                }
+
+                // Wrap Top and Bottom
+                int opp_row_index = mapHeight - (i + 1);
+                if (i < num_v) {
+                    row = render_data[opp_row_index];
+                    renderTile(row[j], corner_x, -tileHeight * (i + 1));
+                } else if (i > mapHeight - num_v) {
+                    row = render_data[opp_row_index];
+                    renderTile(row[j], corner_x, (mapHeight + opp_row_index) * tileHeight);
                 }
             }
+            // Corners
         }
+
         background.endDraw();
 
         // Level foreground
@@ -105,8 +129,17 @@ public class StringMap extends Level {
         foreground.noFill();
         foreground.strokeWeight(2);
         foreground.stroke(0xff7f0000);
-        foreground.rect(0,0, levelWidth, levelHeight);
+        foreground.rect(0, 0, levelWidth, levelHeight);
         foreground.endDraw();
+    }
+
+    private void renderTile(char tile_char, int corner_x, int corner_y) {
+        Tile tile = tileMap.get(tile_char);
+        if (tile != null) {
+            tile.display(background, corner_x, corner_y, tileWidth, tileHeight);
+        } else {
+            PApplet.println("No tile found for character: ", tile_char);
+        }
     }
 
     public void showBg(PGraphics g) {
@@ -127,15 +160,9 @@ public class StringMap extends Level {
     public boolean collideWithAgent(Player agent) {
         ArrayList<PVector> collision_points = new ArrayList<>(8);
 
-        // Wrap if outside world
-        if (agent.position.x < 0) agent.position.x = levelWidth;
-        if (agent.position.x > levelWidth) agent.position.x = 0;
-        if (agent.position.y < 0) agent.position.y = levelHeight;
-        if (agent.position.y > levelHeight) agent.position.y = 0;
-
         // TODO: Replace with event system
         // Kill if in pit
-        if(agent.alive && checkTileFor(agent.position.x, agent.position.y, 'X')) {
+        if (agent.alive && checkTileFor(agent.position.x, agent.position.y, 'X')) {
             agent.alive = false;
             agent.state = new Player.KilledState(getSpawnPoint());
             agent.score -= 1;

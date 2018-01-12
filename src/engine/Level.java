@@ -1,5 +1,6 @@
 package engine;
 
+import game.Player;
 import processing.core.PVector;
 
 import java.util.List;
@@ -47,7 +48,15 @@ public abstract class Level {
                 row += sy;
                 iy++;
             }
-            points.add(new PVector(col, row));
+            if (col >= 0 && row >= 0) points.add(new PVector(col, row));
         }
+    }
+
+    public void wrapAgent(Agent agent) {
+        // Wrap if outside world
+        if (agent.position.x < 0) agent.position.x = levelWidth;
+        if (agent.position.x > levelWidth) agent.position.x = 0;
+        if (agent.position.y < 0) agent.position.y = levelHeight;
+        if (agent.position.y > levelHeight) agent.position.y = 0;
     }
 }

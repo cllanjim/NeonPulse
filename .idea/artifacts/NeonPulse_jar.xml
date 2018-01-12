@@ -22,10 +22,10 @@
       <element id="extracted-dir" path="E:/Processing/core/library/gluegen-rt-natives-macosx-universal.jar" path-in-jar="/" />
       <element id="extracted-dir" path="E:/Processing/modes/java/libraries/net/library/net.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$APPLICATION_HOME_DIR$/redist/annotations-java8.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/code/NP.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/code/sound.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/code/PostFX.jar" path-in-jar="/" />
+      <element id="dir-copy" path="$PROJECT_DIR$/code" />
       <element id="extracted-dir" path="$PROJECT_DIR$/code/GameControlPlus.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/code/PostFX.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/code/sound.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

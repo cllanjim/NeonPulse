@@ -137,7 +137,7 @@ class TestScreen extends GameScreen {
                 player.collideWithAgent(other);
             }
 
-            player.light.setPosition(player.position);
+            player.updateLights(player.position.x + level.left, player.position.y + level.top, level);
 
             // Cleanup
             if (player.alive && player.health < Player.HEALTH) {
@@ -147,6 +147,8 @@ class TestScreen extends GameScreen {
 
             player.grenade.collideWithLevel(level);
             player.laser.collideWithLevel(level);
+
+            level.wrapAgent(player);
             level.collideWithAgent(player);
         }
     }
@@ -156,13 +158,15 @@ class TestScreen extends GameScreen {
         canvas.beginDraw();
         canvas.background(0);
 
-        canvas.pushMatrix();
-        canvas.translate(level.left, level.top);
 
         // Level Background
         level.showBg(canvas);
 
         // Players
+
+        canvas.pushMatrix();
+        canvas.translate(level.left, level.top);
+
         for (Player player : players) {
             player.display(canvas);
         }
@@ -170,17 +174,20 @@ class TestScreen extends GameScreen {
         // Level foreground
         level.showFg(canvas);
 
+        canvas.popMatrix();
+
         // Lighting
-        lighting.display(canvas);
+        //lighting.display(canvas);
 
         // Mouse
+        canvas.pushMatrix();
         canvas.pushStyle();
+        canvas.translate(level.left, level.top);
         PVector mouse = NeonPulse.g_inputState.getMousePosition();
         canvas.stroke(0xffffffff);
         canvas.strokeWeight(2);
         canvas.point(mouse.x, mouse.y);
         canvas.popStyle();
-
         canvas.popMatrix();
 
         // Round Timer
@@ -217,13 +224,16 @@ class TestScreen extends GameScreen {
     public void addPlayer(Player player) {
         player.setFill(Player.PLAYER_COLORS[players.size() % Player.PLAYER_COLORS.length]);
         player.position.set(level.getSpawnPoint());
-        lighting.addLight(player.light);
+        lighting.addLights(player.lights);
         super.addPlayer(player);
     }
 
     private void nextLevel() {
         currentLevelIndex = (currentLevelIndex + 1) % LEVELS.length;
         loadLevel();
+        for (Player player : players) {
+            player.respawn(level.getSpawnPoint());
+        }
     }
 
     // Test levels
@@ -266,7 +276,7 @@ class TestScreen extends GameScreen {
     private static final String[] LEVEL_2 = {
             "##################                   ##################",
             "#                #                   #                #",
-            "# 1              #     #########     #              3 #",
+            "#     1          #     #########     #          3     #",
             "#                #     #       #XXXXX#                #",
             "#                #     #       #XXXXX#                #",
             "#                #     #       #######                #",
@@ -292,7 +302,7 @@ class TestScreen extends GameScreen {
             "#                #######       #     #                #",
             "#                #XXXXX#       #     #                #",
             "#                #XXXXX#       #     #                #",
-            "# 4              #     #########     #              2 #",
+            "#     4          #     #########     #          2     #",
             "#                #                   #                #",
             "##################                   ##################",
     };

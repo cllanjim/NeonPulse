@@ -28,10 +28,10 @@ public class Draw {
         g.popMatrix();
     }
 
-    public static void player(PGraphics g, PVector position, float angle, float radius, int fill) {
+    public static void player(PGraphics g, float x, float y, float angle, float radius, int fill) {
         g.pushMatrix();
         g.pushStyle();
-        g.translate(position.x, position.y);
+        g.translate(x, y);
         PVector dir = PVector.fromAngle(angle).mult(2);
         g.fill(0xff000000);
         polygon(g, 0, 0, radius, 4, angle + PI / 4);

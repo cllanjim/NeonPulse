@@ -11,7 +11,7 @@ public abstract class Effect {
     public boolean active;
     public float lifetime;
     SoundFile sound;
-    boolean live;
+    public boolean live;
 
     Effect(SoundFile effect_sound) {
         position = new PVector(0,0);

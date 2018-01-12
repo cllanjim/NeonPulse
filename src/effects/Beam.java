@@ -7,22 +7,29 @@ import processing.core.PGraphics;
 import processing.core.PVector;
 import processing.sound.SoundFile;
 
+import static processing.core.PConstants.PI;
+import static processing.core.PConstants.TWO_PI;
+
 public class Beam extends Effect {
     public PVector segment;
     public PVector endPosition;
-    private static final float LENGTH = 360;
+    public Beam next;
+    public float length;
+    public static final float LENGTH = 360;
     private static final float FORCE = 128;
     private static final float LIFESPAN = 0.1f;
 
-    public Beam(SoundFile beam_sound) {
+    public Beam(float length, SoundFile beam_sound) {
         super(beam_sound);
         segment = new PVector(0, 0);
         endPosition = new PVector(0, 0);
+        this.length = length;
+        next = null;
     }
 
     @Override
     public boolean collideWithAgent(Agent agent) {
-        if (live) {
+        if (active) {
             if (Collision.lineCircle(position, endPosition, agent.position, agent.radius)) {
                 endPosition.set(agent.position);
                 agent.impulse.add(PVector.sub(agent.position, position).setMag(FORCE));
@@ -39,19 +46,19 @@ public class Beam extends Effect {
     }
 
     public void activate(PVector source, PVector target) {
-            position.set(source);
-            sound.play();
-            lifetime = 0;
-            segment.set(PVector.sub(target, source).setMag(LENGTH));
-            endPosition.set(PVector.add(source, segment));
-            active = true;
-            live = true;
+        position.set(source);
+        sound.play();
+        lifetime = 0;
+        segment.set(PVector.sub(target, source).setMag(LENGTH));
+        endPosition.set(PVector.add(source, segment));
+        active = true;
+        live = true;
     }
 
     public void update(float delta_time) {
-        if(active) {
+        if (active) {
+            if (lifetime > 0) live = false;
             if (lifetime > LIFESPAN) {
-                live = false;
                 active = false;
             }
             lifetime += delta_time;

@@ -22,6 +22,7 @@ public class Laser implements Item {
     private float delay;
     private boolean active;
     private boolean charging;
+    private ArrayList<PVector> supercoverTiles;
 
     private static final float DELAY = 1;
     private static final float TARGET_FRAME_TIME = 1.0f / 60.0f;
@@ -30,7 +31,8 @@ public class Laser implements Item {
         this.player = player;
         sound = soundFile;
         delay = DELAY;
-        beam = new Beam(soundFile);
+        beam = new Beam(Beam.LENGTH, soundFile);
+        supercoverTiles = new ArrayList<>(8);
     }
 
     @Override
@@ -68,11 +70,27 @@ public class Laser implements Item {
             if (player.particleSystem != null) player.particleSystem.attract();
         }
         beam.update(delta_time);
+        Beam next_beam = beam.next;
+        while (next_beam != null) {
+            next_beam.update(delta_time);
+            next_beam = next_beam.next;
+        }
     }
 
     @Override
     public void display(PGraphics g) {
         beam.display(g);
+        Beam next_beam = beam.next;
+        while (next_beam != null) {
+            beam.next.display(g);
+            next_beam = next_beam.next;
+        }
+        for (PVector tile : supercoverTiles) {
+            g.pushStyle();
+            g.fill(255);
+            g.ellipse(tile.x, tile.y, 16, 16);
+            g.popStyle();
+        }
     }
 
     @Override
@@ -81,8 +99,6 @@ public class Laser implements Item {
     }
 
     private boolean collideWithTile(PVector tile_position, float tile_width, float tile_height) {
-        // TODO: get tile data from map instead of instantiating this every time.
-        // Although it's only on shooting
         PVector[] points = new PVector[]{
                 new PVector(tile_position.x - tile_width / 2, tile_position.y - tile_height / 2),
                 new PVector(tile_position.x + tile_width / 2, tile_position.y - tile_height / 2),
@@ -92,11 +108,13 @@ public class Laser implements Item {
 
         PVector collision_point = new PVector();
         float closest_distance = Float.MAX_VALUE;
+        float closest_line_index = 0;
         for (int i = 0; i < points.length - 1; i++) {
             if (Collision.lineSegments(player.position, beam.endPosition, points[i], points[i + 1], collision_point)) {
                 float point_distance = collision_point.dist(player.position);
                 if (point_distance < closest_distance) {
                     closest_distance = point_distance;
+                    closest_line_index = i;
                 }
             }
         }
@@ -112,13 +130,13 @@ public class Laser implements Item {
     }
 
     public void collideWithLevel(StringMap level) {
-        if (beam.active) {
-            ArrayList<PVector> tiles = new ArrayList<>(8);
-            level.getGridPoints(tiles, player.position, beam.endPosition);
-            int num_tiles = tiles.size();
+        if (beam.live) {
+            supercoverTiles.clear();
+            level.getGridPoints(supercoverTiles, player.position, beam.endPosition);
+            int num_tiles = supercoverTiles.size();
             if (num_tiles > 0) {
-                for (int i = 0; i < num_tiles; i++) {
-                    PVector tile_pos = tiles.get(i)
+                for (PVector supercoverTile : supercoverTiles) {
+                    PVector tile_pos = supercoverTile
                             .mult(level.tileWidth)
                             .add(level.tileWidth / 2, level.tileHeight / 2);
                     if (level.checkTileFor(tile_pos.x, tile_pos.y, '#')

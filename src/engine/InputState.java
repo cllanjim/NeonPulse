@@ -28,9 +28,9 @@ public class InputState implements InputHandler {
     public static int getKeyIndex(int key_character) {
         int key_index = key_character;
         if (key_character >= 'A' && key_character <= 'Z') {
-            key_index = key_character - 'A';
+            key_index = key_character;
         } else if (key_character >= 'a' && key_character <= 'z') {
-            key_index = key_character - 'a';
+            key_index = key_character - 32;
         }
         return key_index;
     }

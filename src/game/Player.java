@@ -3,6 +3,7 @@ package game;
 import effects.Effect;
 import engine.Agent;
 import engine.InputState;
+import engine.Level;
 import engine.Light;
 import processing.core.PApplet;
 import processing.core.PGraphics;
@@ -25,7 +26,7 @@ public class Player extends Agent {
     public Laser laser;
     public Launcher gun;
     public ParticleSystem particleSystem;
-    public Light light;
+    public Light[] lights;
 
     public boolean alive;
 
@@ -97,7 +98,10 @@ public class Player extends Agent {
         apManager = new APManager(this, RADIUS * 2);
 
         particleSystem = new ParticleSystem(applet, position, 1);
-        light = new Light(position.x, position.y, 512);
+        lights = new Light[9];
+        for (int i = 0; i < lights.length; i++) {
+            lights[i] = new Light(position.x, position.y, 256);
+        }
 
         target = new PVector(0, 0);
         health = HEALTH;
@@ -146,8 +150,20 @@ public class Player extends Agent {
         health = HEALTH;
     }
 
+    public void updateLights(float x, float y, Level level) {
+        lights[0].setPosition(x - level.levelWidth, y - level.levelHeight);
+        lights[1].setPosition(x - level.levelWidth, y);
+        lights[2].setPosition(x - level.levelWidth, y + level.levelHeight);
+        lights[3].setPosition(x, y - level.levelHeight);
+        lights[4].setPosition(x, y);
+        lights[5].setPosition(x, y + level.levelHeight);
+        lights[6].setPosition(x + level.levelWidth, y - level.levelHeight);
+        lights[7].setPosition(x + level.levelWidth, y);
+        lights[8].setPosition(x + level.levelWidth, y + level.levelHeight);
+    }
+
     public void display(PGraphics g) {
-        Draw.player(g, position, angle, radius, fill);
+        Draw.player(g, position.x, position.y, angle, radius, fill);
 
         // Skills
         apManager.display(g);

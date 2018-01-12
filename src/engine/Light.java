@@ -11,7 +11,7 @@ public class Light {
         this.radius = radius;
     }
 
-    public void setPosition(PVector position) {
-        this.position.set(position);
+    public void setPosition(float x, float y) {
+        this.position.set(x, y);
     }
 }

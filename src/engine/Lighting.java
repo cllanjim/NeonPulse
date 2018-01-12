@@ -5,31 +5,17 @@ import processing.core.PGraphics;
 import processing.core.PImage;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static processing.core.PApplet.*;
 
 public class Lighting {
-    private PGraphics lighting;
-    private ArrayList<Light> lights;
-    private PImage lightTexture;
+    private final PGraphics lighting;
+    private final ArrayList<Light> lights;
+    private final PImage lightTexture;
 
     private static float sqr(float x) {
         return x * x;
-    }
-
-    public Lighting(PApplet applet, int radius) {
-        this.lights = new ArrayList<>();
-        this.lighting = applet.createGraphics(applet.width, applet.height, P2D);
-        lightTexture = applet.createImage(radius * 2, radius * 2, ARGB);
-        lightTexture.loadPixels();
-        for (int line = 0; line < lightTexture.height; line++)
-            for (int column = 0; column < lightTexture.width; column++) {
-                int pixel = line * lightTexture.width + column;
-                float distance = dist(column, line, lightTexture.width / 2, lightTexture.height / 2);
-                float factor = exp(-sqr(distance / radius));
-                lightTexture.pixels[pixel] = applet.color(factor * 255);
-            }
-        lightTexture.updatePixels();
     }
 
     public Lighting(PApplet applet, PImage image) {
@@ -42,6 +28,10 @@ public class Lighting {
         lights.add(light);
     }
 
+    public void addLights(Light[] new_lights) {
+        Collections.addAll(lights, new_lights);
+    }
+
     void update(float delta_time) {
 
     }
@@ -50,7 +40,7 @@ public class Lighting {
         lighting.beginDraw();
         lighting.fill(0);
         lighting.stroke(0);
-        lighting.clear();
+        lighting.background(0, 127);
         lighting.imageMode(CENTER);
         for (Light l : lights) {
             lighting.image(lightTexture, l.position.x, l.position.y, 2 * l.radius, 2 * l.radius);
