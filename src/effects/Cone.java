@@ -10,6 +10,7 @@ import processing.core.PVector;
 import processing.sound.SoundFile;
 
 public class Cone extends Effect {
+    private final SoundFile sound;
     private float range;
     private float angle;
 
@@ -19,7 +20,7 @@ public class Cone extends Effect {
     private static final float FORCE = 192;
 
     public Cone(SoundFile cone_sound) {
-        super(cone_sound);
+        sound = cone_sound;
         range = 0;
         angle = 0;
     }

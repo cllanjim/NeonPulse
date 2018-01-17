@@ -23,7 +23,6 @@ import static processing.core.PConstants.*;
 
 class TestScreen extends GameScreen {
     private StringMap level;
-    Player testPlayer;
 
     private int currentLevelIndex = 0;
     private final PGraphics canvas;
@@ -31,7 +30,7 @@ class TestScreen extends GameScreen {
 
     private float roundTimer;
 
-    private HashMap<Character, Tile> tileMap = new HashMap<>();
+    private final HashMap<Character, Tile> tileMap = new HashMap<>();
 
     // Constants
     private static final int TILE_SIZE = 32;
@@ -43,9 +42,9 @@ class TestScreen extends GameScreen {
 
         // Images
         PImage smoke_texture = applet.loadImage("texture.png");
-        PImage wall_texture = applet.loadImage("tiles/wall.png");
-        PImage floor_texture = applet.loadImage("tiles/floor.png");
-        PImage pit_texture = applet.loadImage("tiles/pit.png");
+        PImage wall_texture = applet.loadImage("grid/wall.png");
+        PImage floor_texture = applet.loadImage("grid/floor.png");
+        PImage pit_texture = applet.loadImage("grid/pit.png");
 
         lighting = new Lighting(applet, smoke_texture);
 
@@ -60,7 +59,7 @@ class TestScreen extends GameScreen {
         loadPlayers();
     }
 
-    protected void loadLevel() {
+    private void loadLevel() {
         level = new StringMap(applet, LEVELS[currentLevelIndex], tileMap, TILE_SIZE);
         roundTimer = ROUND_TIME;
     }
@@ -72,21 +71,20 @@ class TestScreen extends GameScreen {
         // TODO: Player Lobby in Title game_screen
         // Load Player 1 - Keyboard Control
         if (NeonPulse.Config.KEYBOARD) {
-            Player player = new Player(applet, new KeyboardInput(NeonPulse.g_inputState), NeonPulse.Debug.test_sound);
-            player.addEffect("E", new Pulse(NeonPulse.Debug.test_sound));
-            player.addEffect("R", new Area(NeonPulse.Debug.test_sound));
-            testPlayer = player;
+            Player player = new Player(applet, new KeyboardInput(NeonPulse.sInputState), NeonPulse.Debug.testSound);
+            player.addEffect("E", new Pulse(NeonPulse.Debug.testSound));
+            player.addEffect("R", new Area(NeonPulse.Debug.testSound));
             addPlayer(player);
         }
 
         // Load Controller Players
-        List<ControlDevice> devices = NeonPulse.g_control_io.getDevices();
+        List<ControlDevice> devices = NeonPulse.sControlIO.getDevices();
         for (ControlDevice gamepad : devices) {
-            for (Configuration configuration : NeonPulse.g_controller_configs) {
+            for (Configuration configuration : NeonPulse.sControllerConfigs) {
                 if (gamepad.matches(configuration)) {
-                    Player player = new Player(applet, new GamepadInput(gamepad), NeonPulse.Debug.test_sound);
-                    player.addEffect("TRIANGLE", new Pulse(NeonPulse.Debug.test_sound));
-                    player.addEffect("CIRCLE", new Area(NeonPulse.Debug.test_sound));
+                    Player player = new Player(applet, new GamepadInput(gamepad), NeonPulse.Debug.testSound);
+                    player.addEffect("TRIANGLE", new Pulse(NeonPulse.Debug.testSound));
+                    player.addEffect("CIRCLE", new Area(NeonPulse.Debug.testSound));
                     addPlayer(player);
                     break;
                 }
@@ -95,25 +93,16 @@ class TestScreen extends GameScreen {
     }
 
     public void handleInput() {
-        if (NeonPulse.g_inputState.isKeyPressed('L')) {
+        if (NeonPulse.sInputState.isKeyPressed('L')) {
             nextLevel();
         }
     }
 
     public void update(float delta_time) {
         level.update(delta_time);
-        updatePlayers(delta_time);
-        roundTimer -= delta_time;
-
-        if (roundTimer < 0) nextLevel();
-    }
-
-    private void updatePlayers(float delta_time) {
         // TODO: Put all effects into a single managed array
         for (int i = 0; i < players.size(); i++ ) {
             Player player = players.get(i);
-
-            // Collide with every player's effects.
             for (int j = 0; j < players.size(); j++) {
                 // Don't collide with own stuff.
                 if (i == j) continue;
@@ -127,8 +116,7 @@ class TestScreen extends GameScreen {
 
         for (int i = 0; i < players.size(); i++ ) {
             Player player = players.get(i);
-
-            player.update(players, delta_time);
+            player.update(level, delta_time);
             player.updateMovement(delta_time);
 
             // Collide current player with others, starting with the one after it
@@ -139,51 +127,39 @@ class TestScreen extends GameScreen {
 
             player.updateLights(player.position.x + level.left, player.position.y + level.top, level);
 
-            // Cleanup
-            if (player.alive && player.health < Player.HEALTH) {
-                player.state = new Player.KilledState(level.getSpawnPoint());
-                player.alive = false;
-            }
-
-            player.grenade.collideWithLevel(level);
-            player.laser.collideWithLevel(level);
-
             level.wrapAgent(player);
             level.collideWithAgent(player);
         }
+
+        if (roundTimer < 0) nextLevel();
+        roundTimer -= delta_time;
     }
-    
+
     public PGraphics render() {
         // Draw
         canvas.beginDraw();
         canvas.background(0);
 
-
         // Level Background
         level.showBg(canvas);
 
         // Players
-
         canvas.pushMatrix();
         canvas.translate(level.left, level.top);
-
         for (Player player : players) {
             player.display(canvas);
         }
-
-        // Level foreground
         level.showFg(canvas);
-
         canvas.popMatrix();
 
         // Lighting
-        //lighting.display(canvas);
+        lighting.display(canvas);
 
         // Mouse
         canvas.pushMatrix();
         canvas.pushStyle();
         canvas.translate(level.left, level.top);
-        PVector mouse = NeonPulse.g_inputState.getMousePosition();
+        PVector mouse = NeonPulse.sInputState.getMousePosition();
         canvas.stroke(0xffffffff);
         canvas.strokeWeight(2);
         canvas.point(mouse.x, mouse.y);
@@ -212,7 +188,7 @@ class TestScreen extends GameScreen {
 
     public void renderFX(PostFX fx) {
         applet.blendMode(SCREEN);
-        fx.render(canvas).sobel().blur(5, 50).compose();
+        fx.render(canvas).sobel().blur(5, 10).compose();
         applet.blendMode(BLEND);
     }
 

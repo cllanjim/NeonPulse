@@ -2,7 +2,7 @@ import engine.InputState;
 import engine.InputHandler;
 import game.KeyboardInput;
 import game.Player;
-import network.*;
+import extra.network.*;
 import processing.core.PApplet;
 import processing.net.Client;
 
@@ -13,7 +13,7 @@ import static processing.core.PApplet.println;
 public class ClientScreen extends TestScreen implements InputHandler {
     private final ArrayList<NetworkEvent> networkEvents = new ArrayList<>(8);
     private Client gameClient;
-
+    private Player testPlayer;
     private int playerIndex = 0;
     private boolean active = false;
 
@@ -41,8 +41,8 @@ public class ClientScreen extends TestScreen implements InputHandler {
         players.clear();
 
         if (NeonPulse.Config.KEYBOARD) {
-            NeonPulse.g_inputEmitter.addListener(this);
-            testPlayer = new Player(applet, new KeyboardInput(new InputState()), NeonPulse.Debug.test_sound);
+            NeonPulse.sInputEmitter.addListener(this);
+            testPlayer = new Player(applet, new KeyboardInput(new InputState()), NeonPulse.Debug.testSound);
             addPlayer(testPlayer);
         }
     }
@@ -122,7 +122,7 @@ public class ClientScreen extends TestScreen implements InputHandler {
 
     @Override
     public void unload() {
-        NeonPulse.g_inputEmitter.removeListener(this);
+        NeonPulse.sInputEmitter.removeListener(this);
         if (gameClient != null && gameClient.active()) {
             QuitEvent quit = new QuitEvent(playerIndex, true);
             gameClient.write(quit.data);

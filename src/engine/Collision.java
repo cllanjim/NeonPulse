@@ -64,16 +64,18 @@ public final class Collision {
         PVector a_vector = PVector.sub(a_end, a_start);
         PVector b_vector = PVector.sub(b_end, b_start);
 
-        float d = b_vector.y * a_vector.x - b_vector.x * a_vector.y;
+        float d = a_vector.x * b_vector.y - a_vector.y * b_vector.x;
 
         // No collision if lines are parallel, ie determinant = 0
         if (d == 0) return false;
 
         // Segment fraction will be between 0 and 1 inclusive if the lines intersect
-        float n_a = b_vector.x * (a_start.y - b_start.y) - b_vector.y * (a_start.y - b_start.x);
+        float n_a = b_vector.x * (a_start.y - b_start.y) - b_vector.y * (a_start.x - b_start.x);
+        float n_b = a_vector.x * (a_start.y - b_start.y) - a_vector.y * (a_start.x - b_start.x);
         float ua = n_a / d;
+        float ub = n_b / d;
 
-        if (ua >= 0 && ua <= 1) {
+        if (ua >= 0 && ua <= 1 && ub >= 0 && ub <= 1) {
             intersection_point.set(PVector.add(a_start, PVector.mult(a_vector, ua)));
             return true;
         }

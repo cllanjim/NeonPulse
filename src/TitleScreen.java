@@ -1,154 +1,263 @@
+import effects.Area;
+import effects.Pulse;
 import engine.GameScreen;
+import game.Draw;
+import game.GamepadInput;
+import game.KeyboardInput;
+import game.Player;
+import org.gamecontrolplus.Configuration;
+import org.gamecontrolplus.ControlDevice;
 import processing.core.*;
-import util.Pair;
-import util.Terrain;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static processing.core.PConstants.*;
 
 class TitleScreen extends GameScreen {
+    private static final int PADDING = 20;
     // Fonts
-    private PFont rubber;
-    private PGraphics canvas;
-    private PImage background;
+    private final PFont rubber;
+    private final PGraphics canvas;
+    private final PImage background;
 
     // Maps
-    private final ArrayList<Pair<PVector, String>> maps;
+    private final ArrayList<MapButton> mapButtons;
     private final PImage map1;
     private final PImage map2;
     private final PImage map3;
-
-    private static final float BUTTON_WIDTH  = 512;
+    private static final float BUTTON_WIDTH = 512;
     private static final float BUTTON_HEIGHT = 288;
+
+    // Players
+    private final ArrayList<PlayerButton> playerButtons;
 
     // Screens
     private final MainScreen mainScreen;
     private ScreenState screenState;
 
     // Intro and Background
-    private final Terrain mountains;
-    private final Terrain floor;
-    private final Sun sun;
-    private PVector pulsePoint;
+    private final PVector pulsePoint;
     private float timer;
 
     private static final float PULSE_SPEED = 1500;
 
-    enum ScreenState {
-        INTRO,
-        TITLE,
-        MAP
+    static class PlayerButton {
+        float x, y, w, h;
+        Player player;
+
+        PlayerButton(float x, float y, float w, float h, Player player) {
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h;
+            this.player = player;
+        }
     }
 
-    // TODO: Sun over mountains animation
-    class Sun {
-        PVector position;
-        float radius;
+    static class MapButton {
+        float x, y, w, h;
+        String path;
+        PImage image;
 
-        Sun(float x, float y) {
-            position = new PVector(x, y);
-            radius = 200;
+        MapButton(String path, float x, float y, float w, float h, PImage image) {
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h;
+            this.path = path;
+            this.image = image;
+        }
+    }
+
+    class IntroState implements ScreenState {
+        @Override
+        public void handleInput() {
+            if (NeonPulse.sInputState.isButtonPressed(LEFT)) {
+                screenState = new TitleState();
+            }
         }
 
-        void update(float delta_time) {}
+        @Override
+        public void update(float delta_time) {
+            timer -= delta_time;
+            if (timer < 0) {
+                screenState = new TitleState();
+                timer = 3;
+            }
+        }
 
-        void display(PGraphics g) {
-            g.ellipse(position.x, position.y, radius * 2, radius * 2);
+        @Override
+        public void display(PGraphics g) {
+
+        }
+    }
+
+    class TitleState implements ScreenState {
+        @Override
+        public void handleInput() {
+            if (NeonPulse.sInputState.isButtonPressed(LEFT)) {
+                screenState = new MapState();
+            }
+        }
+
+        @Override
+        public void update(float delta_time) {
+
+        }
+
+        @Override
+        public void display(PGraphics g) {
+            canvas.text("Neon Pulse", applet.width / 2, applet.height / 5);
+
+            g.pushStyle();
+
+            g.fill(127, 0 ,0, 127);
+            g.stroke(0);
+
+            for (PlayerButton button : playerButtons) {
+                g.rect(button.x, button.y, button.w , button.h);
+                Draw.player(g, button.x + button.w / 2, button.y + button.h / 2, button.player.angle, 48, button.player.fill);
+            }
+
+            g.popStyle();
+        }
+    }
+
+    class MapState implements ScreenState {
+        int selectedMap = 0;
+
+        @Override
+        public void handleInput() {
+            PVector m = NeonPulse.sInputState.getMousePosition();
+            if (NeonPulse.sInputState.isButtonPressed(LEFT)) {
+                for (MapButton map : mapButtons) {
+                    if (m.x >= map.x
+                            && m.x <= map.x + BUTTON_WIDTH
+                            && m.y >= map.y
+                            && m.y <= map.y + BUTTON_HEIGHT) {
+                        NeonPulse.goToScreen(mainScreen);
+                        mainScreen.loadMap(map.path);
+                        mainScreen.loadPlayers();
+                        return;
+                    }
+                }
+            }
+            if (NeonPulse.sInputState.isKeyPressed('A'))
+                selectedMap = (selectedMap == 0) ? mapButtons.size() - 1 : selectedMap - 1;
+            if (NeonPulse.sInputState.isKeyPressed('D'))
+                selectedMap = (selectedMap + 1) % mapButtons.size();
+
+            if (NeonPulse.sInputState.isKeyPressed(' ')) {
+                NeonPulse.goToScreen(mainScreen);
+                mainScreen.loadMap(mapButtons.get(selectedMap).path);
+                mainScreen.loadPlayers();
+            }
+        }
+
+        @Override
+        public void update(float delta_time) {
+        }
+
+        @Override
+        public void display(PGraphics g) {
+            canvas.text("Select Map", canvas.width / 2, canvas.height / 5);
+
+            for (int i = 0; i < mapButtons.size(); i++) {
+                MapButton map = mapButtons.get(i);
+                canvas.image(map.image, map.x, map.y, map.w, map.h);
+                if (i == selectedMap) {
+                    canvas.pushStyle();
+                    canvas.strokeWeight(8);
+                    canvas.noFill();
+                    canvas.rect(map.x - PADDING, map.y - PADDING, map.w + 2 * PADDING, map.h + 2 * PADDING);
+                    canvas.popStyle();
+                }
+            }
         }
     }
 
     TitleScreen(PApplet applet, MainScreen game_screen) {
         super(applet);
         canvas = applet.createGraphics(applet.width, applet.height, P2D);
-        screenState = ScreenState.INTRO;
 
         // Background
         background = applet.loadImage("art/bg3.jpg");
         background.resize(applet.width, applet.height);
 
-        // Terrain
-        mountains = new Terrain(applet);
-        floor = new Terrain(applet);
-
-        // Sun
-        sun = new Sun(applet.width / 2, applet.height / 2);
-
         // Text
-        rubber = applet.createFont("fonts/rubber.ttf",72);
-
-        // Pulse
+        rubber = applet.createFont("fonts/rubber.ttf", 144);
         pulsePoint = new PVector(0, 0);
 
         this.mainScreen = game_screen;
 
-        canvas = applet.createGraphics(applet.width, applet.height, P2D);
-
-        background = applet.loadImage("art/bg3.jpg");
-        rubber = applet.createFont("fonts/rubber.ttf",72);
-        background.resize(applet.width, applet.height);
-
-        maps = new ArrayList<>();
-        maps.add(new Pair<>(new PVector(100, 360), "map1.tmx"));
-        maps.add(new Pair<>(new PVector(700, 360), "map2.tmx"));
-        maps.add(new Pair<>(new PVector(1300,360), "map3.tmx"));
-
+        // Level Buttons
         map1 = applet.loadImage("map1.png");
         map2 = applet.loadImage("map2.png");
         map3 = applet.loadImage("map3.png");
+
+        mapButtons = new ArrayList<>();
+        mapButtons.add(new MapButton("map1.tmx", 100, 360, BUTTON_WIDTH, BUTTON_HEIGHT, map1));
+        mapButtons.add(new MapButton("map2.tmx", 700, 360, BUTTON_WIDTH, BUTTON_HEIGHT, map2));
+        mapButtons.add(new MapButton("map3.tmx", 1300, 360, BUTTON_WIDTH, BUTTON_HEIGHT, map3));
+
+        playerButtons = new ArrayList<>();
     }
 
     public void load() {
-        screenState = ScreenState.INTRO;
+        screenState = new IntroState();
         timer = 3;
+
+        players.clear();
+
+        // Load Player 1 - Keyboard Control
+        if (NeonPulse.Config.KEYBOARD) {
+            Player player = new Player(applet, new KeyboardInput(NeonPulse.sInputState), NeonPulse.Debug.testSound);
+            player.addEffect("R", new Area(NeonPulse.Debug.testSound));
+            player.addEffect("E", new Pulse(NeonPulse.Debug.testSound));
+            addPlayer(player);
+        }
+
+        // Load Controller Players
+        List<ControlDevice> devices = NeonPulse.sControlIO.getDevices();
+        for (ControlDevice gamepad : devices) {
+            for (Configuration configuration : NeonPulse.sControllerConfigs) {
+                if (gamepad.matches(configuration)) {
+                    Player player = new Player(applet, new GamepadInput(gamepad), NeonPulse.Debug.testSound);
+                    player.addEffect("CIRCLE", new Area(NeonPulse.Debug.testSound));
+                    player.addEffect("TRIANGLE", new Pulse(NeonPulse.Debug.testSound));
+                    addPlayer(player);
+                    break;
+                }
+            }
+        }
+
+        int playersSize = players.size();
+        int unit = applet.width / playersSize;
+        int min_unit = applet.width / 5;
+        for (int i = 0; i < playersSize; i++) {
+            Player player = players.get(i);
+            float x = i * unit + (unit / 2) - (min_unit / 2) + PADDING;
+            float y = 360;
+            float w = min_unit - 2 * PADDING;
+            float h = 360;
+            playerButtons.add(new PlayerButton(x, y, w, h, player));
+        }
+    }
+
+    public void addPlayer(Player player) {
+        player.setFill(Player.PLAYER_COLORS[players.size() % Player.PLAYER_COLORS.length]);
+        super.addPlayer(player);
     }
 
     @Override
     public void handleInput() {
-        PVector m = NeonPulse.g_inputState.getMousePosition();
-        if(NeonPulse.g_inputState.isButtonPressed(LEFT)) {
-            for (Pair<PVector, String> map : maps) {
-                if( m.x >= map.first.x
-                        && m.x <= map.first.x + BUTTON_WIDTH
-                        && m.y >= map.first.y
-                        && m.y <= map.first.y + BUTTON_HEIGHT) {
-                    NeonPulse.goToScreen(mainScreen);
-                    mainScreen.loadMap(map.second);
-                    mainScreen.loadPlayers();
-                    return;
-                }
-            }
-        }
+        screenState.handleInput();
     }
 
     public void update(float delta_time) {
         pulsePoint.x = (pulsePoint.x + delta_time * PULSE_SPEED) % applet.width;
-        mountains.update();
-        floor.update();
-        sun.update(delta_time);
-
-        switch (screenState) {
-            case INTRO: {
-                timer -= delta_time;
-                if (timer < 0) {
-                    screenState = ScreenState.TITLE;
-                    timer = 2;
-                }
-                break;
-            }
-            case TITLE: {
-                timer -= delta_time;
-                if (timer < 0) {
-                    screenState = ScreenState.MAP;
-                }
-                // TODO: Handle player creation
-                break;
-            }
-            case MAP: {
-                // TODO: Handle map selection
-                break;
-            }
-        }
+        screenState.update(delta_time);
     }
 
     public PGraphics render() {
@@ -158,11 +267,6 @@ class TitleScreen extends GameScreen {
         // Background
         canvas.image(background, 0, 0);
 
-        // Animation
-        canvas.image(mountains.render(), 0, 0);
-        canvas.image(floor.render(), 0, 0);
-        sun.display(canvas);
-
         // Screen
         canvas.pushStyle();
         canvas.textAlign(CENTER);
@@ -171,22 +275,8 @@ class TitleScreen extends GameScreen {
         canvas.textFont(rubber);
         canvas.point(pulsePoint.x, applet.height / 5 + 16);
 
-        switch (screenState) {
-            case INTRO: {
-                break;
-            }
-            case TITLE: {
-                canvas.text("Neon Pulse", applet.width / 2, applet.height / 4);
-                break;
-            }
-            case MAP: {
-                canvas.text("Select Map", canvas.width / 2, canvas.height / 5);
-                canvas.image(map1, 100, 420, BUTTON_WIDTH, BUTTON_HEIGHT);
-                canvas.image(map2, 700, 420, BUTTON_WIDTH, BUTTON_HEIGHT);
-                canvas.image(map3, 1300, 420, BUTTON_WIDTH, BUTTON_HEIGHT);
-                break;
-            }
-        }
+        // Display
+        screenState.display(canvas);
 
         canvas.popStyle();
         canvas.endDraw();

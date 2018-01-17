@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MultiMap<K, V> {
-    private Map<K, ArrayList<V>> map = new HashMap<>();
+    private final Map<K, ArrayList<V>> map = new HashMap<>();
 
     public void put(K key, V value) {
         map.computeIfAbsent(key, k -> new ArrayList<>());

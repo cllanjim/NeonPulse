@@ -9,5 +9,5 @@ public interface Item {
 
     void update(float delta_time);
     void display(PGraphics graphics);
-    void collideWithAgent(Agent agent);
+    boolean collideWithAgent(Agent agent);
 }

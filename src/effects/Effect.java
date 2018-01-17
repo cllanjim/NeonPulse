@@ -7,18 +7,32 @@ import processing.core.PVector;
 import processing.sound.SoundFile;
 
 public abstract class Effect {
-    public final PVector position;
-    public boolean active;
-    public float lifetime;
-    SoundFile sound;
-    public boolean live;
+    PVector position;
+    boolean active;
+    float lifetime;
+    boolean live;
 
-    Effect(SoundFile effect_sound) {
+    public Effect() {
         position = new PVector(0,0);
-        sound = effect_sound;
         active = false;
         live = false;
         lifetime = 0;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public boolean isLive() {
+        return active;
+    }
+
+    public float getLifetime() {
+        return lifetime;
+    }
+
+    public PVector getPosition() {
+        return position;
     }
 
     public abstract boolean collideWithAgent(Agent agent);

@@ -209,47 +209,48 @@ public class Ptmx {
     public abstract static class CollisionShape {
         int id;
         String type;
+        public String name;
         public float x;
         public float y;
         public float width;
         public float height;
         PVector[] points;
 
-        CollisionShape(int id, float x, float y) {
-            this.id = id;
+        CollisionShape(String name, float x, float y) {
+            this.name = name;
             this.x = x;
             this.y = y;
         }
 
-        static CollisionShape fromXML(XML o) {
-            int id = parseInt(o.getString("id"));
+        static CollisionShape fromXML(XML o, XML t) {
+            String name = t.getString("name", "");
             float x = parseInt(o.getString("x"));
             float y = parseInt(o.getString("y"));
             if (o.getChild("polyline") != null) {
-                return new Polyline(id, x, y, readPoints(o.getChild("polyline").getString("points")));
+                return new Polyline(name, x, y, readPoints(o.getChild("polyline").getString("points")));
             } else if (o.getChild("polygon") != null) {
-                return new Polygon(id, x, y, readPoints(o.getChild("polygon").getString("points")));
+                return new Polygon(name, x, y, readPoints(o.getChild("polygon").getString("points")));
             } else if (o.getChild("ellipse") != null) {
-                return new Ellipse(id, x, y, parseInt(o.getString("width")), parseInt(o.getString("height")));
+                return new Ellipse(name, x, y, parseInt(o.getString("width")), parseInt(o.getString("height")));
             } else {
-                return new Rectangle(id, x, y, parseInt(o.getString("width")), parseInt(o.getString("height")));
+                return new Rectangle(name, x, y, parseInt(o.getString("width")), parseInt(o.getString("height")));
             }
         }
 
         public static CollisionShape fromStringDict(StringDict o) {
-            int id = parseInt(o.get("id"));
+            String name = o.get("name", "");
             float x = parseInt(o.get("x"));
             float y = parseInt(o.get("y"));
             String object = o.get("object");
             switch (object) {
                 case "rectangle":
-                    return new Rectangle(id, x, y, parseInt(o.get("width")), parseInt(o.get("height")));
+                    return new Rectangle(name, x, y, parseInt(o.get("width")), parseInt(o.get("height")));
                 case "ellipse":
-                    return new Ellipse(id, x, y, parseInt(o.get("width")), parseInt(o.get("height")));
+                    return new Ellipse(name, x, y, parseInt(o.get("width")), parseInt(o.get("height")));
                 case "polygon":
-                    return new Polygon(id, x, y, readPoints(o.get("points")));
+                    return new Polygon(name, x, y, readPoints(o.get("points")));
                 case "polyline":
-                    return new Polyline(id, x, y, readPoints(o.get("points")));
+                    return new Polyline(name, x, y, readPoints(o.get("points")));
             }
             return null;
         }
@@ -258,8 +259,8 @@ public class Ptmx {
     }
 
     private static class Rectangle extends CollisionShape {
-        Rectangle(int id, float x, float y, float width, float height) {
-            super(id, x, y);
+        Rectangle(String name, float x, float y, float width, float height) {
+            super(name, x, y);
             type = "rectangle";
             this.width = width;
             this.height = height;
@@ -273,8 +274,8 @@ public class Ptmx {
     }
 
     private static class Ellipse extends CollisionShape {
-        Ellipse(int id, float x, float y, float width, float height) {
-            super(id, x, y);
+        Ellipse(String name, float x, float y, float width, float height) {
+            super(name, x, y);
             type = "ellipse";
             this.width = width;
             this.height = height;
@@ -288,8 +289,8 @@ public class Ptmx {
     }
 
     private static class Polygon extends CollisionShape {
-        Polygon(int id, float x, float y, PVector[] points) {
-            super(id, x, y);
+        Polygon(String name, float x, float y, PVector[] points) {
+            super(name, x, y);
             this.points = points;
             type = "polygon";
         }
@@ -305,8 +306,8 @@ public class Ptmx {
     }
 
     private static class Polyline extends CollisionShape {
-        Polyline(int id, float x, float y, PVector[] points) {
-            super(id, x, y);
+        Polyline(String name, float x, float y, PVector[] points) {
+            super(name, x, y);
             type = "polyline";
             this.points = points;
         }
@@ -369,7 +370,7 @@ public class Ptmx {
         float width = maxX - minX;
         float height = maxY - minY;
         
-        return new Rectangle(0, x + minX, y + minY, width, height);
+        return new Rectangle("", x + minX, y + minY, width, height);
     }
 
     public class Layer {
@@ -434,16 +435,16 @@ public class Ptmx {
                     for (CollisionShape s : tile_shapes) {
                         switch (s.type) {
                             case "rectangle":
-                                shapes.add(new Rectangle(s.id, s.x + left, s.y + top, s.width, s.height));
+                                shapes.add(new Rectangle(s.name, s.x + left, s.y + top, s.width, s.height));
                                 break;
                             case "ellipse":
-                                shapes.add(new Ellipse(s.id, s.x + left, s.y + top, s.width, s.height));
+                                shapes.add(new Ellipse(s.name, s.x + left, s.y + top, s.width, s.height));
                                 break;
                             case "polygon":
-                                shapes.add(new Polygon(s.id, s.x + left, s.y + top, s.points));
+                                shapes.add(new Polygon(s.name, s.x + left, s.y + top, s.points));
                                 break;
                             case "polyline":
-                                shapes.add(new Polyline(s.id, s.x + left, s.y + top, s.points));
+                                shapes.add(new Polyline(s.name, s.x + left, s.y + top, s.points));
                                 break;
                         }
                     }
@@ -496,7 +497,7 @@ public class Ptmx {
 
         public ArrayList<CollisionShape> getShapesAt(int x, int y) {
             int tile_index = y * mapwidth + x;
-            if (tile_index > data.length) return null;
+            if (tile_index >= data.length) return null;
             return Ptmx.this.collision_map.get(data[tile_index]);
         }
     }
@@ -625,8 +626,8 @@ public class Ptmx {
                         XML objects[] = collisions.getChildren("object");
                         if (objects != null) {
                             for (XML o : objects) {
-                                CollisionShape shape = CollisionShape.fromXML(o);
-                                collision_map.put(tileIndex, shape);
+                                CollisionShape shape = CollisionShape.fromXML(o, collisions);
+                                collision_map.put(tileIndex + 1, shape);
                             }
                         }
                     }

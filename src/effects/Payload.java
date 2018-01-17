@@ -4,33 +4,38 @@ import engine.Agent;
 import engine.Collision;
 import engine.Tile;
 import game.Draw;
+import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.core.PVector;
 import processing.sound.SoundFile;
 
 public class Payload extends Effect {
-    private Effect effect;
-    private PVector[] history;
-    public PVector velocity;
-    private PVector acceleration;
+    private final Effect effect;
+    private final PVector[] history;
+    public final PVector velocity;
+    private final PVector acceleration;
     public float radius;
     private float mass;
     private float angle;
     private int frame_count;
 
-    private static final float DELAY = 0.5f;
+    public ParticleSystem particleSystem, particleSystem2, particleSystem3;
+
+    public static final float DELAY = 0.5f;
     private static final int TAIL_LENGTH = 8;
     private static final int FORCE = 128;
 
-    public Payload(Effect payload_effect, SoundFile payload_sound) {
-        super(payload_sound);
+    public Payload(Effect payload_effect, PApplet applet) {
+        particleSystem = new ParticleSystem(applet, position, 0.2f, 560, 560);
+        particleSystem2 = new ParticleSystem(applet, position, 0.2f, 280, 280);
+        particleSystem3 = new ParticleSystem(applet, position, 0.2f, 140, 140);
         effect = payload_effect;
         velocity = new PVector(0, 0);
         acceleration = new PVector(0, 0);
         history = new PVector[TAIL_LENGTH];
         frame_count = 0;
-        radius = 4;
+        radius = 8;
         angle = 0;
     }
 
@@ -44,8 +49,7 @@ public class Payload extends Effect {
                 return true;
             }
         }
-        effect.collideWithAgent(agent);
-        return false;
+        return effect.collideWithAgent(agent);
     }
 
     @Override
@@ -72,15 +76,23 @@ public class Payload extends Effect {
         if (active) {
             active = false;
             effect.activate(position, target);
+            particleSystem.explode(200);
+            particleSystem2.explode(100);
+            particleSystem3.explode(100);
+        }
+    }
+
+    public void updateMovement(float delta_time) {
+        if (active) {
+            velocity.add(PVector.mult(acceleration, delta_time));
+            position.add(PVector.mult(velocity, delta_time));
+            angle = velocity.heading();
         }
     }
 
     @Override
     public void update(float delta_time) {
         if (active) {
-            velocity.add(acceleration);
-            position.add(PVector.mult(velocity, delta_time));
-            angle = velocity.heading();
             history[frame_count % TAIL_LENGTH] = position.copy();
             if (lifetime > DELAY) {
                 activateEffect(position);
@@ -88,6 +100,10 @@ public class Payload extends Effect {
             lifetime += delta_time;
             frame_count += 1;
         }
+
+        particleSystem.update(delta_time, position.x+velocity.x*delta_time, position.y+velocity.y*delta_time);
+        particleSystem2.update(delta_time, position.x+velocity.x*delta_time, position.y+velocity.y*delta_time);
+        particleSystem3.update(delta_time, position.x+velocity.x*delta_time, position.y+velocity.y*delta_time);
 
         effect.update(delta_time);
     }
@@ -107,6 +123,9 @@ public class Payload extends Effect {
         }
         if (effect.active) {
             effect.display(g);
+            particleSystem.display(g);
+            particleSystem2.display(g);
+            particleSystem3.display(g);
         }
     }
 

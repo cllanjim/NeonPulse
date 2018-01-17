@@ -2,6 +2,7 @@ import ch.bildspur.postfx.builder.PostFX;
 import effects.Area;
 import effects.Pulse;
 import engine.GameScreen;
+import engine.Lighting;
 import engine.Tilemap;
 import game.GamepadInput;
 import game.KeyboardInput;
@@ -10,6 +11,7 @@ import org.gamecontrolplus.Configuration;
 import org.gamecontrolplus.ControlDevice;
 import processing.core.PApplet;
 import processing.core.PGraphics;
+import processing.core.PImage;
 
 import java.util.List;
 
@@ -22,6 +24,8 @@ public class MainScreen extends GameScreen {
     private String currentMapPath = MAPS[0];
     private float roundTimer;
 
+    private final Lighting lighting;
+
     private static final float ROUND_TIME = 120;
     private static final String[] MAPS = {
             "map1.tmx",
@@ -32,6 +36,9 @@ public class MainScreen extends GameScreen {
     MainScreen(PApplet applet) {
         super(applet);
         canvas = applet.createGraphics(applet.width, applet.height, P2D);
+
+        PImage smoke_texture = applet.loadImage("texture.png");
+        lighting = new Lighting(applet, smoke_texture);
     }
 
     public void load() {
@@ -47,23 +54,24 @@ public class MainScreen extends GameScreen {
 
     void loadPlayers() {
         players.clear();
+        lighting.clear();
 
         // Load Player 1 - Keyboard Control
         if (NeonPulse.Config.KEYBOARD) {
-            Player player = new Player(applet, new KeyboardInput(NeonPulse.g_inputState), NeonPulse.Debug.test_sound);
-            player.addEffect("R", new Area(NeonPulse.Debug.test_sound));
-            player.addEffect("E", new Pulse(NeonPulse.Debug.test_sound));
+            Player player = new Player(applet, new KeyboardInput(NeonPulse.sInputState), NeonPulse.Debug.testSound);
+            player.addEffect("R", new Area(NeonPulse.Debug.testSound));
+            player.addEffect("E", new Pulse(NeonPulse.Debug.testSound));
             addPlayer(player);
         }
 
         // Load Controller Players
-        List<ControlDevice> devices = NeonPulse.g_control_io.getDevices();
+        List<ControlDevice> devices = NeonPulse.sControlIO.getDevices();
         for (ControlDevice gamepad : devices) {
-            for (Configuration configuration : NeonPulse.g_controller_configs) {
+            for (Configuration configuration : NeonPulse.sControllerConfigs) {
                 if (gamepad.matches(configuration)) {
-                    Player player = new Player(applet, new GamepadInput(gamepad), NeonPulse.Debug.test_sound);
-                    player.addEffect("CIRCLE", new Area(NeonPulse.Debug.test_sound));
-                    player.addEffect("TRIANGLE", new Pulse(NeonPulse.Debug.test_sound));
+                    Player player = new Player(applet, new GamepadInput(gamepad), NeonPulse.Debug.testSound);
+                    player.addEffect("CIRCLE", new Area(NeonPulse.Debug.testSound));
+                    player.addEffect("TRIANGLE", new Pulse(NeonPulse.Debug.testSound));
                     addPlayer(player);
                     break;
                 }
@@ -73,15 +81,28 @@ public class MainScreen extends GameScreen {
 
     public void handleInput() {
         // Change Level
-        if (NeonPulse.g_inputState.isKeyPressed('L')) nextRound();
+        if (NeonPulse.sInputState.isKeyPressed('L')) nextRound();
     }
 
     public void update(float delta_time) {
         tilemap.update(delta_time * 1000);
 
+        // Collide with every player's effects.
+        for (int i = 0; i < players.size(); i++) {
+            for (int j = 0; j < players.size(); j++) {
+                Player player = players.get(i);
+                if (i == j) continue;
+                Player other = players.get(j);
+                if(other.collideWithEffects(player) && player.health != Player.HEALTH) {
+                    other.score += 1;
+                    player.kill(tilemap.getSpawnPoint());
+                }
+            }
+        }
+
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
-            player.update(players, delta_time);
+            player.update(tilemap, delta_time);
             player.updateMovement(delta_time);
 
             // Collide current player with others, starting with the one after it
@@ -90,24 +111,10 @@ public class MainScreen extends GameScreen {
                 player.collideWithAgent(other);
             }
 
-            // Collide with every player's effects.
-            for (int j = 0; j < players.size(); j++ ) {
-                if (i == j) continue;
-                Player other = players.get(j);
-                other.collideWithEffects(player);
-                if (player.health != Player.HEALTH) {
-                    other.score += 1;
-                }
-            }
+            player.updateLights(player.position.x + tilemap.left,player.position.y + tilemap.top, tilemap);
 
-            player.grenade.collideWithTilemap(tilemap);
-            player.laser.collideWithTilemap(tilemap);
+            tilemap.wrapAgent(player);
             tilemap.collideWithAgent(player);
-
-            // Cleanup
-            if (player.alive && player.health < 0) {
-                player.respawn(tilemap.getSpawnPoint());
-            }
         }
 
         if (roundTimer < 0) nextRound();
@@ -126,6 +133,8 @@ public class MainScreen extends GameScreen {
         for (Player player : players) {
             player.display(canvas);
         }
+
+        lighting.display(canvas);
 
         canvas.popMatrix();
 
@@ -149,7 +158,7 @@ public class MainScreen extends GameScreen {
 
     public void renderFX(PostFX fx) {
         applet.blendMode(SCREEN);
-        fx.render(canvas).sobel().blur(5, 50).compose();
+        fx.render(canvas).sobel().blur(5, 10).compose();
         applet.blendMode(BLEND);
     }
 
@@ -159,9 +168,12 @@ public class MainScreen extends GameScreen {
 
     public void addPlayer(Player player) {
         player.setFill(Player.PLAYER_COLORS[players.size()]);
-        player.position.set(applet.random(80, applet.width - 80), applet.random(80, applet.height - 80));
+        player.position.set(tilemap.getSpawnPoint());
+        lighting.addLights(player.lights);
         super.addPlayer(player);
     }
 
-    private void nextRound() {}
+    private void nextRound() {
+
+    }
 }

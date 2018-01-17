@@ -4,9 +4,10 @@ import effects.Effect;
 import processing.core.PGraphics;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Loadout {
-    public ArrayList<Effect> effects;
+    public List<Effect> effects;
 
     Loadout() {
         effects = new ArrayList<>();
@@ -24,9 +25,11 @@ public class Loadout {
         }
     }
 
-    public void collideWithAgent(Player player) {
+    public boolean collideWithAgent(Player player) {
+        boolean colliding = false;
         for  (Effect effect: effects) {
-            effect.collideWithAgent(player);
+            colliding |= effect.collideWithAgent(player);
         }
+        return colliding;
     }
 }

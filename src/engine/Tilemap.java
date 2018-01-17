@@ -1,5 +1,6 @@
 package engine;
 
+import game.Player;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
@@ -8,14 +9,17 @@ import ptmx.Ptmx;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static processing.core.PApplet.floor;
 import static processing.core.PConstants.CORNER;
 
 public class Tilemap extends Level {
-    public final Ptmx map;
+    private final Ptmx map;
     private final ArrayList<Ptmx.CollisionShape> pits;
     private final List<Ptmx.CollisionShape> shapes;
+    private final List<PVector> spawns;
+    private int curr_spawn_index = 0;
 
     public Tilemap(PApplet applet, String tile_map) {
         // Load Map
@@ -29,13 +33,18 @@ public class Tilemap extends Level {
 
         int[] layer_data = map.getData(0);
         boolean visible = map.getVisible(0);
-        ArrayList<StringDict> objects = map.getObjects(1);
         int objects_color = map.getObjectsColor(1);
 
         shapes = map.getShapes(0);
-        pits = new ArrayList<>(objects.size());
+        pits = shapes.stream().filter(s -> s.name != null && s.name.equals("pit"))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        ArrayList<StringDict> objects = map.getObjects(1);
+
+        spawns = new ArrayList<>(objects.size());
         for (StringDict obj : objects) {
-            pits.add(Ptmx.CollisionShape.fromStringDict(obj));
+            Ptmx.CollisionShape spawn_shape = Ptmx.CollisionShape.fromStringDict(obj);
+            spawns.add(new PVector(spawn_shape.x, spawn_shape.y));
         }
 
         mapWidth = floor(map_size.x);
@@ -68,8 +77,8 @@ public class Tilemap extends Level {
         // Don't collide if outside world
         if (col < 0 || col >= mapWidth || row < 0 || row >= mapHeight) return;
 
-        // TODO: Get specific tiles/references, use custom collision functions
-        if (map.getLayer(0).getShapesAt(col, row) != null) {
+        if (map.getLayer(0).getShapesAt(col, row) != null
+                && map.getLayer(0).getShapesAt(col, row).stream().anyMatch(s -> s.name.equals("wall"))) {
             PVector collision_pos = new PVector(col * tileWidth + tileWidth / 2, row * tileHeight + tileHeight / 2);
             collision_positions.add(collision_pos);
         }
@@ -79,26 +88,20 @@ public class Tilemap extends Level {
         int col = PApplet.floor(x / tileWidth);
         int row = PApplet.floor(y / tileHeight);
 
-        // No collision outside world, or if shapes are null
         return col >= 0 && col < mapWidth && row >= 0 && row < mapHeight
-                && map.getLayer(0).getShapesAt(col, row) != null;
+                && map.getLayer(0).getShapesAt(col, row) != null
+                && map.getLayer(0).getShapesAt(col, row).stream().anyMatch(s -> s.name.equals("wall"));
     }
 
     public void display(PGraphics g) {
         map.draw(g, 0, 0);
     }
 
-    public boolean collideWithAgent(Agent agent) {
+    public boolean collideWithAgent(Player agent) {
         ArrayList<PVector> collision_positions = new ArrayList<>(4);
 
-        // Wrap if outside world
-        if (agent.position.x < 0) agent.position.x = levelWidth;
-        if (agent.position.x > levelWidth) agent.position.x = 0;
-        if (agent.position.y < 0) agent.position.y = levelHeight;
-        if (agent.position.y > levelHeight) agent.position.y = 0;
-
-        if (checkPitCollision(agent.position.x, agent.position.y)) {
-            agent.damageLethal(100);
+        if (agent.alive && checkPitCollision(agent.position.x, agent.position.y)) {
+            agent.kill(getSpawnPoint());
             agent.score -= 1;
         }
 
@@ -128,6 +131,8 @@ public class Tilemap extends Level {
 
     @Override
     public PVector getSpawnPoint() {
-        return new PVector(100, 100);
+        PVector spawn_point = spawns.get(curr_spawn_index);
+        curr_spawn_index = (curr_spawn_index + 1) % spawns.size();
+        return spawn_point;
     }
 }

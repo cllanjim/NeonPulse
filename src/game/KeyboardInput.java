@@ -46,9 +46,6 @@ public class KeyboardInput implements PlayerInput {
         if (inputState.isButtonDown(RIGHT)) player.grenade.ready();
         if (inputState.isButtonReleased(RIGHT)) player.grenade.activate();
 
-        // Gun
-        if (inputState.isKeyDown('C')) player.gun.activate();
-
         // Dash
         if (inputState.isButtonPressed(LEFT)) player.impulse.mult(10);
     }

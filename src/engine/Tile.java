@@ -4,7 +4,7 @@ import processing.core.PGraphics;
 import processing.core.PImage;
 
 public class Tile {
-    private PImage image;
+    private final PImage image;
     private boolean solid;
 
     public Tile(PImage tile_image, boolean is_solid) {

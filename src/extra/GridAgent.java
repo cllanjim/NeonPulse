@@ -1,6 +1,7 @@
 package extra;
 
 import engine.Agent;
+import engine.Level;
 import game.Player;
 import processing.core.PGraphics;
 
@@ -11,7 +12,7 @@ public class GridAgent extends Agent {
     int cell_array_index;
 
     @Override
-    public void update(ArrayList<Player> players, float delta_time) {
+    public void update(Level level, float delta_time) {
 
     }
 
@@ -19,5 +20,4 @@ public class GridAgent extends Agent {
     public void display(PGraphics graphics) {
 
     }
-
 }

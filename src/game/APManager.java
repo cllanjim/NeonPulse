@@ -8,7 +8,6 @@ public class APManager {
     private final Player player;
     private float angularVelocity;
     private float actionTimer;
-    private float radius;
     private float angle;
     private int actionPoints;
 
@@ -18,18 +17,19 @@ public class APManager {
 
     APManager(Player player, float radius) {
         this.player = player;
-        this.radius = radius;
         actionPoints = MAX_ACTION_POINTS;
         angle = 0;
         angularVelocity = TWO_PI;
     }
 
-    public void display(PGraphics g) {
+    public void display(PGraphics g, float radius) {
         g.pushMatrix();
         g.pushStyle();
         g.translate(player.position.x, player.position.y);
         g.rotate(angle);
         g.fill(player.fill);
+        g.strokeWeight(1);
+        g.stroke(255);
         if (actionPoints >= 1) {
             g.ellipse(radius * cos(2*PI/3), radius * sin(2*PI/3), CIRCLE_RADIUS, CIRCLE_RADIUS);
         }

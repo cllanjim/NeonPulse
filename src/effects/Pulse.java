@@ -9,6 +9,7 @@ import processing.core.PVector;
 import processing.sound.SoundFile;
 
 public class Pulse extends Effect {
+    private final SoundFile sound;
     private float outerRadius;
     private float innerRadius;
     private static final float LIFESPAN = 0.2f;
@@ -16,7 +17,7 @@ public class Pulse extends Effect {
     private static final float FORCE = 128;
 
     public Pulse(SoundFile pulse_sound) {
-        super(pulse_sound);
+        sound = pulse_sound;
         outerRadius = 0;
         innerRadius = 0;
     }

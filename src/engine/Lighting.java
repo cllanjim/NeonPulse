@@ -14,10 +14,6 @@ public class Lighting {
     private final ArrayList<Light> lights;
     private final PImage lightTexture;
 
-    private static float sqr(float x) {
-        return x * x;
-    }
-
     public Lighting(PApplet applet, PImage image) {
         this.lights = new ArrayList<>();
         this.lighting = applet.createGraphics(applet.width, applet.height, P2D);
@@ -33,7 +29,9 @@ public class Lighting {
     }
 
     void update(float delta_time) {
-
+        for (Light l : lights) {
+            l.update(delta_time);
+        }
     }
 
     public void display(PGraphics g) {

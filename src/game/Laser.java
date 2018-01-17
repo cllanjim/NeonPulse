@@ -1,34 +1,28 @@
 package game;
 
-import engine.Item;
+import engine.*;
 import effects.Beam;
-import engine.Agent;
-import engine.Collision;
-import engine.StringMap;
-import engine.Tilemap;
 import processing.core.PGraphics;
 import processing.core.PVector;
 import processing.sound.SoundFile;
-import ptmx.Ptmx;
 
 import java.util.ArrayList;
-
-import static processing.core.PApplet.floor;
 
 public class Laser implements Item {
     private final Beam beam;
     private final Player player;
     private final SoundFile sound;
+    private final ArrayList<PVector> supercoverTiles;
     private float delay;
     private boolean active;
     private boolean charging;
-    private ArrayList<PVector> supercoverTiles;
 
     private static final float DELAY = 1;
     private static final float TARGET_FRAME_TIME = 1.0f / 60.0f;
 
     Laser(Player player, SoundFile soundFile) {
         this.player = player;
+        active = true;
         sound = soundFile;
         delay = DELAY;
         beam = new Beam(Beam.LENGTH, soundFile);
@@ -70,32 +64,26 @@ public class Laser implements Item {
             if (player.particleSystem != null) player.particleSystem.attract();
         }
         beam.update(delta_time);
-        Beam next_beam = beam.next;
+        Beam next_beam = beam.getNext();
         while (next_beam != null) {
             next_beam.update(delta_time);
-            next_beam = next_beam.next;
+            next_beam = next_beam.getNext();
         }
     }
 
     @Override
     public void display(PGraphics g) {
         beam.display(g);
-        Beam next_beam = beam.next;
+        Beam next_beam = beam.getNext();
         while (next_beam != null) {
-            beam.next.display(g);
-            next_beam = next_beam.next;
-        }
-        for (PVector tile : supercoverTiles) {
-            g.pushStyle();
-            g.fill(255);
-            g.ellipse(tile.x, tile.y, 16, 16);
-            g.popStyle();
+            beam.getNext().display(g);
+            next_beam = next_beam.getNext();
         }
     }
 
     @Override
-    public void collideWithAgent(Agent agent) {
-        beam.collideWithAgent(agent);
+    public boolean collideWithAgent(Agent agent) {
+        return beam.collideWithAgent(agent);
     }
 
     private boolean collideWithTile(PVector tile_position, float tile_width, float tile_height) {
@@ -108,9 +96,9 @@ public class Laser implements Item {
 
         PVector collision_point = new PVector();
         float closest_distance = Float.MAX_VALUE;
-        float closest_line_index = 0;
+        float closest_line_index = -1;
         for (int i = 0; i < points.length - 1; i++) {
-            if (Collision.lineSegments(player.position, beam.endPosition, points[i], points[i + 1], collision_point)) {
+            if (Collision.lineSegments(player.position, beam.getEndPosition(), points[i], points[i + 1], collision_point)) {
                 float point_distance = collision_point.dist(player.position);
                 if (point_distance < closest_distance) {
                     closest_distance = point_distance;
@@ -119,47 +107,28 @@ public class Laser implements Item {
             }
         }
 
-        if (closest_distance == Float.MAX_VALUE) {
+        if (closest_distance == Float.MAX_VALUE || closest_line_index == -1) {
             return false;
         } else {
             // TODO: Create new beam reflected on this spot with remaining length
             beam.setLength(closest_distance);
             return true;
         }
-
     }
 
-    public void collideWithLevel(StringMap level) {
-        if (beam.live) {
+    public void collideWithLevel(Level level) {
+        if (beam.isLive()) {
             supercoverTiles.clear();
-            level.getGridPoints(supercoverTiles, player.position, beam.endPosition);
+            level.getGridPoints(supercoverTiles, player.position, beam.getEndPosition());
             int num_tiles = supercoverTiles.size();
             if (num_tiles > 0) {
                 for (PVector supercoverTile : supercoverTiles) {
                     PVector tile_pos = supercoverTile
                             .mult(level.tileWidth)
                             .add(level.tileWidth / 2, level.tileHeight / 2);
-                    if (level.checkTileFor(tile_pos.x, tile_pos.y, '#')
+                    if (level.checkCollision(tile_pos.x, tile_pos.y)
                             && collideWithTile(tile_pos, level.tileWidth, level.tileHeight)) {
                         break;
-                    }
-                }
-            }
-        }
-    }
-
-    public void collideWithTilemap(Tilemap tilemap) {
-        if (beam.active) {
-            ArrayList<PVector> tiles = new ArrayList<>(8);
-            tilemap.getGridPoints(tiles, player.position, beam.endPosition);
-            int num_tiles = tiles.size();
-            if (num_tiles > 0) {
-                for (PVector tile_pos : tiles) {
-                    ArrayList<Ptmx.CollisionShape> shapes = tilemap.map.getShapes(0, floor(tile_pos.x), floor(tile_pos.y));
-                    if (shapes != null) {
-                        tile_pos.mult(tilemap.tileWidth)
-                                .add(tilemap.tileWidth / 2, tilemap.tileHeight / 2);
-                        if (collideWithTile(tile_pos, tilemap.tileWidth, tilemap.tileHeight)) return;
                     }
                 }
             }

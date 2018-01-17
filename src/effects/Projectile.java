@@ -6,19 +6,19 @@ import engine.Tile;
 import game.Draw;
 import processing.core.PGraphics;
 import processing.core.PVector;
+import processing.sound.SoundFile;
 
 import java.util.function.Consumer;
 
 public class Projectile extends Effect {
     private float heading;
-    public float radius;
+    private float radius;
     private float speed;
 
     private static final int LIFESPAN = 1;
     private static final float FORCE = 128;
 
     public Projectile(PVector pos, PVector target, float _speed) {
-        super(null);
         position.set(pos.x, pos.y);
         speed = _speed;
         radius = 2;

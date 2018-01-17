@@ -11,9 +11,9 @@ import static processing.core.PConstants.*;
 public class InputState implements InputHandler {
     private final PVector prevMousePosition;
     private final PVector currMousePosition;
-    private boolean[] currKeyState;
+    private final boolean[] currKeyState;
+    private final boolean[] currButtonState;
     private boolean[] prevKeyState;
-    private boolean[] currButtonState;
     private boolean[] prevButtonState;
 
     public InputState() {

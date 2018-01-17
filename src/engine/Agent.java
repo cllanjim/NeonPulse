@@ -1,26 +1,23 @@
 package engine;
 
-import game.Player;
 import processing.core.PGraphics;
 import processing.core.PVector;
-
-import java.util.ArrayList;
 
 import static processing.core.PApplet.abs;
 import static processing.core.PApplet.max;
 
 public abstract class Agent {
-    public PVector position;
-    public PVector velocity;
-    public PVector impulse;
+    public final PVector position;
+    public final PVector velocity;
+    public final PVector impulse;
     public float radius;
     public int health;
     public float mass;
     public int score = 0;
-    protected float speed;
+    public float speed;
     public float angle;
 
-    abstract public void update(ArrayList<Player> players, float delta_time);
+    abstract public void update(Level level, float delta_time);
     abstract public void display(PGraphics graphics);
 
     protected Agent() {
@@ -70,7 +67,6 @@ public abstract class Agent {
         float distance_y = position.y - tile_position.y;
         float x_depth = min_distance_x - abs(distance_x);
         float y_depth = min_distance_y - abs(distance_y);
-
         if (x_depth > 0 || y_depth > 0) {
             if (max(x_depth, 0) <= max(y_depth, 0)) {
                 if (distance_x < 0) {

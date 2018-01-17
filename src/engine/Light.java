@@ -14,4 +14,12 @@ public class Light {
     public void setPosition(float x, float y) {
         this.position.set(x, y);
     }
+
+    public void setRadius(float r) {
+        this.radius = r;
+    }
+
+    public void update(float delta_time) {
+
+    }
 }

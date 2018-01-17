@@ -7,20 +7,19 @@ import processing.core.PGraphics;
 import processing.core.PVector;
 import processing.sound.SoundFile;
 
-import static processing.core.PConstants.PI;
-import static processing.core.PConstants.TWO_PI;
-
 public class Beam extends Effect {
-    public PVector segment;
-    public PVector endPosition;
-    public Beam next;
-    public float length;
+    private final PVector segment;
+    private final PVector endPosition;
+    private final SoundFile sound;
+    private Beam next;
+    private float length;
+
     public static final float LENGTH = 360;
     private static final float FORCE = 128;
     private static final float LIFESPAN = 0.1f;
 
     public Beam(float length, SoundFile beam_sound) {
-        super(beam_sound);
+        sound = beam_sound;
         segment = new PVector(0, 0);
         endPosition = new PVector(0, 0);
         this.length = length;
@@ -68,7 +67,7 @@ public class Beam extends Effect {
     public void display(PGraphics g) {
         if (active) {
             g.pushStyle();
-            g.stroke(0xffff00ff);
+            g.stroke(0xffaa0000);
             g.strokeWeight(8);
             g.line(position.x, position.y, endPosition.x, endPosition.y);
             g.popStyle();
@@ -78,5 +77,25 @@ public class Beam extends Effect {
     public void setLength(float length) {
         segment.setMag(length);
         endPosition.set(PVector.add(position, segment));
+    }
+
+    public PVector getEndPosition() {
+        return endPosition;
+    }
+
+    public void setEndPosition(PVector endPosition) {
+        this.endPosition.set(endPosition);
+    }
+
+    public Beam getNext() {
+        return next;
+    }
+
+    public void setNext(Beam next) {
+        this.next = next;
+    }
+
+    public float getLength() {
+        return length;
     }
 }

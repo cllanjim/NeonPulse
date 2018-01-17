@@ -31,8 +31,10 @@ public class Draw {
     public static void player(PGraphics g, float x, float y, float angle, float radius, int fill) {
         g.pushMatrix();
         g.pushStyle();
+        g.stroke(0);
+        g.strokeWeight(1);
         g.translate(x, y);
-        PVector dir = PVector.fromAngle(angle).mult(2);
+        PVector dir = PVector.fromAngle(angle).mult(0.2f * radius);
         g.fill(0xff000000);
         polygon(g, 0, 0, radius, 4, angle + PI / 4);
         g.fill(0xffffffff);

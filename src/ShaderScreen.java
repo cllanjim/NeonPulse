@@ -3,7 +3,7 @@ import ch.bildspur.postfx.builder.PostFX;
 import ch.bildspur.postfx.pass.BlurPass;
 import ch.bildspur.postfx.pass.SobelPass;
 import engine.GameScreen;
-import postprocessing.LightingPass;
+import extra.postprocessing.LightingPass;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 

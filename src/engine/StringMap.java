@@ -8,8 +8,6 @@ import processing.core.PVector;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static sun.dc.pr.Rasterizer.TILE_SIZE;
-
 public class StringMap extends Level {
     private final PApplet applet;
     private final PGraphics background;
@@ -160,20 +158,16 @@ public class StringMap extends Level {
     public boolean collideWithAgent(Player agent) {
         ArrayList<PVector> collision_points = new ArrayList<>(8);
 
-        // TODO: Replace with event system
         // Kill if in pit
-        if (agent.alive && checkTileFor(agent.position.x, agent.position.y, 'X')) {
-            agent.alive = false;
-            agent.state = new Player.KilledState(getSpawnPoint());
+        if (agent.alive && checkPositionFor(agent.position.x, agent.position.y, 'X')) {
+            agent.kill(getSpawnPoint());
             agent.score -= 1;
         }
 
         checkEdgeCollisions(collision_points, agent.position, agent.radius);
-        if (collision_points.size() == 0)
-            return false;
-
-        for (PVector pos : collision_points)
-            agent.collideWithTile(pos, tileWidth, tileHeight);
+        if (collision_points.size() != 0)
+            for (PVector pos : collision_points)
+                agent.collideWithTile(pos, tileWidth, tileHeight);
 
         collision_points.clear();
 
@@ -188,50 +182,17 @@ public class StringMap extends Level {
         return true;
     }
 
-    public void checkCornerCollisions(ArrayList<PVector> collision_positions, PVector position, float radius) {
-        // Top Left, Top Right, Bottom Right, Bottom Left
-        checkPointCollision(collision_positions, position.x - radius, position.y - radius);
-        checkPointCollision(collision_positions, position.x + radius, position.y - radius);
-        checkPointCollision(collision_positions, position.x + radius, position.y + radius);
-        checkPointCollision(collision_positions, position.x - radius, position.y + radius);
-    }
-
-    public void checkEdgeCollisions(ArrayList<PVector> collision_positions, PVector position, float radius) {
-        // Top, Right, Bottom, Left
-        checkPointCollision(collision_positions, position.x, position.y - radius);
-        checkPointCollision(collision_positions, position.x + radius, position.y);
-        checkPointCollision(collision_positions, position.x, position.y + radius);
-        checkPointCollision(collision_positions, position.x - radius, position.y);
-    }
-
-    // TODO: Following methods do the same thing pretty much. Keep one only and parametrize
-    private void checkPointCollision(ArrayList<PVector> collision_positions, float x, float y) {
-        int col = PApplet.floor(x / tileWidth);
-        int row = PApplet.floor(y / tileHeight);
-
-        // Don't collide if outside world
-        if (col < 0 || col >= mapWidth || row < 0 || row >= mapHeight) return;
-
-        // TODO: Get specific tiles/references, use custom collision functions
-        if (render_data[row][col] == '#') {
-            PVector collision_pos = new PVector(col, row);
-            collision_pos.set(collision_pos.x * tileWidth, collision_pos.y * tileHeight);
-            collision_pos.add(tileWidth / 2, tileHeight / 2);
-            collision_positions.add(collision_pos);
-        }
-    }
-
-    public boolean checkTileFor(float x, float y, char character) {
+    public boolean checkPositionFor(float x, float y, char character) {
         int col = PApplet.floor(x / tileWidth);
         int row = PApplet.floor(y / tileHeight);
         return col >= 0 && col < mapWidth && row >= 0 && row < mapHeight
                 && (render_data[row][col] == character);
     }
 
-    public Tile getTileAt(float x, float y) {
+    public boolean checkCollision(float x, float y) {
         int col = PApplet.floor(x / tileWidth);
         int row = PApplet.floor(y / tileHeight);
-        if (col < 0 || col >= mapWidth || row < 0 || row >= mapHeight) return null;
-        return tileMap.get(render_data[row][col]);
+        return col >= 0 && col < mapWidth && row >= 0 && row < mapHeight
+                && (render_data[row][col] == '#');
     }
 }

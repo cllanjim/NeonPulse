@@ -8,6 +8,7 @@ import processing.core.PVector;
 import processing.sound.SoundFile;
 
 public class Area extends Effect {
+    private final SoundFile sound;
     private float angle;
     private float radius;
 
@@ -15,7 +16,7 @@ public class Area extends Effect {
     private static final float LIFESPAN = 1;
 
     public Area(SoundFile area_sound) {
-        super(area_sound);
+        sound = area_sound;
         angle = 0;
         radius = RANGE;
     }
@@ -36,11 +37,11 @@ public class Area extends Effect {
     }
 
     public void activate(PVector source, PVector target) {
-            position.set(source);
-            angle = PVector.sub(target, source).heading();
-            sound.play();
-            active = true;
-            lifetime = 0;
+        position.set(source);
+        angle = PVector.sub(target, source).heading();
+        sound.play();
+        active = true;
+        lifetime = 0;
     }
 
     public void update(float delta_time) {

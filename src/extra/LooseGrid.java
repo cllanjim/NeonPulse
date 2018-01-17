@@ -4,9 +4,10 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LooseGrid {
-    ArrayList<Cell> cells;
+    List<Cell> cells;
     private float cell_size;
     private float width;
     private float height;

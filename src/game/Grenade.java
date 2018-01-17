@@ -1,11 +1,8 @@
 package game;
 
-import engine.Item;
+import engine.*;
 import effects.Explosion;
 import effects.Payload;
-import engine.Agent;
-import engine.StringMap;
-import engine.Tilemap;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
@@ -13,55 +10,57 @@ import processing.sound.SoundFile;
 
 import java.util.ArrayList;
 
-import static processing.core.PApplet.max;
+import static processing.core.PApplet.*;
 
 public class Grenade implements Item {
     private final Payload payload;
     private final Player player;
     private final SoundFile sound;
-    private final PVector controlPoint;
-    private final PVector controlVector;
-    private final PVector aimVector;
-    private final PVector targetVector;
-    private float speed;
+    private final PVector controlDirection;
+    private final PVector targetDirection;
     private boolean aiming;
 
-    Grenade(Player player, SoundFile grenade_sound) {
-        payload = new Payload(new Explosion(grenade_sound), grenade_sound);
+    private static final float SPEED = 768;
+    private static final float MAX_FORCE = 2 * SPEED / Payload.DELAY;
+
+    private static float relativeAngle(PVector v1, PVector v2) {
+        return (atan2(v1.x*v2.y-v2.x*v1.y,v1.x*v2.x+v1.y*v2.y) + PI) % TWO_PI - PI;
+    }
+
+    Grenade(Player player, SoundFile grenade_sound, PApplet pApplet) {
+        payload = new Payload(new Explosion(grenade_sound), pApplet);
         this.player = player;
         sound = grenade_sound;
-        controlPoint = new PVector(0,0);
-        controlVector = new PVector(0,0);
-        aimVector = new PVector(0,0);
-        targetVector = new PVector(0,0);
-        speed = 1024;
+        controlDirection = new PVector(0, 0);
+        targetDirection = new PVector(0, 0);
         aiming = false;
     }
 
     @Override
     public void ready() {
         if (player.apManager.currentAP() < 1) return;
-        if (!aiming && !payload.active) {
-            controlPoint.set(player.target);
-            targetVector.set(PVector.sub(player.target, player.position).normalize());
-            aimVector.set(PVector.sub(controlPoint, player.position).normalize());
+        if (!aiming && !payload.isActive()) {
+            controlDirection.set(PVector.sub(player.target, player.position).normalize());
+            targetDirection.set(PVector.sub(player.target, player.position).normalize());
             aiming = true;
-        } else if (aiming && !payload.active) {
-            // This can be done at launch only, but with it here we can add debug info / aim feedback
-            controlVector.set(PVector.sub(player.target, controlPoint).setMag(32));
-            targetVector.set(PVector.sub(player.target, player.position).normalize());
-            aimVector.set(PVector.sub(controlPoint, player.position).normalize());
-            float control_angle = PVector.angleBetween(controlVector, aimVector);
-            controlVector.mult(PApplet.sin(control_angle));
+        } else if (aiming && !payload.isActive()) {
+            targetDirection.set(PVector.sub(player.target, player.position).normalize());
         }
     }
 
     @Override
     public void activate() {
-        if (aiming && !payload.active) {
+        if (aiming && !payload.isActive()) {
             aiming = false;
-            PVector launch_vector = PVector.sub(controlPoint, player.position).setMag(speed).add(player.velocity);
-            payload.setAcceleration(controlVector.x, controlVector.y);
+            float control_angle = relativeAngle(controlDirection, targetDirection);
+            float control_arc = PVector.angleBetween(controlDirection, targetDirection);
+            int direction = (control_angle > 0) ? 1 : -1;
+            float inward_force = MAX_FORCE * sin(control_arc);
+            float forward_force = 2 * MAX_FORCE * sin(control_arc / 2);
+            PVector launch_vector = controlDirection.setMag(SPEED).add(player.velocity);
+            PVector forward_vector = PVector.mult(targetDirection, forward_force);
+            PVector inward_vector = PVector.mult(targetDirection.rotate(PI/2), inward_force * direction);
+            payload.setAcceleration(inward_vector.x + forward_vector.x, inward_vector.y + forward_vector.y);
             payload.activate(player.position, launch_vector);
             player.apManager.spendActionPoint();
             sound.play();
@@ -73,6 +72,10 @@ public class Grenade implements Item {
 
     }
 
+    public void updateMovement(float delta_time) {
+        payload.updateMovement(delta_time);
+    }
+
     public void update(float delta_time) {
         payload.update(delta_time);
     }
@@ -81,46 +84,42 @@ public class Grenade implements Item {
         if (aiming) {
             g.pushStyle();
             g.fill(player.fill);
-            aimVector.setMag(64);
-            PVector aim_pos = PVector.add(player.position, aimVector);
+            PVector aim_pos = PVector.add(player.position, PVector.mult(controlDirection, 64));
             g.ellipse(aim_pos.x, aim_pos.y, 10, 10);
 
-            targetVector.setMag(64);
-            PVector launch_pos = PVector.add(player.position, targetVector);
+            PVector launch_pos = PVector.add(player.position, PVector.mult(targetDirection, 64));
             g.ellipse(launch_pos.x, launch_pos.y, 15, 15);
             g.popStyle();
-
-            g.line(player.position.x, player.position.y, player.position.x + controlVector.x, player.position.y + controlVector.y);
         }
         payload.display(g);
     }
 
-    public void collideWithAgent(Agent agent) {
-        payload.collideWithAgent(agent);
+    public boolean collideWithAgent(Agent agent) {
+        return payload.collideWithAgent(agent);
     }
 
     private boolean collideWithTile(PVector tile_position, float tile_width, float tile_height) {
         float min_distance_x = payload.radius + tile_width / 2;
         float min_distance_y = payload.radius + tile_height / 2;
-        float distance_x = payload.position.x - tile_position.x;
-        float distance_y = payload.position.y - tile_position.y;
+        float distance_x = payload.getPosition().x - tile_position.x;
+        float distance_y = payload.getPosition().y - tile_position.y;
         float x_depth = min_distance_x - PApplet.abs(distance_x);
         float y_depth = min_distance_y - PApplet.abs(distance_y);
         if (x_depth > 0 || y_depth > 0) {
             if (max(x_depth, 0) < max(y_depth, 0)) {
                 // Left or right?
                 if (distance_x < 0) {
-                    payload.position.x -= x_depth;
+                    payload.getPosition().x -= x_depth;
                 } else {
-                    payload.position.x += x_depth;
+                    payload.getPosition().x += x_depth;
                 }
                 payload.velocity.set(-payload.velocity.x, payload.velocity.y);
             } else {
                 // Top or bottom?
                 if (distance_y < 0) {
-                    payload.position.y -= y_depth;
+                    payload.getPosition().y -= y_depth;
                 } else {
-                    payload.position.y += y_depth;
+                    payload.getPosition().y += y_depth;
                 }
                 payload.velocity.set(payload.velocity.x, -payload.velocity.y);
             }
@@ -129,31 +128,19 @@ public class Grenade implements Item {
         return false;
     }
 
-    // TODO: Figure out a way to do this once - probably join Level and Tilemap
-    public void collideWithLevel(StringMap level) {
+    public void collideWithLevel(Level level) {
         ArrayList<PVector> collision_positions = new ArrayList<>(4);
 
         // Wrap if outside world
-        if (payload.position.x < 0) payload.position.x = level.levelWidth;
-        if (payload.position.x > level.levelWidth) payload.position.x = 0;
-        if (payload.position.y < 0) payload.position.y = level.levelHeight;
-        if (payload.position.y > level.levelHeight) payload.position.y = 0;
+        if (payload.getPosition().x < 0) payload.getPosition().x = level.levelWidth;
+        if (payload.getPosition().x > level.levelWidth) payload.getPosition().x = 0;
+        if (payload.getPosition().y < 0) payload.getPosition().y = level.levelHeight;
+        if (payload.getPosition().y > level.levelHeight) payload.getPosition().y = 0;
 
-        level.checkCornerCollisions(collision_positions, payload.position, payload.radius);
+        level.checkCornerCollisions(collision_positions, payload.getPosition(), payload.radius);
         if (collision_positions.size() == 0) return;
         for (PVector pos : collision_positions) {
             if (collideWithTile(pos, level.tileWidth, level.tileHeight)) {
-                return;
-            }
-        }
-    }
-
-    public void collideWithTilemap(Tilemap tilemap) {
-        ArrayList<PVector> collision_positions = new ArrayList<>(4);
-        tilemap.checkTileCollisions(collision_positions, payload.position, payload.radius);
-        if (collision_positions.size() == 0) return;
-        for (PVector pos : collision_positions) {
-            if (collideWithTile(pos, tilemap.tileWidth, tilemap.tileHeight)) {
                 return;
             }
         }

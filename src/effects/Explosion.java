@@ -9,13 +9,14 @@ import processing.core.PVector;
 import processing.sound.SoundFile;
 
 public class Explosion extends Effect {
+    private SoundFile sound;
     private float radius;
 
     private static final float LIFESPAN = 0.2f;
     private static final float FORCE = 256;
 
     public Explosion(SoundFile explosion_sound) {
-        super(explosion_sound);
+        sound = explosion_sound;
         radius = 128;
     }
 
@@ -40,7 +41,6 @@ public class Explosion extends Effect {
             g.pushStyle();
             g.noStroke();
             g.fill(191, 0, 31);
-            Draw.polygon(g, position.x, position.y, radius + lifetime * 10, 8, 0);
 
             if (live) {
                 g.stroke(0xffffffff);
